@@ -1,9 +1,7 @@
 # youi-tauri-app
 
-yarn add mockjs
-
+# 前端初始化
 yarn install
 
-yarn add @tauri-apps/api
-
+# app 构建
 yarn tauri build
