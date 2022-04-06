@@ -75,7 +75,7 @@
       aria-label="{translationIds.clearAll}"
       title="{description}"
     >
-      <Close16 />
+
     </div>
   </div>
 {:else}

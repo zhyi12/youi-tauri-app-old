@@ -1,0 +1,8 @@
+.youi-tree .selected>.tree-node-label{
+    background: #bacbe6;
+}
+
+.youi-tree>ul{
+    overflow: hidden;
+    list-style: none;
+}

@@ -3,6 +3,8 @@
     import TreeNodeList from "./TreeNodeList.svelte";
     import {mouse} from "../mouse/mouse";
     import classnames from "../util/utils";
+    import {createEventDispatcher, setContext} from "svelte";
+    import {writable} from "svelte/store";
 
     let className = '';
 
@@ -12,13 +14,64 @@
     export let draggable = false;
     export let dragStyles = ['treeNode'];
 
+    /**
+     * Set the current active node id
+     * Only one node can be active
+     * @type {TreeNodeId}
+     */
+    export let activeId = "";
+
+    /**
+     * Set the node ids to be selected
+     * @type {TreeNodeId[]}
+     */
+    export let selectedIds = [];
+
+    /**
+     * Set the node ids to be expanded
+     * @type {TreeNodeId[]}
+     */
+    export let expandedIds = [];
+
     let refDraggingHelper = null;
     let dragId = null;
     let dragging = false;
     let dragContent = {html:''};
 
+    const dispatch = createEventDispatcher();
+    const activeNodeId = writable(activeId);
+    const selectedNodeIds = writable(selectedIds);
+    const expandedNodeIds = writable(expandedIds);
+
+    setContext("Tree", {
+        activeNodeId,
+        selectedNodeIds,
+        expandedNodeIds,
+        clickNode: (node) => {
+            activeId = node.id;
+            selectedIds = [node.id];
+            dispatch("select", node);
+        },
+        selectNode: (node) => {
+            selectedIds = [node.id];
+        },
+        expandNode: (node, expanded) => {
+            if (expanded) {
+                expandedIds = [...expandedIds, node.id];
+            } else {
+                expandedIds = expandedIds.filter((_id) => _id !== node.id);
+            }
+        },
+        focusNode: (node) => dispatch("focus", node),
+        toggleNode: (node) => dispatch("toggle", node),
+    });
 
     $: classes = classnames("youi-tree",className);
+
+    // $: nodeIds = nodes.map((node) => node.id);
+    $: activeNodeId.set(activeId);
+    $: selectedNodeIds.set(selectedIds);
+    $: expandedNodeIds.set(expandedIds);
 
     /**
      * 鼠标拖动开始

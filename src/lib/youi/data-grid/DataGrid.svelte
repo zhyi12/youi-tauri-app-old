@@ -51,7 +51,7 @@
 	let className = '';
 	export { className as class };
 
-	export let containerHeight = 600;
+	export let containerHeight = 500;
 	export let containerWidth = 1000;
 	export let data = {};//数据
 
@@ -202,8 +202,10 @@
 	$: showCells = _findShowCells(rowStartIndex,rowStopIndex,columnStartIndex,columnStopIndex,data);
 
 	function _findShowCells(rowStartIndex,rowStopIndex,columnStartIndex,columnStopIndex,data){
-		console.log(data)
 		let cells = [];
+		if(rowCount==0){
+			return cells;
+		}
 
 		const mergedCellRenderMap = new Set();
 
@@ -265,10 +267,6 @@
 		}
 		return cells;
 	}
-
-	onMount(()=>{
-
-	});
 
 	function getCellData({rowIndex,columnIndex}){
 		return data[[rowIndex,columnIndex]]||{value:''};
@@ -687,12 +685,13 @@
 	}
 
 </script>
-<div class='youi-data-grid' style='position: relative;'>
+<div class='youi-data-grid'>
 	<div class='data-grid-container' use:mouse={{normalMouseUp,mouseStart,mouseDrag,mouseStop}}
 			 tabindex={0}
 			 on:keydown={handleKeydown}
 			 on:dblclick={openFieldEditor}
 			 bind:this={container}>
+		{#if columnCount>0 && rowCount>0}
 		<Stage class={classes} {width} {height} bind:stage={stage}
 					 {...$$restProps}>
 			<Layer>
@@ -714,6 +713,7 @@
 
 			</Layer>
 		</Stage>
+		{/if}
 	</div>
 
 	<!-- -->
@@ -752,11 +752,14 @@
 		height={editingPos.height+1} bind:value={editingData.value}>
 
 	</FieldEditor>
-
-	{scrollTop}
 </div>
 
 <style>
+	.youi-data-grid{
+		position: relative;
+		margin-left: -1px;
+		margin-top: -1px;
+	}
 	.data-grid-container{
 		outline: none;
 	}

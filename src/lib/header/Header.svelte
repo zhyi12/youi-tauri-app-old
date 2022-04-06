@@ -17,10 +17,10 @@
 		<ul>
 			<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">首页</a></li>
 			<li class:active={$page.url.pathname === '/dmp/local'}>
-				<a sveltekit:prefetch href="/dmp/local">数据处理</a>
+				<a sveltekit:prefetch href="/dmp/local">数据生产</a>
 			</li>
 			<li class:active={$page.url.pathname === '/todos'}>
-				<a sveltekit:prefetch href="/todos">数据评估</a>
+				<a sveltekit:prefetch href="/estimate">数据评估</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">

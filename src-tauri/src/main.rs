@@ -3,6 +3,8 @@ all(not(debug_assertions), target_os = "windows"),
 windows_subsystem = "windows"
 )]
 
+pub mod fs;
+
 extern crate diesel;
 extern crate r2d2;
 extern crate dirs;
@@ -23,6 +25,8 @@ use serde::Serialize;
 use youi_app_config::*;
 use youi_app_config::models::AppConfigItem;
 use youi_core::json_render::records_to_json;
+use youi_dataframe::df_script_executor;
+use crate::fs::walk_csv_file;
 
 #[derive(Clone, Serialize)]
 struct Payload{
@@ -70,7 +74,7 @@ fn main() {
             app.manage(pool);
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![load_config,read_csv])
+        .invoke_handler(tauri::generate_handler![load_config,read_csv,walk_data_file,df_script])
         .run(tauri::generate_context!())
         .expect("error while running app!");
 }
@@ -111,11 +115,31 @@ fn read_csv(invoke_message: String) -> String{
     let json_str = polars_read_csv(&path);
     json_str.unwrap()
 }
+
+#[tauri::command]
+fn walk_data_file(invoke_message: String)->String{
+    let path = invoke_message;
+    let json_str = walk_csv_file(&path).unwrap();
+
+    json_str
+}
+
+///
+/// 执行DataFrames框架脚本
+///
+///
+#[tauri::command]
+fn df_script(invoke_message: String)->String{
+    let script = invoke_message;
+    df_script_executor(&script)
+}
+
 ///
 /// 读取csv文件并输出为json字符串
 ///
 fn polars_read_csv(path:&String) ->Result<String>{
     let df = CsvReader::from_path(path)?
+        .with_n_rows(Option::Some(100))
         .has_header(true)
         .finish().expect("csv load error!");
 
@@ -129,6 +153,7 @@ fn polars_read_csv(path:&String) ->Result<String>{
 
     Ok(json_str)
 }
+
 
 #[cfg(test)]
 mod tests {

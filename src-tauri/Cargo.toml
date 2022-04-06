@@ -22,6 +22,7 @@ tauri = { version = "1.0.0-rc.4", features = ["api-all"] }
 youi-core = {version = "0.1.0",git = "https://github.com/zhyi12/youi-rust-framework"}
 youi-sqlite = {version = "0.1.0",git = "https://github.com/zhyi12/youi-rust-framework"}
 youi-app-config = {version = "0.1.0",git = "https://github.com/zhyi12/youi-rust-framework"}
+youi-dataframe = {version = "0.1.0",git = "https://github.com/zhyi12/youi-rust-framework"}
 r2d2 = "0.8"
 diesel = { version = "1.4.8", features = ["sqlite","r2d2"] }
 tauri-plugin-sql= {version="0.0.0",git="https://github.com/tauri-apps/tauri-plugin-sql",features = ["sqlite"] }
@@ -30,6 +31,8 @@ tauri-plugin-fs-watch={version="0.0.0",git="https://github.com/tauri-apps/tauri-
 polars-core = "0.20.0"
 polars-lazy = "0.20.0"
 polars-io = {version="0.20.0",features=["csv-file","json"]}
+
+walkdir = "2.3.2"
 
 [features]
 # by default Tauri runs in production mode

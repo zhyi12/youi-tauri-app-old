@@ -53,43 +53,43 @@
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 {#if skeleton}
   <CheckboxSkeleton
-    {...$$restProps}
-    on:click
-    on:mouseover
-    on:mouseenter
-    on:mouseleave
+          {...$$restProps}
+          on:click
+          on:mouseover
+          on:mouseenter
+          on:mouseleave
   />
 {:else}
   <div
-    class:bx--form-item="{true}"
-    class:bx--checkbox-wrapper="{true}"
-    {...$$restProps}
-    on:click
-    on:mouseover
-    on:mouseenter
-    on:mouseleave
+          class:bx--form-item="{true}"
+          class:bx--checkbox-wrapper="{true}"
+          {...$$restProps}
+          on:click
+          on:mouseover
+          on:mouseenter
+          on:mouseleave
   >
     <input
-      bind:this="{ref}"
-      type="checkbox"
-      value="{value}"
-      checked="{checked}"
-      disabled="{disabled}"
-      id="{id}"
-      indeterminate="{indeterminate}"
-      name="{name}"
-      readonly="{readonly}"
-      class:bx--checkbox="{true}"
-      on:change
-      on:change="{() => {
+            bind:this="{ref}"
+            type="checkbox"
+            value="{value}"
+            checked="{checked}"
+            disabled="{disabled}"
+            id="{id}"
+            indeterminate="{indeterminate}"
+            name="{name}"
+            readonly="{readonly}"
+            class:bx--checkbox="{true}"
+            on:change
+            on:change="{() => {
         checked = !checked;
       }}"
-      on:blur
+            on:blur
     />
     <label for="{id}" title="{title}" class:bx--checkbox-label="{true}">
       <span
-        class:bx--checkbox-label-text="{true}"
-        class:bx--visually-hidden="{hideLabel}"
+              class:bx--checkbox-label-text="{true}"
+              class:bx--visually-hidden="{hideLabel}"
       >
         <slot name="labelText">
           {labelText}
