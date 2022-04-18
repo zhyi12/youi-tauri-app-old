@@ -84,8 +84,7 @@
                   expandNode(node, expanded);
                   toggleNode(node);
                 }}">
-<!--            <CaretDown16  class="toggle-icon{expanded?'-expanded':''}"/>-->
-               <Icon data={expanded?caretDown:caretRight} x="50" y="50"></Icon>
+               <Icon data={expanded?caretDown:caretRight}></Icon>
           </span>
            <span>
                {text}

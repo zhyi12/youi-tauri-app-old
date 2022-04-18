@@ -4,33 +4,33 @@
 	import { createEventDispatcher, getContext, getAllContexts, onMount, setContext } from 'svelte';
 	import context from './context';
 
-	export let x: number;
-	export let y: number;
-	export let width: number = null;
-	export let height: number = null;
-	export let visible: boolean = null;
-	export let listening: boolean = null;
-	export let id: string = null;
-	export let name: string = null;
-	export let opacity: number = null;
+	export let x: number = undefined;
+	export let y: number = undefined;
+	export let width: number = undefined;
+	export let height: number = undefined;
+	export let visible: boolean = undefined;
+	export let listening: boolean = undefined;
+	export let id: string = undefined;
+	export let name: string = undefined;
+	export let opacity: number = undefined;
 	export let scale: Konva.Vector2d = { x: null, y: null };
-	export let scaleX: number = null;
-	export let scaleY: number = null;
-	export let rotation: number = null;
+	export let scaleX: number = undefined;
+	export let scaleY: number = undefined;
+	export let rotation: number = undefined;
 	export let offset: Konva.Vector2d = { x: null, y: null };
-	export let offsetX: number = null;
-	export let offsetY: number = null;
+	export let offsetX: number = undefined;
+	export let offsetY: number = undefined;
 
-	export let draggable: boolean = null;
-	export let dragDistance: number = null;
+	export let draggable: boolean = undefined;
+	export let dragDistance: number = undefined;
 	export let dragBoundFunc: (pos: Konva.Vector2d) => Konva.Vector2d = null;
 
-	export let clipX: number;
-	export let clipY: number;
+	export let clipX: number = undefined;
+	export let clipY: number = undefined;
 
-	export let clipWidth: number;
-	export let clipHeight: number;
-	export let clipFunc: () => null;
+	export let clipWidth: number = undefined;
+	export let clipHeight: number = undefined;
+	export let clipFunc: () => {} = null;
 
 	const dispatch = createEventDispatcher();
 	const parent: () => Konva.Container = getContext(context.parent);

@@ -4,8 +4,6 @@
 	import { onMount ,setContext} from 'svelte';
 	import context from './context';
 
-	//export let point = {x:0,y:0};
-
 	export let x: number = null;
 	export let y: number = null;
 	export let width: number = null;
@@ -30,14 +28,8 @@
 
 	let container: HTMLDivElement;
 
-	setContext(context.stage, () => stage)
-	setContext(context.parent, () => stage)
-
-
-	// .getAbsoluteTransform()
-		// 	.copy()
-		// 	.invert()
-		// 	.point({ x: left, y: top });
+	setContext(context.stage, () => stage);
+	setContext(context.parent, () => stage);
 
 	onMount(() => {
 		stage = new Konva.Stage({

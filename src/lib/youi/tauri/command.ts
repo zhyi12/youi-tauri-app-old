@@ -7,7 +7,13 @@ import {is_tauri_app} from "./utils";
  */
 export async function read_csv(path): Promise<any>{
     if(!is_tauri_app()){
-        return [{"id":1,"地(区、市、州、盟)":"A001","项目名称":"G01"},{"id":2,"地(区、市、州、盟)":"A002","项目名称":"G01"},{"id":3,"地(区、市、州、盟)":"A003","项目名称":"G01"},{"id":4,"地(区、市、州、盟)":"A004","项目名称":"G02"},{"id":5,"地(区、市、州、盟)":"A005","项目名称":"G02"},{"id":6,"地(区、市、州、盟)":"A006","项目名称":"G02"},{"id":7,"地(区、市、州、盟)":"A007","项目名称":"G02"},{"id":8,"地(区、市、州、盟)":"A008","项目名称":"G03"}];
+        let result = [];
+        let groups = ["A001","A002","A003"];
+        for(let i=0;i<100;i++){
+            let groupIndex = Math.ceil(Math.random()*1000)%3;
+            result.push({"id":'I'+i+'_',"地(区、市、州、盟)":groups[groupIndex],"项目名称":"G0"+i,"计划总投资":Math.ceil(Math.random()*100)/10});
+        }
+        return result;
     }
     const json_str = await invoke("read_csv",{"invokeMessage":path});
     return JSON.parse(json_str.toString());

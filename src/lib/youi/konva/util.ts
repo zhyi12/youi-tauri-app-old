@@ -1,5 +1,6 @@
 import Konva from 'konva';
 
+Konva.showWarnings = false;
 /**
  *
  * @param parent

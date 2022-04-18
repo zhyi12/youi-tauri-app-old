@@ -31,3 +31,9 @@
 >
 	<slot />
 </section>
+
+<style>
+	section{
+		height: 35px;
+	}
+</style>

@@ -5,6 +5,7 @@
    * @returns {null | HTMLElement}
    */
   function findListItemNode(node) :HTMLElement{
+    if(!node)return null;
     if (node.classList.contains("list-menu-item")) return node;
     if (node.classList.contains("list-box-menu")) return null;
     return findListItemNode(node.parentElement);
@@ -21,10 +22,11 @@
   }
 </script>
 
-<script>
+<script lang="ts">
 
   import {mouse} from "../mouse/mouse";
   import {createEventDispatcher} from "svelte";
+  import {toPixel} from "../util/utils";
 
   /** Set an id for the top-level element */
   export let id = "ccs-" + Math.random().toString(36);
@@ -35,11 +37,13 @@
   export let draggable = false;
   export let draggingItem = null;
   export let droppable = false;
+  export let height:number = null;
 
   let dispatch = createEventDispatcher();
   let dragStart = null;
   let itemDragHelper = null;
   let offsetParent = null;
+
 
   const mouseStart = (e)=>{
     let item = findListItemNode(e.target);
@@ -79,7 +83,9 @@
   role="listbox"
   id="menu-{id}"
      style:flex={1}
+     style:height={height?toPixel(height):''}
   class:list-box-menu="{true}"
+     class:youi-list-box="{true}"
   {...$$restProps}
   on:scroll
 >

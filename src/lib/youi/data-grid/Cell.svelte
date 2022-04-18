@@ -12,7 +12,14 @@
 	export let strokeWidth = 1;
 	export let stroke = "#d9d9d9";
 
+	export let style = {};
+
 	export let text = '';
+
+	export let rowIndex:number = null;
+	export let columnIndex:number = null;
+	export let key:string = null;
+	export let isMergedCell:boolean = null;
 
 </script>
 

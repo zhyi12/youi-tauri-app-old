@@ -20,6 +20,54 @@ export function computeTreeLeafDepth(node) {
 
 /**
  *
+ * @param items
+ * @param id
+ */
+export function findTreeNode(children,nodeId){
+	for(let i=0;i<children.length;i++){
+		let item = children[i];
+		if(item.id == nodeId){
+			return item;
+		}else if(Array.isArray(item.children)){
+			item = findTreeNode(item.children,nodeId);
+			if(item){
+				return item;
+			}
+		}
+	}
+	return null;
+}
+
+export function findParentNode(node,childNodeId){
+	if(node.children && node.children.length){
+		if(node.children.filter(({id})=>id == childNodeId).length){
+			return node;
+		}else{
+			for(let i=0;i<node.children.length;i++){
+				let parent = findParentNode(node.children[i],childNodeId);
+				if(parent){
+					return parent;
+				}
+			}
+		}
+	}
+	return null;
+}
+
+export function removeTreeNode(children,nodeId,parentNode){
+	for(let i=0;i<children.length;i++){
+		let item = children[i];
+		if(item.id == nodeId){
+			children.splice(i,1);
+			return parentNode;
+		}else if(Array.isArray(item.children)){
+			return removeTreeNode(item.children,nodeId,item);
+		}
+	}
+}
+
+/**
+ *
  * @param children
  * @param onlyLeaf 仅叶子节点
  * @param childrenKey

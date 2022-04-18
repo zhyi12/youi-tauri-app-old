@@ -41,6 +41,13 @@
     const offset = () =>
         computeTreeLeafDepth(refLabel) + (leaf && icon ? 2 : 2.5);
 
+    $: node = { id, text, expanded: false, leaf ,datas};
+
+    $: if (refLabel) {
+        refLabel.style.marginLeft = `-${offset()}rem`;
+        refLabel.style.paddingLeft = `${offset()}rem`;
+    }
+
     afterUpdate(() => {
         if (id === $activeNodeId && prevActiveId !== $activeNodeId) {
             if (!$selectedNodeIds.includes(id)) selectNode(node);
@@ -48,13 +55,6 @@
 
         prevActiveId = $activeNodeId;
     });
-
-    $: node = { id, text, expanded: false, leaf ,datas};
-
-    $: if (refLabel) {
-        refLabel.style.marginLeft = `-${offset()}rem`;
-        refLabel.style.paddingLeft = `${offset()}rem`;
-    }
 </script>
 
 <li class="treeNode leaf level-{level}" bind:this="{ref}" id="{id}"

@@ -1,6 +1,5 @@
-import {ItemType} from "./util";
-import Konva from "konva";
-import ShapeConfig = Konva.ShapeConfig;
+import type {ItemType} from "./util";
+import type {ShapeConfig} from "konva/lib/Shape";
 
 export enum Direction {
 	Up = "UP",

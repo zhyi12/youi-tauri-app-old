@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+
   /**
    * Set the size of the list box
    * @type {"sm" | "xl"}
@@ -31,6 +32,8 @@
 
   /** Specify the warning state text */
   export let warnText = "";
+
+  export let height:number = null;
 </script>
 
 <div

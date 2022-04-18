@@ -1,7 +1,5 @@
 <script lang='ts'>
 
-	import { onMount } from 'svelte';
-
 	import { mouse } from '../mouse/mouse';
 
 	import Stage from '../konva/Stage.svelte';
@@ -24,7 +22,6 @@
 		getColumnOffset as getColumnOffsetHelper,
 		getColumnWidth as getColumnWidthHelper,
 		cellIdentifier,
-		getEstimatedTotalHeight,
 		getEstimatedTotalWidth,
 		cellRangeToBounds,
 		isEqualCells,
@@ -39,7 +36,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	const defaultRowHeight = () => 20;
+	const defaultRowHeight = () => 24;
 	const defaultColumnWidth = () => 60;
 	const DEFAULT_ESTIMATED_ITEM_SIZE = 60;
 
@@ -56,11 +53,12 @@
 	export let data = {};//数据
 
 	export let width: number;
-	export let height: number;
 
 	export let rowHeight: ItemSizer = defaultRowHeight;
 
 	export let columnWidth: ItemSizer = defaultColumnWidth;
+
+	export let editable = false;
 	/**
 	 * Show scrollbars on the left and right of the grid
 	 */
@@ -98,7 +96,10 @@
 	/**
 	 * Helps in lazy grid height calculation
 	 */
-	export let estimatedRowHeight: number;
+	export let estimatedRowHeight: number = DEFAULT_ESTIMATED_ITEM_SIZE;
+
+	// estimatedColumnWidth: estimatedColumnWidth || DEFAULT_ESTIMATED_ITEM_SIZE,
+	// 		estimatedRowHeight: estimatedRowHeight || DEFAULT_ESTIMATED_ITEM_SIZE,
 	/**
 	 * Array of all selection bounds
 	 */
@@ -120,6 +121,7 @@
 	};
 
 	$: classes = classnames(className, 'youi-data-grid');
+	$: height = containerHeight;
 
 	// let cells = [];
 
@@ -137,10 +139,7 @@
 	let columnStartIndex = 0;
 	let columnStopIndex = columnCount - 1;
 
-	const isMergedCell = ({
-													rowIndex,
-													columnIndex
-												}: CellInterface) => mergedCellMap.has(cellIdentifier(rowIndex, columnIndex));
+	const isMergedCell = ({rowIndex,columnIndex}: CellInterface) => mergedCellMap.has(cellIdentifier(rowIndex, columnIndex));
 
 	const getCellBounds = ({ rowIndex, columnIndex }: CellInterface, spanMerges = true): AreaProps => {
 
@@ -255,6 +254,8 @@
 					width,
 					height,
 					text:cellData.value,
+					fill:cellData.fill||'white',
+					style:cellData.style||{},
 					rowIndex: actualRowIndex,
 					columnIndex: actualColumnIndex,
 					isMergedCell: isMerged,
@@ -357,8 +358,17 @@
 		return frozenRows > 0 && y < frozenRowHeight;
 	};
 
-	$: estimatedTotalHeight = getEstimatedTotalHeight(rowCount, instanceProps);
+	let estimatedTotalHeight = containerHeight;
 	$: estimatedTotalWidth = getEstimatedTotalWidth(columnCount, instanceProps);
+
+	$: if(data && columnCount>0 && rowCount>0){
+		let height = 0;
+		for(let i=0;i<rowCount;i++){
+			height+=rowHeight(i);
+		}
+		estimatedTotalHeight = height+5;
+
+	}
 	/**
 	 * Get cell offset position from rowIndex, columnIndex
 	 */
@@ -550,7 +560,7 @@
 	let editingCell = null;
 
 	const openFieldEditor = ()=>{
-		if(!activeCell){
+		if(!editable || !activeCell){
 			return;
 		}
 
@@ -589,6 +599,10 @@
 	/* Handle vertical scroll */
 	const handleScroll = (e)=>{
 		scrollTop = e.target.scrollTop;
+	}
+
+	const handleXScroll = (e)=>{
+		scrollLeft = e.target.scrollLeft;
 	}
 
 	const handleKeydown = (e:KeyboardEvent)=>{
@@ -685,7 +699,7 @@
 	}
 
 </script>
-<div class='youi-data-grid'>
+<div class='youi-data-grid' style:width={toPixel(width)} style:height={toPixel(containerHeight+12)}>
 	<div class='data-grid-container' use:mouse={{normalMouseUp,mouseStart,mouseDrag,mouseStop}}
 			 tabindex={0}
 			 on:keydown={handleKeydown}
@@ -724,34 +738,28 @@
 	</div>
 
 	{#if showScrollbar}
-		<div
-			className="data-grid-scrollbar data-grid-scrollbar-y"
+		<div class="data-grid-scrollbar data-grid-scrollbar-y"
 			tabIndex={-1}
-			style:position={'absolute'}
 			style:height={toPixel(containerHeight)}
-			style:top={0}
-			style:right={0}
-			style:width={13}
-			style:overflow={'scroll'}
 			style:will-change={'transform'}
 			on:scroll={handleScroll}
 		>
-			<div style={'height:'+estimatedTotalHeight+'px;'}>&nbsp;</div>
+			<div style={'height:'+estimatedTotalHeight+'px;width:1px;'}>&nbsp;</div>
 		</div>
 		<div
-			className="data-grid-scrollbar data-grid-scrollbar-x"
-			tabIndex={-1}
+			class="data-grid-scrollbar data-grid-scrollbar-x"
+			tabIndex={-1} on:scroll={handleXScroll}
 		>
-			<div/>
+			<div style={'width:'+estimatedTotalWidth+'px;height:1px;'}/>
 		</div>
 	{/if}
 
-	<FieldEditor
-		keydown={(e)=>console.log('kkk ddd')}
-		isOpen={editing} x={editingPos.x} y={editingPos.y-scrollTop} width={editingPos.width+1}
-		height={editingPos.height+1} bind:value={editingData.value}>
-
-	</FieldEditor>
+	{#if editable}
+		<FieldEditor
+				isOpen={editing} x={editingPos.x} y={editingPos.y-scrollTop} width={editingPos.width+1}
+				height={editingPos.height+1} bind:value={editingData.value}>
+		</FieldEditor>
+	{/if}
 </div>
 
 <style>
@@ -762,5 +770,29 @@
 	}
 	.data-grid-container{
 		outline: none;
+	}
+
+	.data-grid-scrollbar-y{
+		position: absolute;
+		height: 500px;
+		top: 0px;
+		right: 0px;
+		overflow-x: hidden;
+		overflow-y:auto;
+		will-change: transform;
+		background: #f1f1f1;
+		width: 12px;
+		outline: none;
+	}
+
+	.data-grid-scrollbar-x{
+		position: absolute;
+		bottom: 0px;
+		left:0px;
+		overflow-y: hidden;
+		overflow-x:auto;
+		height:12px;
+		outline: none;
+		width:100%;
 	}
 </style>

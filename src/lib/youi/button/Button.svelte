@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import classnames from '../util/utils';
 
   let className = '';

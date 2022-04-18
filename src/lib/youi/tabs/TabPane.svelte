@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getContext, onMount } from 'svelte';
   import NavItem from './NavItem.svelte';
   import NavLink from './NavLink.svelte';

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	/**
 	 * @typedef {{ id: string; text: string; }} ComboBoxItem
 	 * @event {{ selectedId: string; selectedIndex: number; selectedItem: ComboBoxItem }} select
@@ -173,7 +173,7 @@
   }}"
 />
 
-<div class:bx--list-box__wrapper="{true}">
+<div class:youi-fieldSelect="{true}">
 	{#if titleText}
 		<label
 			for="{id}"

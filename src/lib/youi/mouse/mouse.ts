@@ -6,9 +6,6 @@ export function mouse(node, options) {
 
     if(!options)return;
 
-    console.log(node)
-    console.log(options)
-
     let mouseHandled = false;
     let started = false;
     let _mouseMoved = false;
@@ -203,8 +200,6 @@ export function mouse(node, options) {
         node.addEventListener('click',_click);
 
         if(options.droppable){
-            console.log('init drop')
-            console.log(node)
             node.addEventListener('drop',_drop);
         }
         started = false;

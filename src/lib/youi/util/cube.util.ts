@@ -1,21 +1,32 @@
+const CUBE_META_BG_COLOR = '#eeecec';
+
 /**
  * 构建 polars dataframe 执行脚本
  * @param path
  * @param groupDimensions
  * @param measureItems
  */
-export function buildDfScript(path,groupDimensions,measureItems){
+export function buildDfScript(path,groupDimensions,measureItems,filters){
     let script = ['let result = readCsv("'+path+'")'];
 
+    //build filter script
+    let filterScript = _buildFiltersScript(filters);
+
+    if(filterScript){
+        script.push(".filter(")
+        script.push(filterScript);
+        script.push(')');
+    }
+
     let groupNames = groupDimensions.filter(({name})=>name!='measure').map(({name})=>name);
-    let colExprs = measureItems.map(measureItem=>({name:measureItem.name,aggregate:measureItem.aggregate}));
+    let colExprs = measureItems.map(measureItem=>'col("'+measureItem.name+'").'+measureItem.aggregate+'().alias("'+measureItem.name+'_'+measureItem.aggregate+'")');
 
-    let aggParam = {group_names:groupNames,col_exprs:colExprs};
-    let agg_param_script = JSON.stringify(aggParam).replace(/{/g,'#{');
-
-    script.push('.agg('+agg_param_script+');');
-
-    script.push('result');
+    //aggregate pipeline
+    script.push('.agg("'+groupNames.join()+'",exprs(['+colExprs.join()+']))');
+    //sort by group names
+    script = script.concat(groupNames.map(name=>('.sort("'+name+'",false)')));
+    script.push(';');
+    script.push('\nresult');
 
     return script.join('');
 }
@@ -40,7 +51,8 @@ export type MeasureItem = {
 export declare type Cube = {
     rowDimensions:Array<Dimension>,
     colDimensions:Array<Dimension>,
-    measureItems:Array<MeasureItem>
+    measureItems:Array<MeasureItem>,
+    filters:Array<any>
 }
 
 export type Dimension = {
@@ -50,6 +62,14 @@ export type Dimension = {
     type?:string,
     items:Array<Item>,
     itemValues?:Set<string>
+}
+
+export type Filter = {
+    name:string,
+    property:string,
+    text:string,
+    type:string,
+    children:Array<Filter>
 }
 
 export type RowData = {
@@ -66,20 +86,22 @@ export type CubeCellKey = {
  * @param measureItems
  * @param dfRowDataList
  */
-export function buildTableData({rowDimensions,colDimensions,measureItems}:Cube,dfRowDataList:Array<RowData>){
-    if(rowDimensions.length>0 && colDimensions.length==0){
-        let items = measureItems.map(measureItem=>({
-            id:measureItem.name+'_'+measureItem.aggregate,
-            text:measureItem.text
-        } as Item));
-
-        colDimensions.push({
-            id:'measure',
-            items, name: "measure", text: "数值"
-        });
+export function buildTableData({rowDimensions,colDimensions,measureItems,filters}:Cube,dfRowDataList:Array<RowData>){
+    let measureDimensions = [].concat(rowDimensions).concat(colDimensions).filter(dimension=>dimension.name =='measure');
+    let measureDimension;
+    if(measureDimensions.length){
+        measureDimension = measureDimensions[0];
+    }else{
+        measureDimension = {id:'measure',name:'measure',text:'数值',items:[],type:'col'};
+        colDimensions.push(measureDimension);
     }
 
-    let dimensionList = _findDimensionList({rowDimensions,colDimensions,measureItems});
+    measureDimension.items = measureItems.map(measureItem=>({
+        id:measureItem.name+'_'+measureItem.aggregate,
+        text:measureItem.text
+    } as Item));
+
+    let dimensionList = _findDimensionList({rowDimensions,colDimensions,measureItems,filters});
 
     let rowDataMap = _fillDimensionItemsAndBuildRowDataMap(dfRowDataList,dimensionList,measureItems);
 
@@ -108,10 +130,10 @@ function _buildCrossTableData(rowDimensionCount,colDimensionCount,rowCrossItems,
         let row = [];
         for(let j=0;j<cols;j++){
             if(j<rowDimensionCount){
-                row.push('');
+                row.push({text:'',fill:CUBE_META_BG_COLOR});
             }else{
                 let item = colCrossItems[j-rowDimensionCount][i];
-                row.push(item.text);
+                row.push({text:item.text,fill:CUBE_META_BG_COLOR,style:{align:'center'}});
             }
         }
         data.push(row);
@@ -121,7 +143,7 @@ function _buildCrossTableData(rowDimensionCount,colDimensionCount,rowCrossItems,
         let row = [];
 
         crossItem.forEach(item=>{
-            row.push(item.text);
+            row.push({text:item.text,fill:CUBE_META_BG_COLOR});
         });
 
         colCrossItems.forEach(colCrossItem=>{
@@ -129,9 +151,18 @@ function _buildCrossTableData(rowDimensionCount,colDimensionCount,rowCrossItems,
             let dataKey = _buildDataKey({items});
             let data = rowDataMap[dataKey];
             if(data || data ===0 ){
-                row.push(data)
+                row.push({
+                    text:data,
+                    fill:'white',
+                    style:{
+                        align:'right'
+                    }
+                });
             }else{
-                row.push('');
+                row.push({
+                    fill:'white',
+                    text:''
+                });
             }
         })
 
@@ -185,8 +216,10 @@ function _fillDimensionItemsAndBuildRowDataMap(dfRowDataList,dimensionList,measu
                 id:measureId,
                 dimId:'measure'
             });
+            if(data || data === 0){
+                rowDataMap[_buildDataKey({items})] = data;
+            }
 
-            rowDataMap[_buildDataKey({items})] = data;
         })
     });
 
@@ -244,4 +277,44 @@ function expandDimensionsItem(dimensions:Array<Dimension>){
  */
 function _buildDataKey({items}:CubeCellKey):string{
     return items.map(item=>item.dimId+'_'+item.id).sort().join('|');
+}
+
+function _buildFiltersScript(filters:Array<Filter>){
+    let rootConn = filters[0];
+    return _buildConnScript(rootConn)
+}
+
+function _buildConnScript(conn){
+    let {name} = conn;
+    let script = [];
+    if(conn.children && conn.children.length>0){
+
+        for(let i=0;i<conn.children.length;i++){
+            let child = conn.children[i];
+
+            if(child.type == 'cond' && !child.property){
+                continue;
+            }
+
+            if(i>0){
+                script.push("."+name+"(")
+            }
+
+            if(child.type == 'cond'){
+                script.push('col("'+child.property+'").')
+                script.push(child.operator||'eq');
+                script.push('(');
+                script.push('expr("'+child.value+'")');
+                script.push(')');
+            }else if(child.type=='conn'){
+                script.push(_buildConnScript(child));
+            }
+
+            if(i>0){
+                script.push(")")
+            }
+        }
+    }
+
+    return script.join('');
 }

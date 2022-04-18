@@ -139,7 +139,7 @@ fn df_script(invoke_message: String)->String{
 ///
 fn polars_read_csv(path:&String) ->Result<String>{
     let df = CsvReader::from_path(path)?
-        .with_n_rows(Option::Some(100))
+        .with_n_rows(Option::Some(30))
         .has_header(true)
         .finish().expect("csv load error!");
 

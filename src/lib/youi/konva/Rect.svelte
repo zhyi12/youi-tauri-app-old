@@ -4,78 +4,78 @@
 	import { createEventDispatcher, getContext, onMount } from 'svelte';
 	import context from './context';
 
-	export let cornerRadius: number;
+	export let cornerRadius: number = undefined;
 	// cornerRadius	Number	<optional>
-	export let fill: string = null;
+	export let fill: string = undefined;
 	// fill	String	<optional> fill color
 	//
 	// fillPatternImage	Image	<optional>
 	// fill pattern image
 	//
-	export let fillPatternX: number;
+	export let fillPatternX: number = undefined;
 	// fillPatternX	Number	<optional>
-	export let fillPatternY: number;
+	export let fillPatternY: number = undefined;
 	// fillPatternY	Number	<optional>
-	export let fillPatternOffset: any;
+	export let fillPatternOffset: any = undefined;
 	// fillPatternOffset	Object	<optional>
 	// object with x and y component
 	//
-	export let fillPatternOffsetX: number;
+	export let fillPatternOffsetX: number = undefined;
 	// fillPatternOffsetX	Number	<optional>
-	export let fillPatternOffsetY: number;
+	export let fillPatternOffsetY: number = undefined;
 	// fillPatternOffsetY	Number	<optional>
-	export let fillPatternScale: any;
+	export let fillPatternScale: any = undefined;
 	// fillPatternScale	Object	<optional>
 	// object with x and y component
-	export let fillPatternScaleX: number;
+	export let fillPatternScaleX: number = undefined;
 	// fillPatternScaleX	Number	<optional>
-	export let fillPatternScaleY: number;
+	export let fillPatternScaleY: number = undefined;
 	// fillPatternScaleY	Number	<optional>
-	export let fillPatternRotation: number;
+	export let fillPatternRotation: number = undefined;
 	// fillPatternRotation	Number	<optional>
-	export let fillPatternRepeat: string;
+	export let fillPatternRepeat: string = undefined;
 	// fillPatternRepeat	String	<optional>
 	// can be "repeat", "repeat-x", "repeat-y", or "no-repeat". The default is "no-repeat"
 	//
-	export let fillLinearGradientStartPoint: any;
+	export let fillLinearGradientStartPoint: any = undefined;
 	// fillLinearGradientStartPoint	Object	<optional>
 	// object with x and y component
 	//
-	export let fillLinearGradientStartPointX: number;
+	export let fillLinearGradientStartPointX: number = undefined;
 	// fillLinearGradientStartPointX	Number	<optional>
-	export let fillLinearGradientStartPointY: number;
+	export let fillLinearGradientStartPointY: number = undefined;
 	// fillLinearGradientStartPointY	Number	<optional>
-	export let fillLinearGradientEndPoint: any;
+	export let fillLinearGradientEndPoint: any = undefined;
 	// fillLinearGradientEndPoint	Object	<optional>
 	// object with x and y component
 	//
-	export let fillLinearGradientEndPointX: number;
+	export let fillLinearGradientEndPointX: number = undefined;
 	// fillLinearGradientEndPointX	Number	<optional>
-	export let fillLinearGradientEndPointY: number;
+	export let fillLinearGradientEndPointY: number = undefined;
 	// fillLinearGradientEndPointY	Number	<optional>
 	export let fillLinearGradientColorStops = [];
 	// fillLinearGradientColorStops	Array	<optional>
 	// array of color stops
 	//
-	export let fillRadialGradientStartPoint: any;
+	export let fillRadialGradientStartPoint: any = undefined;
 	// fillRadialGradientStartPoint	Object	<optional>
 	// object with x and y component
 	//
-	export let fillRadialGradientStartPointX: number;
+	export let fillRadialGradientStartPointX: number = undefined;
 	// fillRadialGradientStartPointX	Number	<optional>
-	export let fillRadialGradientStartPointY: number;
+	export let fillRadialGradientStartPointY: number = undefined;
 	// fillRadialGradientStartPointY	Number	<optional>
-	export let fillRadialGradientEndPoint: any;
+	export let fillRadialGradientEndPoint: any = undefined;
 	// fillRadialGradientEndPoint	Object	<optional>
 	// object with x and y component
 	//
-	export let fillRadialGradientEndPointX: number;
+	export let fillRadialGradientEndPointX: number = undefined;
 	// fillRadialGradientEndPointX	Number	<optional>
-	export let fillRadialGradientEndPointY: number;
+	export let fillRadialGradientEndPointY: number = undefined;
 	// fillRadialGradientEndPointY	Number	<optional>
-	export let fillRadialGradientStartRadius: number;
+	export let fillRadialGradientStartRadius: number = undefined;
 	// fillRadialGradientStartRadius	Number	<optional>
-	export let fillRadialGradientEndRadius: number;
+	export let fillRadialGradientEndRadius: number = undefined;
 	// fillRadialGradientEndRadius	Number	<optional>
 	export let fillRadialGradientColorStops = [];
 	// fillRadialGradientColorStops	Array	<optional>
@@ -85,7 +85,7 @@
 	// fillEnabled	Boolean	<optional>
 	// flag which enables or disables the fill. The default value is true
 	//
-	export let fillPriority:string;
+	export let fillPriority:string = undefined;
 	// fillPriority	String	<optional>
 	// can be color, linear-gradient, radial-graident, or pattern. The default value is color. The fillPriority property makes it really easy to toggle between different fill types. For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
 	//
@@ -93,14 +93,14 @@
 	// stroke	String	<optional>
 	// stroke color
 	//
-	export let strokeWidth:number;
+	export let strokeWidth:number = undefined;
 	// strokeWidth	Number	<optional>
 	// stroke width
 	export let fillAfterStrokeEnabled = false;
 	// fillAfterStrokeEnabled	Boolean	<optional>
 	// Should we draw fill AFTER stroke? Default is false.
 	//
-	export let hitStrokeWidth:number;
+	export let hitStrokeWidth:number = undefined;
 	// 	hitStrokeWidth	Number	<optional>
 	// size of the stroke on hit canvas. The default is "auto" - equals to strokeWidth
 	//
@@ -119,24 +119,18 @@
 	export let strokeEnabled = true;
 	// strokeEnabled	Boolean	<optional>
 	// flag which enables or disables the stroke. The default value is true
-	export let lineJoin = 'miter';
-	// lineJoin	String	<optional>
-	// can be miter, round, or bevel. The default is miter
-	export let lineCap = 'butt';
-	// lineCap	String	<optional>
-	// can be butt, round, or square. The default is butt
-	export let shadowColor:string;
+	export let shadowColor:string = undefined;
 	// shadowColor	String	<optional>
-	export let shadowBlur: number;
+	export let shadowBlur: number = undefined;
 	// shadowBlur	Number	<optional>
-	export let shadowOffset: any;
+	export let shadowOffset: any = undefined;
 	// shadowOffset	Object	<optional>
 	// object with x and y component
-	export let shadowOffsetX: number;
+	export let shadowOffsetX: number = undefined;
 	// shadowOffsetX	Number	<optional>
-	export let shadowOffsetY: number;
+	export let shadowOffsetY: number = undefined;
 	// shadowOffsetY	Number	<optional>
-	export let shadowOpacity: number;
+	export let shadowOpacity: number = undefined;
 	// shadowOpacity	Number	<optional>
 	// shadow opacity. Can be any real number
 	// between 0 and 1
@@ -151,55 +145,50 @@
 	//
 	export let x: number = 0;
 	export let y: number = 0;
-	export let width: number;
-	export let height: number = null;
-	export let visible: boolean = null;
-	export let listening: boolean = null;
-	export let id: string = null;
-	export let name: string = null;
-	export let opacity: number = null;
+	export let width: number = undefined;
+	export let height: number = undefined;
+	export let visible: boolean = undefined;
+	export let listening: boolean = undefined;
+	export let id: string = undefined;
+	export let name: string = undefined;
+	export let opacity: number = undefined;
 	export let scale: Konva.Vector2d = { x: null, y: null };
-	export let scaleX: number = null;
-	export let scaleY: number = null;
-	export let rotation: number = null;
+	export let scaleX: number = undefined;
+	export let scaleY: number = undefined;
+	export let rotation: number = undefined;
 	export let offset: Konva.Vector2d = { x: null, y: null };
-	export let offsetX: number = null;
-	export let offsetY: number = null;
+	export let offsetX: number = undefined;
+	export let offsetY: number = undefined;
 
-	export let draggable: boolean = null;
-	export let dragDistance: number = null;
-	export let dragBoundFunc: (pos: Konva.Vector2d) => Konva.Vector2d = null;
+	export let draggable: boolean = undefined;
+	export let dragDistance: number = undefined;
+	export let dragBoundFunc: (pos: Konva.Vector2d) => Konva.Vector2d = undefined;
 
 	const dispatch = createEventDispatcher();
 	const parent: () => Konva.Container = getContext(context.parent);
 
 	let rect :Konva.Rect;
 
-
 	onMount(()=>{
-		const options = {
-			cornerRadius,fill,fillPatternX,fillPatternY,fillPatternOffset,fillPatternOffsetX,
-			fillPatternOffsetY,fillPatternScale,fillPatternScaleX,fillPatternScaleY,fillPatternRotation,
-			fillPatternRepeat,fillLinearGradientStartPoint,fillLinearGradientStartPointX,fillLinearGradientStartPointY,
-			fillLinearGradientEndPoint,fillLinearGradientEndPointX,fillLinearGradientEndPointY,fillLinearGradientColorStops,
-			fillRadialGradientStartPoint,fillRadialGradientStartPointX,fillRadialGradientStartPointY,fillRadialGradientEndPoint,
-			fillRadialGradientEndPointX,fillRadialGradientEndPointY,fillRadialGradientStartRadius,fillRadialGradientEndRadius,
-			fillRadialGradientColorStops,fillEnabled,fillPriority,stroke,strokeWidth,fillAfterStrokeEnabled,hitStrokeWidth,
-			strokeHitEnabled,perfectDrawEnabled,shadowForStrokeEnabled,strokeScaleEnabled,strokeEnabled,lineJoin,lineCap,
-			shadowColor,shadowBlur,shadowOffset,shadowOffsetX,shadowOffsetY,shadowOpacity,shadowEnabled,dash,dashEnabled,
-			x,y,width,height,visible,listening,id,name,opacity,scale,scaleX,scaleY,rotation,offset,offsetX,offsetY,draggable,dragDistance,dragBoundFunc
 
-		};
-
-		rect = new Konva.Rect({x,y,width,height,fill,stroke,strokeWidth});
+		rect = new Konva.Rect({cornerRadius,fill,fillPatternX,fillPatternY,fillPatternOffset,fillPatternOffsetX,
+            fillPatternOffsetY,fillPatternScale,fillPatternScaleX,fillPatternScaleY,fillPatternRotation,
+            fillPatternRepeat,fillLinearGradientStartPoint,fillLinearGradientStartPointX,fillLinearGradientStartPointY,
+            fillLinearGradientEndPoint,fillLinearGradientEndPointX,fillLinearGradientEndPointY,fillLinearGradientColorStops,
+            fillRadialGradientStartPoint,fillRadialGradientStartPointX,fillRadialGradientStartPointY,fillRadialGradientEndPoint,
+            fillRadialGradientEndPointX,fillRadialGradientEndPointY,fillRadialGradientStartRadius,fillRadialGradientEndRadius,
+            fillRadialGradientColorStops,fillEnabled,fillPriority,stroke,strokeWidth,fillAfterStrokeEnabled,hitStrokeWidth,
+            strokeHitEnabled,perfectDrawEnabled, shadowForStrokeEnabled,strokeScaleEnabled, strokeEnabled,
+            shadowColor,shadowBlur,shadowOffset,shadowOffsetX,shadowOffsetY,shadowOpacity,shadowEnabled,dash,dashEnabled,
+            x,y,width,height,visible,listening,id,name,opacity,scale,scaleX,scaleY,rotation,offset,offsetX,offsetY,draggable,dragDistance,dragBoundFunc});
 
 		const to = parent();
 		to.add(rect);
-		dispatch('added', { rect, to })
+		dispatch('added', { rect, to });
 
 		return () => {
 			rect.destroy();
-			rect = null;
+			rect = undefined;
 		};
 	});
 
@@ -207,5 +196,6 @@
 	$: rect && rect.y(y);
 	$: rect && rect.width(width);
 	$: rect && rect.height(height);
+	$: rect && rect.fill(fill);
 
 </script>

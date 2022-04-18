@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" >
 
     import ListBoxMenuItem from "../list-box/ListBoxMenuItem.svelte";
     import ListBoxMenu from "../list-box/ListBoxMenu.svelte";
@@ -6,7 +6,7 @@
     import icon_check from '../icons/square-o';
     import icon_checked from '../icons/check-square-o';
     import icon_close from '../icons/close';
-    import {afterUpdate, createEventDispatcher, onMount} from "svelte";
+    import {afterUpdate, createEventDispatcher} from "svelte";
 
     export let items = [];
 
@@ -20,6 +20,8 @@
     export let droppable = false;
 
     export let removable = false;
+
+    export let height:number = null;
 
     /** Set an id for the list box component */
     export let id = "ccs-" + Math.random().toString(36);
@@ -79,7 +81,7 @@
 
 </script>
 
-<ListBoxMenu aria-label="{ariaLabel}" id="{id}" {draggable} {droppable}
+<ListBoxMenu aria-label="{ariaLabel}" id="{id}" {draggable} {droppable} {height}
              on:dragStart={handle_item_drag}
              on:dragStop={handle_drag_stop}
              on:drop

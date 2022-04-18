@@ -5,6 +5,11 @@
 
 <script lang="ts">
 	import {onMount} from "svelte";
+	import ConditionTree from "$lib/youi/condition/ConditionTree.svelte";
+
+	let children = [{name:'and',id:'root',text:'且'}];
+
+	let show:string = undefined;
 
 	onMount(async ()=>{
 		//
@@ -17,7 +22,6 @@
 </svelte:head>
 
 <div>
-
 
 </div>
 

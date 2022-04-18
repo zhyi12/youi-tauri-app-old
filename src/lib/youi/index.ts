@@ -9,3 +9,6 @@ export {default as Text} from './konva/Text.svelte';
 
 export {default as TabContent} from './tabs/TabContent.svelte';
 export {default as TabPane} from './tabs/TabPane.svelte';
+
+
+export {default as saveIcon} from './icons/save';

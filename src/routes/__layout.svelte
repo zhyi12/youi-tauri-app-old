@@ -43,13 +43,20 @@
 			stopWatching = await watch(path, { recursive: true }, updateResponse).catch(updateResponse)
 		}
 
-		mainContainer.style.height = (window.innerHeight - footer.offsetHeight - 80)+'px';
+		handle_resize();
 	});
 
 	function updateResponse(returnValue) {
 		response += `[${new Date().toLocaleTimeString()}]` + (typeof returnValue === 'string' ? returnValue : JSON.stringify(returnValue)) + '<br>'
 	}
+
+	const handle_resize = ()=>{
+		mainContainer.style.height = (window.innerHeight - footer.offsetHeight - 50)+'px';
+	}
 </script>
+
+
+<svelte:window on:resize={handle_resize}/>
 
 <Header />
 
