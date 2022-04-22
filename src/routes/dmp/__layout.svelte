@@ -1,24 +1,22 @@
 
 <script lang="ts">
-    import TabContent from "../../lib/youi/tabs/TabContent.svelte";
-    import TabPane from "../../lib/youi/tabs/TabPane.svelte";
-    import Tree from "../../lib/youi/tree/Tree.svelte";
     import {goto} from '$app/navigation';
     import {page} from '$app/stores';
     import {onMount} from "svelte";
-    import {walk_data_file} from "../../lib/youi/tauri/command";
-    import {buildPathTree} from "../../lib/youi/util/tree.util";
     import {getDbList as getCustomDsList} from "../../services/dmp/custom-ds/service";
+    import {TabContent,TabPane,Tree,walk_data_file,buildPathTree} from "$lib/youi";
+    import {localFileTreeStore,dataDirStore} from "./store";
 
     let activeTabId:string = undefined;
 
     let dataDir = '/Volumes/D/data/local';
-    let children = [];
     let activeId = undefined;
     let activePath = undefined;
 
     let customDsLoaded = false;
     let customDsList = [];
+
+    dataDirStore.set(dataDir);
 
     const handle_tree_select = (event)=>{
         if(event.detail && event.detail.datas && event.detail.datas.path && event.detail.datas.path.endsWith('.csv')){
@@ -44,7 +42,7 @@
     onMount(async ()=>{
         //本地数据文件
         const paths = await walk_data_file(dataDir);
-        children = buildPathTree(paths);
+        localFileTreeStore.set(buildPathTree(paths));
     });
 
     /**
@@ -59,14 +57,14 @@
     <div class="layout-west">
         <TabContent on:tab={handle_tab}>
             <TabPane tabId="local" tab="本地" active={activeTabId=="local"}>
-                <Tree bind:activeId={activeId} {children} class="" on:select={handle_tree_select}>
+                <Tree bind:activeId={activeId} children={$localFileTreeStore} class="" on:select={handle_tree_select}>
 
                 </Tree>
             </TabPane>
             <TabPane tabId="remote" tab="远程" active={activeTabId=="remote"}>
                 远程数据
             </TabPane>
-            <TabPane tabId="custom" tab="自助" active={activeTabId=="custom"}>
+            <TabPane tabId="custom" tab="自助集" active={activeTabId=="custom"}>
                 <ul>
                     {#each customDsList as customDs}
                         <li>{customDs.caption}</li>

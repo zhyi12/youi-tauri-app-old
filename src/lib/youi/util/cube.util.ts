@@ -7,10 +7,10 @@ const CUBE_META_BG_COLOR = '#eeecec';
  * @param measureItems
  */
 export function buildDfScript(path,groupDimensions,measureItems,filters){
-    let script = ['let result = readCsv("'+path+'")'];
+    let script = ['let result = read_csv("'+path+'")'];
 
     //build filter script
-    let filterScript = _buildFiltersScript(filters);
+    let filterScript = buildFiltersScript(filters);
 
     if(filterScript){
         script.push(".filter(")
@@ -279,7 +279,7 @@ function _buildDataKey({items}:CubeCellKey):string{
     return items.map(item=>item.dimId+'_'+item.id).sort().join('|');
 }
 
-function _buildFiltersScript(filters:Array<Filter>){
+export function buildFiltersScript(filters:Array<Filter>){
     let rootConn = filters[0];
     return _buildConnScript(rootConn)
 }

@@ -44,6 +44,8 @@
 		}
 
 		handle_resize();
+
+
 	});
 
 	function updateResponse(returnValue) {

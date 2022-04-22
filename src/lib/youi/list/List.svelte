@@ -9,10 +9,12 @@
     import {afterUpdate, createEventDispatcher} from "svelte";
 
     export let items = [];
+    export let icon = (item)=>undefined;
 
     export let selectedIds = [];
 
     export let check = true;
+    export let itemStyle:string = undefined;
 
     export let draggable = false;
     export let draggingItem = null;
@@ -87,7 +89,7 @@
              on:drop
              {draggingItem}>
     {#each  sortedItems as item, i (item.id)}
-        <ListBoxMenuItem
+        <ListBoxMenuItem {itemStyle}
                 id="{item.id}"
                 active="{item.checked}"
                 on:click={()=>{
@@ -95,8 +97,17 @@
                     dispatch('check',item);
                 }}
         >
-            <Icon data={item.checked==false?icon_check:icon_checked}></Icon>
-            <span class:item-text={true} class:active={item.checked}>{item.text}</span>
+            <span class="btn-icon">
+                <Icon data={item.checked==false?icon_check:icon_checked}></Icon>
+            </span>
+
+            <slot name="item" {item}>
+                <span class:item-text={true} class:active={item.checked}>
+                    <Icon data={icon(item)}></Icon>
+                        {item.text}
+                </span>
+            </slot>
+
             {#if removable}
                 <span on:click|stopPropagation={(e)=>{
                     items = items.filter(({id})=>id!=item.id);}} >
@@ -112,7 +123,9 @@
         padding-left: 2px;
     }
 
-    .item-text.active{
-        padding-left: 0px;
+    .btn-icon{
+        text-align: center;
+        display: inline-block;
+        width: 22px;
     }
 </style>

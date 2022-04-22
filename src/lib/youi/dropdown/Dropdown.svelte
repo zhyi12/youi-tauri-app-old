@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { setContext, onDestroy } from 'svelte';
   import { createPopperActions } from './popper';
   import classnames from '../util/utils';

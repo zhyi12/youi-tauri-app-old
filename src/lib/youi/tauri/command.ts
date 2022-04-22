@@ -42,3 +42,8 @@ export async function exec_df_script(script):Promise<any>{
     const json_str = await invoke("df_script",{"invokeMessage":script});
     return JSON.parse(json_str.toString());
 }
+
+export function parse_columns(row):Array<any>{
+    let keys = Object.keys(row);
+    return  keys.map(key=>({name:key,id:key,text:key,dataType:(typeof row[key] == 'number')?'number':'text'}));
+}

@@ -2,7 +2,7 @@
     import {findClosestTag} from '../util/dom.util';
     import TreeNodeList from "./TreeNodeList.svelte";
     import {mouse} from "../mouse/mouse";
-    import classnames from "../util/utils";
+    import classnames, {toPixel} from "../util/utils";
     import {createEventDispatcher, setContext} from "svelte";
     import {writable} from "svelte/store";
 
@@ -13,6 +13,7 @@
     export let children = [];
     export let draggable = false;
     export let dragStyles = ['treeNode'];
+    export let width:number = undefined;
 
     /**
      * Set the current active node id
@@ -148,7 +149,9 @@
 
 </script>
 
-<div class={classes} use:mouse={draggable?{mouseStart,mouseDrag,mouseStop}:null}>
+<div class={classes}
+     style:width={width?toPixel(width):''}
+     use:mouse={draggable?{mouseStart,mouseDrag,mouseStop}:null}>
     <ul role="tree"
         {...$$restProps}>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import classnames, {uuid} from "../util/utils";
+    import classnames, {toPixel, uuid} from "../util/utils";
     import Connection from "./Connection.svelte";
     import Dropdown from "../dropdown/Dropdown.svelte";
     import DropdownMenu from "../dropdown/DropdownMenu.svelte";
@@ -25,6 +25,8 @@
     export let conn = "and";// and or
 
     export let activeId = undefined;
+
+    export let height:number = undefined;
 
     export let show:string = undefined;
 
@@ -238,9 +240,15 @@
     $: editingCondition.set(dropdownCondition);
     $: editingOperator.set(dropdownOperator);
 
+    const handle_scroll = (e)=>{
+        operatorItemsOpen = false;
+        sourceItemsOpen = false;
+        connItemsOpen = false;
+    }
+
 </script>
 
-<div class={classes} bind:this={ref}>
+<div class={classes} bind:this={ref} style:height={toPixel(height)} style:overflow={height?'auto':'initial'} on:scroll={handle_scroll}>
     <slot name="show" prop={show}>
 
     </slot>
@@ -250,7 +258,7 @@
         </Connection>
     </ul>
 
-    <Dropdown bind:isOpen={connItemsOpen}>
+    <Dropdown bind:isOpen={connItemsOpen} class="fixed">
         <DropdownToggle tag="div" class="conn-helper" left={connItemsLeft} top={connItemsTop}>
             <span></span>
         </DropdownToggle>
@@ -263,7 +271,7 @@
         </DropdownMenu>
     </Dropdown>
 
-    <Dropdown bind:isOpen={sourceItemsOpen}>
+    <Dropdown bind:isOpen={sourceItemsOpen} class="fixed">
         <DropdownToggle tag="div" class="condition-helper" left={sourceItemsLeft} top={sourceItemsTop}>
             <span></span>
         </DropdownToggle>
@@ -274,7 +282,7 @@
         </DropdownMenu>
     </Dropdown>
 
-    <Dropdown bind:isOpen={operatorItemsOpen}>
+    <Dropdown bind:isOpen={operatorItemsOpen} class="fixed">
         <DropdownToggle tag="div" class="condition-helper" left={operatorItemsLeft} top={operatorItemsTop}>
             <span></span>
         </DropdownToggle>

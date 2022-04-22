@@ -48,7 +48,7 @@
                 <Icon data={plusIcon}></Icon>
             </div>
         </span>
-        {#if children.length}
+        {#if children && children.length}
             <ul class="flex-1">
                 {#each children as child (child.id)}
                     {#if Array.isArray(child.children) && child.children.length}

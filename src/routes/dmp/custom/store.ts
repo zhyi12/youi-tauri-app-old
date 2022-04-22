@@ -10,18 +10,24 @@ type JoinColumn = {
 export type Step = {
     id:string,
     name:string,
-    text:string,
+    reader?:string,
+    uri?:string,
+    text?:string,
     tableName?:string,
-    columns?:[],
+    columns?:Array<any>,
     selectedColumnNames?:Array<string>,
     filters?:[],
     joinTable?:string,
     joinType?:string,
-    joinColumns?:Array<JoinColumn>
+    joinColumns?:Array<JoinColumn>,
+    groups?:Array<any>,
+    measureItems?:Array<any>,
+    addedColumn?:any
 }
 
 export interface StepStore extends Writable<Array<Step>>{
-    updateStep(step:Step)
+    updateStep(step:Step),
+    insertStep(step:Step,index:number)
 }
 
 export const stepStore:StepStore = buildCustomQueryStore();
@@ -49,8 +55,15 @@ export function buildCustomQueryStore():StepStore{
         })
     }
 
+    function insertStep(step:Step,index:number){
+        store.update(steps=>{
+            return steps.splice(index,-1,step);
+        });
+    }
+
     return {
         updateStep,
+        insertStep,
         ...store
     };
 

@@ -1,12 +1,16 @@
 <script lang="ts">
 	import Input from '../input/Input.svelte';
 	import { getContext } from 'svelte';
+	import classnames from "../util/utils";
+
+	let className = '';
+	export { className as class };
 
 	export let validators = [];
-	export let property;
+	export let property:string = undefined;
 	export let notNull = false;
 	export let value;
-	export let placeholder;
+	export let placeholder:string = undefined;
 	export let type = 'text';
 	export let prefix = 'field';
 	export let change = null;
@@ -15,15 +19,18 @@
 	let invalid = false;
 
 	let context = getContext('FieldContainer');
+
+	$: classes = classnames(className,'youi-field fieldText');
+
 	if(context){
 		context.addField({property:property,validate:()=>{doValidate()}});
 	}
+
 	/**
 	 * 值校验
 	 */
 	function doValidate(){
 		invalid = false;
-		console.log('validate '+property)
 		if(notNull && !value){
 			invalid = true;
 		}else{
@@ -53,7 +60,7 @@
 	}
 </script>
 
-<div class="youi-field fieldText" >
+<div class={classes} >
 
 	<Input {type}
 				 name={property}

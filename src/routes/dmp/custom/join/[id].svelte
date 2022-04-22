@@ -16,11 +16,11 @@
 
     let joinColumns = [];
 
-    stepStore.subscribe((steps)=>{
-        step = steps.filter(({id}) => $page.params.id == id)[0];
-        joinColumns = step.joinColumns;
-        columns = findStepColumns(steps,step);
-    });
+    // stepStore.subscribe((steps)=>{
+    //     step = steps.filter(({id}) => $page.params.id == id)[0];
+    //     joinColumns = step.joinColumns;
+    //     columns = findStepColumns(steps,step);
+    // });
 
 
 </script>

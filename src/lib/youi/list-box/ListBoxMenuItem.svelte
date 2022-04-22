@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
   /** Set to `true` to enable the active state */
   export let active = false;
 
   /** Set to `true` to enable the highlighted state */
   export let highlighted = false;
+
+  export let itemStyle:string = 'option-item';
 </script>
 
 <div
@@ -15,7 +17,7 @@
   on:mouseenter
   on:mouseleave
 >
-  <div class:option-item="{true}">
-    <slot />
+  <div class={itemStyle}>
+    <slot/>
   </div>
 </div>

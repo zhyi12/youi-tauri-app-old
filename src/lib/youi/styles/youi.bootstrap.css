@@ -1486,6 +1486,7 @@ progress {
     flex-grow: 1;
     padding: 0.1rem 1rem;
     overflow-y: auto;
+    display: flex;
 }
 
 .offcanvas-start {
@@ -1990,7 +1991,6 @@ input[type="month"].form-control {
     font-weight: 400;
     line-height: 1.28572;
     border: none;
-    letter-spacing: .16px;
     outline: 2px solid transparent;
     outline-offset: -2px;
     width: 100%;
@@ -2015,8 +2015,36 @@ input[type="month"].form-control {
     cursor: pointer;
 }
 
+.option-item svg{
+    margin-top: -2px;
+}
+
 .option-item.active,.option-item:hover{
     background: #f0f0f0;
+}
+
+.list-item .youi-field,
+.option-item .youi-field {
+    display: inline-block;
+}
+
+.list-item{
+    display: flex;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    height: 2rem;
+    padding: 0.225rem 1rem 0.225rem 0.6875rem;
+    cursor: pointer;
+    border-bottom: 1px dotted #dddddd;
+}
+
+.list-item .fa-icon{
+    height: 1.5rem;
+}
+
+.list-item  .form-control,
+.option-item .form-control{
+    height: 24px;
 }
 
 .youi-fieldSelect .youi-list-box .option-item{
@@ -2046,9 +2074,9 @@ input[type="month"].form-control {
     height: 2rem;
     max-height: 2rem;
     border: none;
-    border-bottom: 1px solid var(--cds-ui-04, #e0e0e0);
-    background-color: var(--cds-field-01, #f4f4f4);
-    color: var(--cds-text-01, #161616);
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f4f4f4;
+    color: #161616;
     cursor: pointer;
     transition: all 70ms cubic-bezier(.2,0,.38,.9);
 }
@@ -2063,4 +2091,53 @@ input[type="month"].form-control {
     background-color: #f4f4f4;
     overflow-y: auto;
     transition: max-height .11s cubic-bezier(.2,0,.38,.9);
+}
+
+.hover-container .hover-item{
+    display: none;
+}
+
+.hover-container:hover .step-btn-add{
+    display: block;
+}
+
+.query-nav:last-child .step-btn-add{
+    display: block;
+}
+
+.step-btn-add{
+    display: inline-block;
+    background: #e1e2ef;
+    border-radius: 8px;
+    width: 16px;
+    height: 16px;
+    line-height: 10px;
+    left: 8px;
+    top: 15px;
+    padding-left: 3px;
+    padding-top: 2px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.query-step:last-child .step-btn-add{
+    display: block;
+    bottom: 0px;
+    top: 30px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    left: 0px;
+    text-align: center;
+    line-height: 28px;
+    padding-left: 1px;
+}
+
+.step-btn-add:hover{
+    background: #0b5ed7;
+    color: white;
+}
+
+.fixed{
+    position: fixed;
 }
