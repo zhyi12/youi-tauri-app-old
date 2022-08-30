@@ -8,11 +8,11 @@
 	export let data;
 
 	let menus:Array<MenuInfo> = data.menus;
-
+	let activeModule:string = data.activeModule;
 
 </script>
 
-<LeftMenu {menus}/>
+<LeftMenu {menus} {activeModule}/>
 
 <div class="flex-container flex-column">
 	<Header />
@@ -25,8 +25,7 @@
 	main {
 		flex: 1;
 		display: flex;
-		flex-direction: column;
-		padding: 1rem;
+		padding: 0px;
 		width: 100%;
 		margin: 0 auto;
 		box-sizing: border-box;

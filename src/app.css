@@ -29,7 +29,7 @@ body {
 
 .app-logo{
 	height:60px;
-	background: url("logo.png") center center no-repeat;
+	background: url("/logo.png") center center no-repeat;
 }
 
 .flex-container{

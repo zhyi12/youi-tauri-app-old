@@ -5,12 +5,14 @@
 
     export let menus:Array<MenuInfo> = [];
 
+    export let activeModule:string = undefined;
+
     const icons = {
         menu:hashtagIcon,
         home:homeIcon,
-        'resmng':hddIcon,
+        res:hddIcon,
         settings:cogIcon,
-        'dataproc':cubeIcon
+        dataproc:cubeIcon
     };
 
 </script>
@@ -20,8 +22,8 @@
 
     </div>
     {#each menus as menu}
-        <div class="menu-item">
-            <a class="menu-bar" href={menu.href} title={menu.text}>
+        <div class="menu-bar" class:active={activeModule === (menu.module||menu.name)}>
+            <a href={menu.href} title={menu.text} on:click={()=>{activeModule = menu.name}}>
                 <Icon scale={menu.scale||1.8} data={icons[menu.icon||menu.name]||icons.menu}>
 
                 </Icon>
@@ -35,9 +37,10 @@
     width: 54px;
     background:  rgba(0, 117, 246, 1);
 
-    .menu-item{
+    .menu-bar{
       height: 42px;
       font-size: 32px;
+      padding-top:6px;
       text-align: center;
 
       a{
@@ -47,6 +50,13 @@
 
         &:hover{
           color: black;
+        }
+      }
+
+      &.active{
+        background: steelblue;
+        a{
+          color: yellow;
         }
       }
 
