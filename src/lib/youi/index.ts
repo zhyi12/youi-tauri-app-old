@@ -1,4 +1,13 @@
 
+
+export { default as Modal } from './modal/Modal.svelte';
+export { default as ModalBody } from './modal/ModalBody.svelte';
+export { default as ModalHeader } from './modal/ModalHeader.svelte';
+export { default as ModalFooter } from './modal/ModalFooter.svelte';
+
+export {default as RecursiveList} from './list/RecursiveList.svelte';
+export {default as Toolbar} from './toolbar/Toolbar.svelte';
+
 export { default as Icon } from './icon/Icon.svelte';
 export { default as homeIcon } from './icons/home';
 export { default as cogIcon } from './icons/cog';

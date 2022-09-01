@@ -1,9 +1,11 @@
 <script lang="ts">
+
 	import Header from '$lib/header/Header.svelte';
 	import LeftMenu from "$lib/menu/LeftMenu.svelte";
-	import type {MenuInfo} from "$lib/app-entity/base/menu";
 
+	import type {MenuInfo} from "$lib/app-entity/base/menu";
 	import '../app.css';
+	import '../main.scss';
 
 	export let data;
 
@@ -21,7 +23,7 @@
 	</main>
 </div>
 
-<style>
+<style lang="scss">
 	main {
 		flex: 1;
 		display: flex;

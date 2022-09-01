@@ -1,0 +1,13 @@
+[package]
+name = "tauri-plugin-sql"
+version = "1.0.5"
+edition = "2021"
+
+[dependencies]
+thiserror = "1.0"
+serde = "1.0"
+serde_json = "1.0"
+sqlx = { version = "0.5", features = ["runtime-tokio-rustls", "json","sqlite"] }
+tokio = { version = "1.19", features = ["sync"] }
+futures = "0.3"
+tauri = "1.0.5"

@@ -1,20 +1,18 @@
 <script lang="ts">
 
     import type {MenuInfo} from "../app-entity/base/menu";
+    import {RecursiveList} from "../youi";
 
     export let submenu:MenuInfo = {id:'',text:'',name:'',children:[]};
+    export let pathname = undefined;
 
 </script>
 
 <div class="app-sub-menu">
     {#if submenu && submenu.children}
-        {#each submenu.children as menu}
-            <div class="item">
-                <a href={menu.href} title={menu.text}>
-                    {menu.text}
-                </a>
-            </div>
-        {/each}
+        <RecursiveList activeHref={pathname} children={submenu.children} class="youi-menu" itemClass={"menu-item"}>
+
+        </RecursiveList>
     {/if}
 </div>
 

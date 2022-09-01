@@ -1,0 +1,10 @@
+@import "menu/menu";
+@import "toolbar/toolbar";
+
+a.btn{
+  text-decoration: none;
+  padding:3px 6px;
+  cursor: pointer;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+}

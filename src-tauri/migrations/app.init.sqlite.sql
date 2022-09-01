@@ -1,3 +1,27 @@
+CREATE TABLE IF NOT EXISTS youi_desktop_config
+(
+    id    INTEGER      not null
+        primary key autoincrement,
+    name  VARCHAR(100) not null,
+    value VARCHAR(200) not null
+);
+
+CREATE TABLE IF NOT EXISTS youi_area
+(
+    area_id    VARCHAR(12)  not null
+        primary key,
+    pid  VARCHAR(12) not null,
+    caption VARCHAR(200) not null
+);
+
+CREATE TABLE IF NOT EXISTS youi_area_geo_json
+(
+    area_id    VARCHAR(12)  not null
+        primary key,
+    geo_json TEXT,
+    version VARCHAR(12) not null
+);
+
 CREATE TABLE IF NOT EXISTS youi_dmp_database (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   name VARCHAR(200) NOT NULL,

@@ -1,0 +1,25 @@
+.youi-menu{
+
+  padding: 0px;
+  margin: 0px;
+
+  .menu-item{
+    list-style: none;
+    padding-left: 8px;
+    line-height: 2rem;
+    vertical-align: middle;
+
+    &:hover, &.active{
+      background: #ccddee;
+
+      a{
+        color: #12528c;
+      }
+    }
+
+    a{
+      text-decoration: none;
+    }
+  }
+
+}

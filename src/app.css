@@ -40,3 +40,12 @@ body {
 .flex-column{
 	flex-direction: column;
 }
+
+.page-container{
+	flex: 1;
+	display: flex;
+}
+
+.page-left{
+	border-right: 1px solid #dddddd;
+}

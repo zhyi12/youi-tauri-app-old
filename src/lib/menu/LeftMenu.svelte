@@ -1,7 +1,7 @@
 <script lang="ts">
     import type {MenuInfo} from "../app-entity/base/menu";
 
-    import {Icon, homeIcon, cogIcon, cubeIcon, hashtagIcon, hddIcon} from "../youi";
+    import {Icon, homeIcon, cogIcon, cubeIcon, hashtagIcon, hddIcon, globeIcon} from "../youi";
 
     export let menus:Array<MenuInfo> = [];
 
@@ -11,6 +11,7 @@
         menu:hashtagIcon,
         home:homeIcon,
         res:hddIcon,
+        geo:globeIcon,
         settings:cogIcon,
         dataproc:cubeIcon
     };
@@ -22,7 +23,7 @@
 
     </div>
     {#each menus as menu}
-        <div class="menu-bar" class:active={activeModule === (menu.module||menu.name)}>
+        <div class="menu-bar" class:active={(menu.name==='home' && !activeModule) || activeModule === (menu.module||menu.name)}>
             <a href={menu.href} title={menu.text} on:click={()=>{activeModule = menu.name}}>
                 <Icon scale={menu.scale||1.8} data={icons[menu.icon||menu.name]||icons.menu}>
 

@@ -3,11 +3,16 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "devPath": "http://localhost:8080",
+    "devPath": "http://localhost:5173",
     "distDir": "../build"
   },
+  "plugins": {
+    "sql":{
+      "preload": ["sqlite:app.db"]
+    }
+  },
   "package": {
-    "productName": "app-1.0.4",
+    "productName": "app",
     "version": "0.1.0"
   },
   "tauri": {
@@ -29,7 +34,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "org.youi.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

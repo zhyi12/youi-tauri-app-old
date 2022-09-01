@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {afterNavigate} from "$app/navigation"
+    import {afterNavigate} from "$app/navigation";
 
     import SubMenu from "$lib/menu/SubMenu.svelte";
     import type {MenuInfo} from "$lib/app-entity/base/menu";
@@ -7,7 +7,7 @@
 
     export let data;
 
-    let {menus,activeModule} = data;
+    let {menus,activeModule,pathname} = data;
 
     let submenu:MenuInfo = {id:'',text:'',name:'',children:[]};
 
@@ -19,11 +19,12 @@
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     afterNavigate(({_,to})=>{
         activeModule = parseActiveModule(to,{});
+        pathname = to.pathname;
     });
 
 </script>
 
-<SubMenu {submenu}>
+<SubMenu {submenu} {pathname}>
 
 </SubMenu>
 
