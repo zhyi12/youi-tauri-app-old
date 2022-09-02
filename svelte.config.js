@@ -12,11 +12,11 @@ const config = {
 			fallback: "index.html"
 		}),
 
-		prerender:{
-			default:true
-		},
+		// prerender:{
+		// 	default:true
+		// },
 
-		// Override http methods in the Todo forms
+		// Override http methods
 		methodOverride: {
 			allowed: ['PATCH', 'DELETE']
 		}
