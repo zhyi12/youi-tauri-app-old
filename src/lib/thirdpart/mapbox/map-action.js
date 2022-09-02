@@ -5,8 +5,8 @@ export default function action (node, options = {}) {
   let map
 
   const resources = [
-    { type: 'script', attr: 'src', value: `//api.mapbox.com/mapbox-gl-js/${options.version}/mapbox-gl.js`, id: 'byk-gl-js' },
-    { type: 'link', attr: 'href', value: `//api.mapbox.com/mapbox-gl-js/${options.version}/mapbox-gl.css`, id: 'byk-gl-css' }
+    { type: 'script', attr: 'src', value: `https://api.mapbox.com/mapbox-gl-js/${options.version}/mapbox-gl.js`, id: 'byk-gl-js' },
+    { type: 'link', attr: 'href', value: `https://api.mapbox.com/mapbox-gl-js/${options.version}/mapbox-gl.css`, id: 'byk-gl-css' }
   ]
 
   const customStylesheetUrl = options.customStylesheetUrl
