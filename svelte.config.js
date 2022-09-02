@@ -1,6 +1,11 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
+/** @type {import('@sveltejs/kit').PrerenderErrorHandler} */
+const handleError = ({ status, path, referrer, referenceType }) => {
+	console.warn(`${status} ${path}${referrer ? ` (${referenceType} from ${referrer})` : ''}`);
+};
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
@@ -12,9 +17,9 @@ const config = {
 			fallback: "index.html"
 		}),
 
-		// prerender:{
-		// 	default:true
-		// },
+		prerender:{
+
+		},
 
 		// Override http methods
 		methodOverride: {

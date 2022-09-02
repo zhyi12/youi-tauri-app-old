@@ -39,8 +39,7 @@
     background:  rgba(0, 117, 246, 1);
 
     .menu-bar{
-      height: 42px;
-      font-size: 32px;
+      height: 48px;
       padding-top:6px;
       text-align: center;
 
@@ -54,7 +53,7 @@
         }
       }
 
-      &.active{
+      &.active,&:hover{
         background: steelblue;
         a{
           color: yellow;

@@ -58,11 +58,3 @@
 <div use:action={optionsWithDefaults} class="youi-codemirror"  style="width:100%">
 
 </div>
-
-<style lang="scss">
-    .youi-codemirror{
-        .cm-editor{
-          flex:1;
-        }
-    }
-</style>

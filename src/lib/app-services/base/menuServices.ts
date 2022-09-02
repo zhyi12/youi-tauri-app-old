@@ -21,15 +21,18 @@ const findAppMenus = async ():Promise<Array<MenuInfo>> => {
         },
         {id:'030000',name:'res',text:'资源管理',href:"/res",
             children:[
-                {id:'030100',name:'local',text:'本地',href:'/common/m-res/local'},
+                {id:'030100',name:'local',text:'本地',href:'/common/m-res/local/v-flat/top'},
                 {id:'030200',name:'cloud',text:'云盘',href:'/common/m-res/cloud'},
             ]
         },
         {id:'040000',name:'dataproc',text:'数据处理',href:"/dataproc",children:[
-            {id: "040100",name: "query",text: "自助查询",href: "/dataproc/query/top"},
+            {id: "040100",name: "query",text: "自助查询",href: "/common/m-dataproc/query/top"},
             {id: "040200",name: "etl",text: "数据清洗",href: "/dataproc/etl"},
             ]},
-        {id:'999999',name:'settings',text:'配置',href: '/settings'},
+        {id:'990000',name:'settings',text:'配置',href: '/settings',
+            children:[
+                {id: "990100",name: "icons",text: "图标",href: "/settings/icons"},
+            ]},
     ];
 
     return menus;

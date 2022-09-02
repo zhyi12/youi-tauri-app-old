@@ -42,11 +42,15 @@ CREATE TABLE IF NOT EXISTS youi_dmp_folder (
   caption VARCHAR(200) NOT NULL
 );
 
-create table IF NOT EXISTS  youi_dmp_custom_ds
+create table IF NOT EXISTS  youi_dmp_custom_query
 (
 	id INTEGER not null
 		primary key autoincrement,
 	name VARCHAR(200) not null,
+	query_app VARCHAR(200) not null,
+	query_module VARCHAR(200) not null,
+	query_group VARCHAR(20) not null,
+	query_path VARCHAR(500) not null,
 	caption VARCHAR(200) not null,
 	content text
 );

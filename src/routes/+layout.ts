@@ -5,7 +5,6 @@ import {parseActiveModule} from "$lib/menu/menu.util";
 //build时可删除，避免打包模拟数据
 import {dev,browser} from "$app/environment";
 import {init_mock_data} from "../lib/app-mocks/app.mock";
-import {invoke} from "../lib/tauri/tauri";
 
 let app_menus:Array<MenuInfo> = [];
 /**
@@ -18,6 +17,8 @@ export async function load({url,params}) {
     if(browser && dev){
         await init_mock_data();
     }
+
+    //const a = await findCustomQuery("");
 
     if(!app_menus.length){
         //防止重复加载数据

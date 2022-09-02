@@ -1,4 +1,10 @@
 
+export { default as Button } from './button/Button.svelte';
+
+export { default as Dropdown } from './dropdown/Dropdown.svelte';
+export { default as DropdownItem } from './dropdown/DropdownItem.svelte';
+export { default as DropdownToggle } from './dropdown/DropdownToggle.svelte';
+export { default as DropdownMenu } from './dropdown/DropdownMenu.svelte';
 
 export { default as Modal } from './modal/Modal.svelte';
 export { default as ModalBody } from './modal/ModalBody.svelte';
@@ -27,3 +33,6 @@ export { default as searchIcon } from './icons/search.js';
 export { default as globeIcon } from './icons/globe.js';
 export { default as databaseIcon } from './icons/database.js';
 export { default as hddIcon } from './icons/hdd-o.js';
+
+export {default as classnames} from './util/utils';
+export {buildPathTree} from './util/tree.util';

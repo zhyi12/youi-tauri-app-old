@@ -20,7 +20,7 @@
   import ListItem from "./ListItem.svelte";
 </script>
 
-<ListItem data-id={id||name} class={itemClass}>
+<ListItem data-id={id||name} class={(itemClass||'')+ (icon?(' icon-'+icon):'')}>
   {#if text && !href}{text}{/if}
   {#if href}<a class:bx--link="{true}" href="{href}">{text || href}</a>{/if}
   {#if !text && html}{@html html}{/if}

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-License-Identifier: MIT
 
-import {browser} from "$app/environment";
+import {browser,dev} from "$app/environment";
 
 /**
  * Invoke your custom commands.
@@ -74,26 +74,35 @@ interface InvokeArgs {
  */
 async function invoke<T>(cmd: string, args: InvokeArgs = {}): Promise<T> {
     if(!browser){
-        return new Promise((resolve, reject) => {""});
-    }
+        //fix： tauri后端数据加载
+        return new Promise((resolve, reject) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            resolve("")});
+    }else{
+        if(dev && !window.__TAURI_IPC__){
+            await lazyTime(200);
+            return await invoke(cmd,args);
+        }
 
-    return new Promise((resolve, reject) => {
-        const callback = transformCallback((e: T) => {
-            resolve(e)
-            Reflect.deleteProperty(window, `_${error}`)
-        }, true)
-        const error = transformCallback((e) => {
-            reject(e)
-            Reflect.deleteProperty(window, `_${callback}`)
-        }, true)
+        return new Promise((resolve, reject) => {
+            const callback = transformCallback((e: T) => {
+                resolve(e)
+                Reflect.deleteProperty(window, `_${error}`)
+            }, true)
+            const error = transformCallback((e) => {
+                reject(e)
+                Reflect.deleteProperty(window, `_${callback}`)
+            }, true)
 
-        window.__TAURI_IPC__({
-            cmd,
-            callback,
-            error,
-            ...args
+            window.__TAURI_IPC__({
+                cmd,
+                callback,
+                error,
+                ...args
+            })
         })
-    })
+    }
 }
 
 /**
@@ -129,6 +138,14 @@ function convertFileSrc(filePath: string, protocol = 'asset'): string {
     return navigator.userAgent.includes('Windows')
         ? `https://${protocol}.localhost/${path}`
         : `${protocol}://${path}`
+}
+
+async function lazyTime(timeout:number) {
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            resolve("成功!"); //代码正常执行！
+        }, timeout); // 模拟3秒后promise返回
+    });
 }
 
 export type { InvokeArgs }

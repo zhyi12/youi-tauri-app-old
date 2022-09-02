@@ -3,12 +3,14 @@
   windows_subsystem = "windows"
 )]
 
-use tauri_plugin_sql::{TauriSql,Migration,MigrationKind};
+use tauri_plugin_fs_extra::FsExtra;
+use tauri_plugin_sql::{TauriSql, Migration, MigrationKind};
 
 const DB_URL: &str = "app.db";
 
 fn main() {
   tauri::Builder::default()
+      .plugin(FsExtra::default())
       .plugin(TauriSql::default().add_migrations(
     &format!("sqlite:{}",DB_URL),
     vec![Migration {

@@ -14,10 +14,15 @@
 	--column-margin-top: 4rem;
 }
 
+html{
+	overflow: hidden;
+}
+
 body {
 	min-height: 100vh;
 	display: flex;
 	margin: 0;
+	font-size: 1rem;
 	/*background-color: var(--primary-color);*/
 	/*background: linear-gradient(*/
 	/*	180deg,*/
@@ -25,6 +30,10 @@ body {
 	/*	var(--secondary-color) 10.45%,*/
 	/*	var(--tertiary-color) 41.35%*/
 	/*);*/
+}
+
+button{
+	font-size: 1rem;
 }
 
 .app-logo{
@@ -46,6 +55,83 @@ body {
 	display: flex;
 }
 
+.page-container.column{
+	flex-direction: column;
+}
+
 .page-left{
 	border-right: 1px solid #dddddd;
+}
+
+.container-auto-height{
+	flex: 1;
+	height:0;
+}
+
+.full-height{
+	height: 100%;
+}
+
+.btn-icon{
+	margin-right: 5px;
+	float:right;
+}
+
+.hover-group{
+	display: inline-block;
+	width: 100%;
+}
+
+.hover-group>.hover-item{
+	display: none;
+}
+
+.hover-group:hover>.hover-item{
+	display: inline-block;
+}
+
+.flex-1{
+	flex: 1;
+}
+
+.option-item{
+	line-height: 1rem;
+	vertical-align: middle;
+	display: flex;
+}
+
+.option-item>.fa-icon{
+	margin-right: 3px;
+}
+
+.step-btn-add{
+	display: none;
+	background: #e1e2ef;
+	border-radius: 8px;
+	width: 16px;
+	height: 16px;
+	line-height: 10px;
+	left: 8px;
+	top: 15px;
+	padding-top: 2px;
+	cursor: pointer;
+	position: absolute;
+	text-align: center;
+}
+
+.query-step:hover .step-btn-add{
+	display: inline-block;
+}
+
+.query-step:last-child .step-btn-add{
+	display: block;
+	bottom: 0px;
+	top: 30px;
+	width: 32px;
+	height: 32px;
+	border-radius: 16px;
+	left: 0px;
+	text-align: center;
+	line-height: 28px;
+	padding-left: 1px;
 }

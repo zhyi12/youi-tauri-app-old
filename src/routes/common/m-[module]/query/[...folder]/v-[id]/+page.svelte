@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     import {Toolbar} from "$lib/youi";
 
     export let data;
@@ -8,8 +8,5 @@
 </script>
 
 <Toolbar>
-    {id}
+    view {id}
 </Toolbar>
-<div>
-
-</div>

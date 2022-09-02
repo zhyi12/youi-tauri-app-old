@@ -19,6 +19,7 @@ serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.0.5", features = ["api-all"] }
 tauri-plugin-sql = {version="1.0.5",path="../packages/tauri/tauri-plugin-sql"}
+tauri-plugin-fs-extra = {version="1.0.5",path="../packages/tauri/tauri-plugin-fs-extra"}
 
 [features]
 # by default Tauri runs in production mode
