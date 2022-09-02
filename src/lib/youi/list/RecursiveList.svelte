@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 
   import classnames from "../util/utils";
   import UnorderedList from "./UnorderedList.svelte";
@@ -41,15 +41,15 @@
   this="{type === 'unordered' ? UnorderedList : OrderedList}"
   native="{type === 'ordered-native'}"
   class={classes}
-  {...$$restProps}
+
 >
   {#each children as child}
     {#if Array.isArray(child.children)}
-      <RecursiveListItem itemClass = {activeHref===child.href?(itemClass+' active'):itemClass} {...child}>
-        <svelte:self {...child} type="{type}" nested />
+      <RecursiveListItem itemClass = {activeHref===child.href?(itemClass+' active'):itemClass} {...{id:child.id,name:child.name,text:child.text,html:child.html,href:child.href,icon:child.icon}}>
+        <svelte:self {...{children:child.children}} type="{type}" />
       </RecursiveListItem>
     {:else}
-      <RecursiveListItem itemClass = {activeHref===child.href?(itemClass+' active'):itemClass} {...child} />
+      <RecursiveListItem itemClass = {activeHref===child.href?(itemClass+' active'):itemClass} {...{id:child.id,name:child.name,text:child.text,html:child.html,href:child.href,icon:child.icon}} />
     {/if}
   {/each}
 </svelte:component>
