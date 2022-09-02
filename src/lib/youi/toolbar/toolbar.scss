@@ -6,4 +6,16 @@
   background: #f9f9f9;
   border-bottom: 1px solid #dddddd;
   width: 100%;
+
+  .btn{
+    height: 1.8rem;
+    min-width: 1.8rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    &:hover:not(:disabled){
+      background: #b9c6d2;
+    }
+  }
 }
