@@ -1,0 +1,14 @@
+[package]
+name = "youi-dsl"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+rhai = {version="1.7.0",features=["serde","internals"]}
+polars-core = {version="0.23.1",features=["strings","string_encoding"]}
+polars-lazy = {version="0.23.1",features=["csv-file","concat_str"]}
+polars-io = {version="0.23.1",features=["csv-file","json"]}
+itertools = "0.10.3"
+youi-dataframe={version="1.0.0",path="../dataframe",features=["sqlite_dataframe"]}

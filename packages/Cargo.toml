@@ -1,6 +1,11 @@
 [workspace]
 members = [
     "tauri/tauri-plugin-fs-extra",
-    "tauri/tauri-plugin-sql"
+    "tauri/tauri-plugin-sql",
+    "youi/search",
+    "youi/dataframe",
+    "youi/etl",
+    "youi/query",
+    "youi/dsl",
 ]
 

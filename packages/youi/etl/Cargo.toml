@@ -1,0 +1,11 @@
+[package]
+name = "youi-etl"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+fehler = "1"
+thiserror = "1.0"
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+petgraph = "0.6.2"

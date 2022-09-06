@@ -1,0 +1,35 @@
+[package]
+name = "youi-dataframe"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+fehler = "1"
+thiserror = "1.0"
+polars-core = {version="0.23.1",features=["strings","string_encoding","diagonal_concat"]}
+polars-lazy = {version="0.23.1",features=["csv-file","concat_str","strings"]}
+polars-io = {version="0.23.1",features=["csv-file","json"]}
+polars-utils = "0.23.1"
+polars-ops = "0.23.1"
+polars-time = "0.23.1"
+serde = "1.0"
+serde_json = { version = "1"}
+
+dotenv = "0.10"
+message-io = "0.14"
+futures = {version="0.3.21",features=["thread-pool"]}
+futures-util = "0.3.21"
+itertools = "0.10.3"
+youi-search={version="1.0.0",path="../search"}
+
+arrow2 = {version="0.11.2",features=["compute_concatenate"]}
+
+sqlx = { version = "0.5", features = ["sqlite","runtime-tokio-rustls"], optional = true }
+sqlparser = {version="0.20.0",optional = true}
+
+calamine = {version="0.18.0",optional = true}
+
+[features]
+any = []
+sqlite_dataframe=["sqlx","sqlparser"]
+xls_dataframe=["calamine"]
