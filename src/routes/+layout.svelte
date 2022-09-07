@@ -16,20 +16,10 @@
 
 <LeftMenu {menus} {activeModule}/>
 
-<div class="flex-container flex-column">
+<div class="content flex-1">
 	<Header />
-	<main>
+	<main class="content flex-1 flex-row flex-full">
 		<slot/>
 	</main>
 </div>
 
-<style lang="scss">
-	main {
-		flex: 1;
-		display: flex;
-		padding: 0px;
-		width: 100%;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-</style>

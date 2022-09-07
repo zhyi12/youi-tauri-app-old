@@ -16,10 +16,12 @@
 
 html{
 	overflow: hidden;
+	height: 100%;
 }
 
 body {
-	min-height: 100vh;
+	height: 100%;
+	min-height: 500px;
 	display: flex;
 	margin: 0;
 	font-size: 1rem;
@@ -32,6 +34,10 @@ body {
 	/*);*/
 }
 
+.no-overflow{
+
+}
+
 button{
 	font-size: 1rem;
 }
@@ -41,18 +47,14 @@ button{
 	background: url("/logo.png") center center no-repeat;
 }
 
-.flex-container{
-	display: flex;
-	flex: 1;
-}
-
 .flex-column{
 	flex-direction: column;
 }
 
-.page-container{
+.app-container{
 	flex: 1;
 	display: flex;
+	height: 100%;
 }
 
 .page-container.column{
@@ -63,12 +65,33 @@ button{
 	border-right: 1px solid #dddddd;
 }
 
-.container-auto-height{
+.flex-full {
 	flex: 1;
-	height:0;
+	overflow: auto;
+	height: 0;
 }
 
-.full-height{
+.content {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.padding{
+	padding:6px;
+}
+
+.border-top{
+	border-top: 1px solid #dddddd;
+}
+
+.flex-row {
+	flex-direction: row;
+}
+
+.flex-row>.flex-full {
+	overflow: auto;
+	width: 0;
 	height: 100%;
 }
 
@@ -88,16 +111,6 @@ button{
 
 .hover-group:hover>.hover-item{
 	display: inline-block;
-}
-
-.flex-1{
-	flex: 1;
-}
-
-.option-item{
-	line-height: 1rem;
-	vertical-align: middle;
-	display: flex;
 }
 
 .option-item>.fa-icon{
@@ -134,4 +147,7 @@ button{
 	text-align: center;
 	line-height: 28px;
 	padding-left: 1px;
+}
+.width-64{
+	width: 64px;
 }

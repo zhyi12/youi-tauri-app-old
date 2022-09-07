@@ -3,7 +3,10 @@
     import { contextKey } from './mapbox.js'
     import action from './map-action.js'
     import { EventQueue } from './queue.js'
-
+    import {classnames} from "../../youi/index";
+    let className = '';
+    /*  样式 */
+    export { className as class };
     export let map = null
     export let version = 'v2.3.1'
     export let center = [ 0, 0 ]
@@ -16,6 +19,8 @@
     export let style = 'mapbox://styles/mapbox/streets-v11'
 
     const dispatch = createEventDispatcher()
+
+    $:classes = classnames("youi-mapbox",className);
 
     setContext(contextKey, {
         getMap: () => map,
@@ -88,7 +93,7 @@
     $: zoom && setZoom(zoom)
 </script>
 
-<div
+<div class={classes}
         use:action={optionsWithDefaults}
         on:ready={init}
         on:recentre

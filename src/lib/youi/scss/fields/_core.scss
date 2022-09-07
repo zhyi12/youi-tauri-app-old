@@ -1,0 +1,8 @@
+.youi-field{
+  &.readonly{
+    > .form-control,
+    > .btn{
+      color: silver;
+    }
+  }
+}

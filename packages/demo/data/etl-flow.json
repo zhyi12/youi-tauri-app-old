@@ -1,0 +1,237 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "text": "开始",
+      "node_type": "start"
+    },
+    {
+      "id": "csv0101",
+      "text": "法人单位数据",
+      "node_type": "read_csv",
+      "params": [
+        {
+          "name": "path",
+          "data_type": "string",
+          "value": "/Volumes/D/data/0101.csv"
+        }
+      ],
+      "inputs": [
+        {
+          "name": "流水号"
+        },
+        {
+          "name": "社会信用代码"
+        },
+        {
+          "name": "详细名称"
+        },
+        {
+          "name": "组织机构代码"
+        },
+        {
+          "name": "法定代表人"
+        },
+        {
+          "name": "详细地址"
+        },
+        {
+          "name": "行政区划代码"
+        },
+        {
+          "name": "单位注册地址"
+        },
+        {
+          "name": "单位注册区划",
+          "alias": "行政区划代码"
+        },
+        {
+          "name": "长途区号"
+        },
+        {
+          "name": "固定电话"
+        },
+        {
+          "name": "固话分机号"
+        },
+        {
+          "name": "移动电话"
+        },
+        {
+          "name": "主要业务活动1"
+        },
+        {
+          "name": "主要业务活动2"
+        },
+        {
+          "name": "主要业务活动3"
+        },
+        {
+          "name": "行业代码"
+        },
+        {
+          "name": "机构类型"
+        },
+        {
+          "name": "登记注册类型"
+        },
+        {
+          "name": "状态"
+        },
+        {
+          "name": "确认级别"
+        }
+      ]
+    },
+    {
+      "id": "csv0102",
+      "text": "产业活动单位",
+      "node_type": "read_csv",
+      "params": [
+        {
+          "name": "path",
+          "value": "/Volumes/D/data/0102.csv"
+        }
+      ],
+      "inputs": [
+        {
+          "name": "流水号"
+        },
+        {
+          "name": "社会信用代码"
+        },
+        {
+          "name": "组织机构代码"
+        },
+        {
+          "name": "详细名称"
+        },
+        {
+          "name": "单位负责人","alias": ""
+        },
+        {
+          "name": "详细地址"
+        },
+        {
+          "name": "行政区划代码"
+        },
+        {
+          "name": "长途区号"
+        },
+        {
+          "name": "固定电话"
+        },
+        {
+          "name": "固定分机号"
+        },
+        {
+          "name": "移动电话"
+        },
+        {
+          "name": "主要业务活动1"
+        },
+        {
+          "name": "主要业务活动2"
+        },
+        {
+          "name": "主要业务活动3"
+        },
+        {
+          "name": "行业代码"
+        },
+        {
+          "name": "机构类型"
+        },
+        {
+          "name": "登记注册类型"
+        },
+        {
+          "name": "企业营业状态"
+        },
+        {
+          "name": "状态"
+        },
+        {
+          "name": "确认级别"
+        }
+      ]
+    },
+    {
+      "id": "union001",
+      "text": "",
+      "node_type": "union",
+      "params": [
+        {
+          "name": "how",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "write_csv001",
+      "text": "",
+      "node_type": "write_csv",
+      "params": [
+        {
+          "name": "path",
+          "value": "/Volumes/D/data/result.csv"
+        }
+      ]
+    },
+    {
+      "id": "agg001",
+      "text": "",
+      "node_type": "agg"
+    },
+    {
+      "id": "end",
+      "text": "",
+      "node_type": "end"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "t001",
+      "text": "",
+      "from": "start",
+      "to": "csv0101"
+    },
+    {
+      "id": "t002",
+      "text": "",
+      "from": "start",
+      "to": "csv0102"
+    },
+    {
+      "id": "t003",
+      "text": "",
+      "from": "csv0101",
+      "to": "union001"
+    },
+    {
+      "id": "t004",
+      "text": "",
+      "from": "csv0102",
+      "to": "union001"
+    },
+    {
+      "id": "t005",
+      "text": "",
+      "from": "union001",
+      "to": "write_csv001"
+    },
+
+    {
+      "id": "t006",
+      "text": "",
+      "from": "union001",
+      "to": "end"
+    },
+    {
+      "id": "t007",
+      "text": "",
+      "from": "csv0101",
+      "to": "agg001"
+    }
+  ]
+}

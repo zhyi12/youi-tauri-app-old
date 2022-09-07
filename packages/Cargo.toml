@@ -7,5 +7,6 @@ members = [
     "youi/etl",
     "youi/query",
     "youi/dsl",
+    "demo"
 ]
 

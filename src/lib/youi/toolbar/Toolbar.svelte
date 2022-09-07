@@ -6,9 +6,10 @@
     let className = '';
     export { className as class };
 
+    export let dirty = false;
     export let buttons:ButtonProps[] = [];
 
-    $: classes = classnames("youi-toolbar",className);
+    $: classes = classnames("youi-toolbar",className,dirty?'dirty':'');
 </script>
 
 <section

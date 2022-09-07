@@ -1,0 +1,7 @@
+.fieldFieldDialog{
+  cursor: pointer;
+  >button{
+    width: 6rem;
+    border: $border-width solid $border-color;
+  }
+}

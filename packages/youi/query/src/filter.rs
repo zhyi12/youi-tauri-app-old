@@ -1,6 +1,7 @@
 use std::pin::Pin;
 use trees::{Node, Tree};
 use super::{StepInfo,Result};
+use crate::util::build_lit;
 
 #[derive(Clone,Debug)]
 pub enum Condition{
@@ -12,7 +13,7 @@ pub enum Condition{
 impl Condition {
 
     pub fn from(cond:&super::Condition)->Self{
-        match cond.name.as_ref().unwrap_or(&String::new()).as_str() {
+        match cond.name.as_ref().unwrap_or(&String::new()).to_uppercase().as_ref() {
             "AND" => Condition::And(cond.level.unwrap_or(1)),
             "OR" => Condition::Or(cond.level.unwrap_or(1)),
             _=>{Condition::Condition(cond.clone())}
@@ -33,12 +34,16 @@ impl Condition {
         }
     }
 
-    pub fn build(&self)->Result<String>{
+    pub fn build(&self) -> Result<String> {
         Ok(match self {
-            Condition::And(_) => {String::from("and")}
-            Condition::Or(_) => {String::from("or")}
-            Condition::Condition(cond) => {format!("col(\"{}\").{}(expr(\"1\"))",cond.property.as_ref().unwrap(),
-                                                   cond.operator.as_ref().unwrap())}
+            Condition::And(_) => { String::from("and") }
+            Condition::Or(_) => { String::from("or") }
+            Condition::Condition(cond) => {
+                format!("col(\"{}\").{}({})", cond.property.as_ref().unwrap(),
+                        cond.operator.as_ref().unwrap(),
+                        build_lit(&cond.value.as_ref().unwrap_or(&String::new()),
+                                  &cond.data_type.as_ref().unwrap_or(&String::from("str"))))
+            }
         })
     }
 }
@@ -53,8 +58,8 @@ pub struct Filter{
 impl Filter {
 
     pub fn from(step_info:&StepInfo)->Self{
-
-        let condition_tree:Tree<Condition> = build_condition_tree(&step_info.filters.as_ref().unwrap());
+        println!("{:?}",step_info);
+        let condition_tree:Tree<Condition> = build_condition_tree(&step_info.conditions.as_ref().unwrap());
 
         Self{
             id:String::from(&step_info.id),

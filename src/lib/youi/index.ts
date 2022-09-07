@@ -1,10 +1,21 @@
 
 export { default as Button } from './button/Button.svelte';
 
+export { default as DataTable } from './table/DataTable.svelte';
+export { default as DataTableCol } from './table/DataTableCol.svelte';
+
 export { default as Dropdown } from './dropdown/Dropdown.svelte';
 export { default as DropdownItem } from './dropdown/DropdownItem.svelte';
 export { default as DropdownToggle } from './dropdown/DropdownToggle.svelte';
 export { default as DropdownMenu } from './dropdown/DropdownMenu.svelte';
+
+export { default as FormItem} from './form/FormItem.svelte';
+export { default as FieldInput} from './field/FieldInput.svelte';
+export { default as FieldSelect} from './field/FieldSelect.svelte';
+
+export { default as Input} from './Input.svelte';
+
+export { default as List } from './list-box/List.svelte';
 
 export { default as Modal } from './modal/Modal.svelte';
 export { default as ModalBody } from './modal/ModalBody.svelte';
@@ -29,10 +40,12 @@ export { default as sortIcon } from './icons/sort';
 export { default as linkIcon } from './icons/link';
 export { default as hashtagIcon } from './icons/hashtag';
 export { default as pencilIcon } from './icons/pencil';
+export { default as removeIcon } from './icons/close';
 export { default as searchIcon } from './icons/search.js';
 export { default as globeIcon } from './icons/globe.js';
 export { default as databaseIcon } from './icons/database.js';
 export { default as hddIcon } from './icons/hdd-o.js';
 
-export {default as classnames} from './util/utils';
-export {buildPathTree} from './util/tree.util';
+export {default as classnames,uuid,toPixel} from './util/utils';
+export {replaceItem,findItemIndex,isSame} from './util/array.util';
+export {buildPathTree,findParentNode,computeTreeLeafDepth,findTreeNode,removeTreeNode,traverse} from './util/tree.util';

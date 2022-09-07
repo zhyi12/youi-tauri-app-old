@@ -18,8 +18,6 @@ export async function load({url,params}) {
         await init_mock_data();
     }
 
-    //const a = await findCustomQuery("");
-
     if(!app_menus.length){
         //防止重复加载数据
         const loaded_app_menus = await findAppMenus();

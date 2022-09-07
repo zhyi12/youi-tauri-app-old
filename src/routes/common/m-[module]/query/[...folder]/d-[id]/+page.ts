@@ -3,6 +3,6 @@ import type {LoadEvent} from "@sveltejs/kit";
 export async function load({parent}:LoadEvent) {
     const {id,steps} = await parent();
     return {
-        id,steps
+        id,step:steps[0]
     }
 }

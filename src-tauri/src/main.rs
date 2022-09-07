@@ -11,6 +11,7 @@ const DB_URL: &str = "app.db";
 fn main() {
   tauri::Builder::default()
       .plugin(FsExtra::default())
+      .plugin(youi_plugin_dsl::init())
       .plugin(TauriSql::default().add_migrations(
     &format!("sqlite:{}",DB_URL),
     vec![Migration {

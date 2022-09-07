@@ -19,7 +19,7 @@
 
 </script>
 
-<MapBox accessToken="pk.eyJ1Ijoiemh5aTEyIiwiYSI6ImNsNjgyYWNzZDNxaHgzam8xbTJ0b2JtdGUifQ.FOHj9ZueVLkivDvj9fHPZA"
+<MapBox class="flex-1" accessToken="pk.eyJ1Ijoiemh5aTEyIiwiYSI6ImNsNjgyYWNzZDNxaHgzam8xbTJ0b2JtdGUifQ.FOHj9ZueVLkivDvj9fHPZA"
         bind:this={map} {center} {style}
         options={{ scrollZoom: true }}
 >

@@ -3,12 +3,12 @@
  * @param {HTMLLIElement} node
  * @returns {number} depth
  */
-export function computeTreeLeafDepth(node:HTMLElement) {
+export function computeTreeLeafDepth(node) {
 	let depth = 0;
 
 	if (node == null) return depth;
 
-	let parentNode:HTMLElement|null = node.parentElement;
+	let parentNode = node.parentElement;
 
 	while (parentNode != null && parentNode.getAttribute("role") !== "tree") {
 		parentNode = parentNode.parentElement;
@@ -23,9 +23,9 @@ export function computeTreeLeafDepth(node:HTMLElement) {
  * @param items
  * @param id
  */
-export function findTreeNode(children:TreeNode[],nodeId:string):TreeNode|null{
+export function findTreeNode(children,nodeId){
 	for(let i=0;i<children.length;i++){
-		const item:TreeNode = children[i];
+		const item = children[i];
 		if(item.id == nodeId){
 			return item;
 		}else if(Array.isArray(item.children)){
@@ -38,13 +38,13 @@ export function findTreeNode(children:TreeNode[],nodeId:string):TreeNode|null{
 	return null;
 }
 
-export function findParentNode(node:TreeNode,childNodeId:string):TreeNode|null{
+export function findParentNode(node,childNodeId){
 	if(node.children && node.children.length){
 		if(node.children.filter(({id})=>id == childNodeId).length){
 			return node;
 		}else{
 			for(let i=0;i<node.children.length;i++){
-				const parent:TreeNode|null = findParentNode(node.children[i],childNodeId);
+				const parent = findParentNode(node.children[i],childNodeId);
 				if(parent){
 					return parent;
 				}
@@ -54,9 +54,9 @@ export function findParentNode(node:TreeNode,childNodeId:string):TreeNode|null{
 	return null;
 }
 
-export function removeTreeNode(children:TreeNode[],nodeId:string,parentNode:TreeNode):TreeNode|null{
+export function removeTreeNode(children,nodeId,parentNode){
 	for(let i=0;i<children.length;i++){
-		const item:TreeNode = children[i];
+		const item = children[i];
 		if(item.id == nodeId){
 			children.splice(i,1);
 			return parentNode;
@@ -73,8 +73,8 @@ export function removeTreeNode(children:TreeNode[],nodeId:string,parentNode:Tree
  * @param onlyLeaf 仅叶子节点
  * @param childrenKey
  */
-export function traverse(children:TreeNode[],onlyLeaf=false,childrenKey = 'children',level=1){
-	let nodes:TreeNode[] = [];
+export function traverse(children,onlyLeaf=false,childrenKey = 'children',level=1){
+	let nodes = [];
 	children.forEach((node) => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
@@ -105,20 +105,18 @@ export function traverse(children:TreeNode[],onlyLeaf=false,childrenKey = 'child
  * @param paths
  * @param prefix
  */
-export function buildPathTree(paths:string[],prefix='',pathDataMap:Record<string, any>){
-	const children:TreeNode[] = [];
+export function buildPathTree(paths,prefix='',pathDataMap){
+	const children = [];
 
-	const root:TreeNode = {id:'root',text:'root',children:children};
+	const root = {id:'root',text:'root',children:children};
 
 	const pathNodeMap = new Map();
 
-	paths.forEach((path:string,index)=>{
-		const splits:string[] = path.split("/");
-		const node:TreeNode = {id:'node_'+index,text:splits[splits.length-1],children:[],
+	paths.forEach((path,index)=>{
+		const splits = path.split("/");
+		const node = {id:'node_'+index,text:splits[splits.length-1],children:[],
 			datas:{path:path}};
 		if(pathDataMap[path]){
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
 			Object.assign(node.datas,pathDataMap[path]);
 			if(node.datas){
 				node.href = node.datas.href;
@@ -143,15 +141,5 @@ export function buildPathTree(paths:string[],prefix='',pathDataMap:Record<string
 	});
 
 	return children;
-}
-
-type TreeNode = {
-	id:string,
-	text:string,
-	html?:string,
-	children?:TreeNode[],
-	icon?:string,
-	href?:string,
-	datas?:Record<string, any>
 }
 

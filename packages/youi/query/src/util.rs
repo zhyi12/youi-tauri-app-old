@@ -30,3 +30,14 @@ pub fn build_select_exprs(columns:&Vec<Column>,selected_column_names:&Vec<String
 
     select_exprs
 }
+
+///
+///
+///
+pub fn build_lit(value:&str,data_type:&str)->String{
+    let wrap = match data_type {
+        "str"=>"\"",
+        _=>""
+    };
+    format!("lit({}{}{})",wrap,value,wrap)
+}

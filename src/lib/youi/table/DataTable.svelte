@@ -33,7 +33,7 @@
      * Set to `true` for the expandable variant
      * Automatically set to `true` if `batchExpansion` is `true`
      */
-    export let expandable = false;
+    // export let expandable = false;
 
     /**
      * Set to `true` to enable batch expansion
@@ -79,6 +79,8 @@
     export let contentHeight: number = undefined;
     export let columns = [];//列信息
     export let idKeys = [];
+    export let striped = false;
+    export let bordered = false;
 
     let dispatch = createEventDispatcher();
     const batchSelectedIds = writable([]);
@@ -271,7 +273,7 @@
         <slot/>
     </div>
     <div class="data-table-container" style:height={contentHeight?(toPixel(contentHeight)):''}>
-        <Table>
+        <Table {striped} {bordered}>
             <thead>
             {#each headerRows as headerRow,rowIndex}
                 <tr>

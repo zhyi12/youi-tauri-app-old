@@ -1,0 +1,111 @@
+[
+  {
+    "id": "step001",
+    "text": "读数据",
+    "name": "reader",
+    "reader": "read_csv",
+    "uri": "/Volumes/D/data/local/年度数据/area.csv",
+    "columns": [
+      {
+        "id": "ID",
+        "name": "ID",
+        "text": "ID",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "PID",
+        "name": "PID",
+        "text": "PID",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "CODE",
+        "name": "CODE",
+        "text": "CODE",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "CAPTION",
+        "name": "CAPTION",
+        "text": "CAPTION",
+        "dataType": "str",
+        "checked": true
+      }
+    ],
+    "selectedColumns": [
+      "ID",
+      "PID",
+      "CODE",
+      "CAPTION"
+    ]
+  },
+  {
+    "id": "4f571881-41d9-4818-866b-897c56995637",
+    "name": "filter",
+    "text": "过滤",
+    "conditions": [
+      {
+        "id": "root",
+        "name": "and",
+        "level": 0,
+        "text": "且",
+        "type": "conn",
+        "operator": "eq"
+      },
+      {
+        "id": "f01",
+        "name": "",
+        "property": "CODE",
+        "level": 1,
+        "text": "CODE",
+        "dataType": "i64",
+        "type": "cond",
+        "value": "440100000000",
+        "operator": "eq"
+      }
+    ]
+  }, {
+  "id": "step005",
+  "text": "左右连接",
+  "name": "join",
+  "joinHow": "left",
+  "reader": "read_csv",
+  "uri": "/Volumes/D/data/local/年度数据/data_join.csv",
+  "columns": [
+    {
+      "id": "ID",
+      "name": "ID",
+      "text": "ID",
+      "dataType": "i64"
+    },
+    {
+      "id": "PID",
+      "name": "PID",
+      "text": "PID",
+      "dataType": "i64"
+    },
+    {
+      "id": "CODE",
+      "name": "CODE",
+      "text": "CODE",
+      "dataType": "i64"
+    },
+    {
+      "id": "CAPTION",
+      "name": "CAPTION",
+      "text": "CAPTION",
+      "dataType": "str"
+    }
+  ],
+  "joinColumns": [
+    {
+      "left": "ID",
+      "right": "ID",
+      "name": "ID"
+    }
+  ]
+}
+]

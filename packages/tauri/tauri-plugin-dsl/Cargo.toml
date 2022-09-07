@@ -1,0 +1,13 @@
+[package]
+name = "youi-plugin-dsl"
+version = "1.0.0"
+edition = "2021"
+[dependencies]
+tauri="1.0.5"
+rhai = {version="1.7.0",features=["serde","internals"]}
+tokio = { version = "1.19", features = ["sync"] }
+futures = "0.3"
+
+youi-dsl={version="1.0.0",path="../../youi/dsl"}
+youi-etl={version="1.0.0",path="../../youi/etl"}
+youi-query={version="1.0.0",path="../../youi/query"}

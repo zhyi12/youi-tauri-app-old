@@ -1,6 +1,9 @@
-<script>
+<script  lang="ts">
     import {Toolbar,buildPathTree,Button,RecursiveList,Icon,plusIcon} from "$lib/youi";
     import StepCreator from './creator/_StepCreator.svelte';
+    import {setContext} from "svelte";
+    import type {StepInfo} from "$lib/app-entity/dmp/customQuery";
+
     export let data;
 
     let children = [];//树节点
@@ -9,6 +12,32 @@
     $:folder = data.folder;
 
     let showCreator = false;
+
+    setContext('module_query',{
+        add:(query)=>{
+            console.log(query);
+        }
+    });
+
+    /**
+     *
+     */
+    const handle_query_save = ({detail}) => {
+      let query = {
+          caption:detail.caption,
+          steps:[
+              {
+                  id:'step001',
+                  name:'reader',
+                  reader:detail.reader,
+                  uri:detail.uri,
+                  columns:detail.columns
+              } as StepInfo
+          ]
+      };
+
+      console.log(query)
+    }
 
     function buildChildren(queryList) {
         let treePaths = [];//queryList.map(query=>query.query_path);
@@ -40,7 +69,7 @@
 
 <div style="width:210px;" class="page-left">
     <Toolbar>
-        <Button title="新增" on:click={()=>showCreator = true}>
+        <Button title="新增" href={`/common/m-${module}/query/${folder}/d-create`}>
             <Icon data={plusIcon}></Icon>
         </Button>
 
@@ -55,12 +84,12 @@
 
 </div>
 
-<div class="page-container flex-column">
+<div class="flex-1 content">
     <slot>
 
     </slot>
 </div>
 
-<StepCreator bind:isOpen={showCreator}>
+<StepCreator bind:isOpen={showCreator} on:save={handle_query_save}>
 
 </StepCreator>

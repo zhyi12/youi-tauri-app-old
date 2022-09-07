@@ -5,12 +5,6 @@
   /** Specify whether the checkbox is indeterminate */
   export let indeterminate = false;
 
-  /**
-   * Specify the title attribute for the label element
-   * @type {string}
-   */
-  export let title = undefined;
-
   /** Set an id for the input label */
   export let id = "ccs-" + Math.random().toString(36);
 

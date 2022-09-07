@@ -28,7 +28,7 @@
 
 </SubMenu>
 
-<div class="page-container">
+<div class="content flex-row flex-1">
     <slot>
 
     </slot>

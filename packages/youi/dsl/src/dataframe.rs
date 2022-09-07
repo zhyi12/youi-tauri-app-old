@@ -255,22 +255,22 @@ pub mod ds_module {
         JE::and(expr,other)
     }
 
-    #[rhai_fn(name = "expr")]
+    #[rhai_fn(name = "lit")]
     pub fn value_expr(value:String)->JE{
         JE::value_expr(value)
     }
 
-    #[rhai_fn(name = "expr")]
+    #[rhai_fn(name = "lit")]
     pub fn value_expr_i64(value:i64)->JE{
         JE::value_expr_i64(value)
     }
 
-    #[rhai_fn(name = "expr")]
+    #[rhai_fn(name = "lit")]
     pub fn value_expr_bool(value:bool)->JE{
         JE::value_expr_bool(value)
     }
 
-    #[rhai_fn(name = "expr")]
+    #[rhai_fn(name = "lit")]
     pub fn value_expr_f64(value:f64)->JE{
         JE::value_expr_f64(value)
     }

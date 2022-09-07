@@ -346,6 +346,7 @@ $enable-transitions:          true !default;
 $enable-reduced-motion:       true !default;
 $enable-smooth-scroll:        true !default;
 $enable-grid-classes:         true !default;
+$enable-container-classes:    true !default;
 $enable-cssgrid:              false !default;
 $enable-button-pointers:      true !default;
 $enable-rfs:                  true !default;
@@ -357,7 +358,7 @@ $enable-important-utilities:  true !default;
 // Prefix for :root CSS variables
 
 $variable-prefix:             bs- !default;
-
+$prefix:                      $variable-prefix !default;
 // Gradient
 //
 // The gradient which is added to components if `$enable-gradients` is `true`
@@ -702,7 +703,7 @@ $table-th-font-weight:        null !default;
 
 $table-striped-color:         $table-color !default;
 $table-striped-bg-factor:     .05 !default;
-$table-striped-bg:            rgba($black, $table-striped-bg-factor) !default;
+$table-striped-bg:            $gray-100 !default;
 
 $table-active-color:          $table-color !default;
 $table-active-bg-factor:      .1 !default;
@@ -717,6 +718,7 @@ $table-border-width:          $border-width !default;
 $table-border-color:          $border-color !default;
 
 $table-striped-order:         odd !default;
+$table-striped-columns-order: even !default;
 
 $table-group-separator-color: currentColor !default;
 
@@ -744,7 +746,7 @@ $table-variants: (
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
 
 // scss-docs-start input-btn-variables
-$input-btn-padding-y:         .375rem !default;
+$input-btn-padding-y:         .175rem !default;
 $input-btn-padding-x:         .75rem !default;
 $input-btn-font-family:       null !default;
 $input-btn-font-size:         $font-size-base !default;
@@ -853,6 +855,7 @@ $input-padding-y-lg:                    $input-btn-padding-y-lg !default;
 $input-padding-x-lg:                    $input-btn-padding-x-lg !default;
 $input-font-size-lg:                    $input-btn-font-size-lg !default;
 
+$input-disabled-color:                  null !default;
 $input-bg:                              $body-bg !default;
 $input-disabled-bg:                     $gray-200 !default;
 $input-disabled-border-color:           null !default;

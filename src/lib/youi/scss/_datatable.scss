@@ -1,0 +1,36 @@
+.open .youi-data-table table thead{
+  position: initial;
+}
+
+.youi-data-table{
+  table{
+    thead{
+      position: sticky;
+      top:0px;
+      th{
+        min-width: 60px;
+        white-space: nowrap;
+        text-align: center;
+        background: #eff4f9;
+        padding: 2px;
+      }
+    }
+
+    tbody {
+      td{
+        padding: 2px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &.flex-layout{
+    display: flex;
+    .data-table-container{
+      flex: 1;
+      width: 100%;
+      overflow: auto;
+    }
+  }
+
+}

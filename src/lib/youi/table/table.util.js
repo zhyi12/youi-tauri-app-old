@@ -51,9 +51,8 @@ export function buildHeaderRows(showColumns){
 				const rowspan = header.column.groupTexts.length==i+1?header.expandedRowspan:1;
 				let colspan = 1;
 				if(header.columnColspanList[i]){
-						colspan = header.columnColspanList[i];
+					colspan = header.columnColspanList[i];
 				}
-
 				if(colspan>0){
 					rowHeader.cells.push({
 						text:text,
@@ -69,7 +68,6 @@ export function buildHeaderRows(showColumns){
 
 		rowHeaders.push(rowHeader);
 	}
-
 	return rowHeaders;
 }
 
@@ -101,7 +99,7 @@ function _buildHeaders(showColumns,maxLevel){
 				});
 			}
 		}
-		return {column:groupColumn,expandedRowspan:expandedRowspan,columnColspanList:columnColspanList,paths:paths};
+		return {column:groupColumn,expandedRowspan,columnColspanList,paths};
 	});
 }
 

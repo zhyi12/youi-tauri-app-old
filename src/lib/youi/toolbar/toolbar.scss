@@ -7,6 +7,12 @@
   border-bottom: 1px solid #dddddd;
   width: 100%;
 
+  &.dirty{
+    .save:before{
+      content: '*';
+    }
+  }
+
   .btn{
     height: 1.6rem;
     line-height: 1.6rem;
@@ -31,6 +37,10 @@
     }
     &:hover:not(:disabled){
       background: #b9c6d2;
+    }
+
+    &:disabled{
+      color: silver;
     }
   }
 }

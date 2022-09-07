@@ -1,0 +1,11 @@
+.flex{
+  display: flex;
+
+  &.overflow{
+    overflow: auto;
+  }
+}
+
+.flex-1{
+  flex: 1;
+}

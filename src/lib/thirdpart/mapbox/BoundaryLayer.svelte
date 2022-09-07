@@ -10,23 +10,25 @@
     export let geoJson = undefined;
 
     onMount(() => {
-        map.addSource(name,{
-            type:'geojson',
-            data:geoJson
-        });
-        map.addLayer({
-            id:name,
-            type:'line',
-            source:name,
-            paint:{
-                'line-color': '#000',
-                'line-width': 3
-            }
-        });
+        if(geoJson.features && geoJson.features.length){
+            map.addSource(name,{
+                type:'geojson',
+                data:geoJson
+            });
+            map.addLayer({
+                id:name,
+                type:'line',
+                source:name,
+                paint:{
+                    'line-color': '#000',
+                    'line-width': 3
+                }
+            });
 
-        return ()=>{
-            map.removeLayer(name);
-            map.removeSource(name);
+            return ()=>{
+                map.removeLayer(name);
+                map.removeSource(name);
+            }
         }
     });
 

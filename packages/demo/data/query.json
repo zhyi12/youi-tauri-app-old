@@ -1,0 +1,75 @@
+[
+  {
+    "id": "step01",
+    "name": "reader",
+    "reader": "read_csv",
+    "uri": "/Volumes/D/data/0101.csv",
+    "text": "",
+    "columns": [
+      {
+        "name": "社会信用代码",
+        "text": ""
+      },
+      {
+        "name": "详细名称",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "id": "step02",
+    "name": "union",
+    "text": "",
+    "reader": "read_csv",
+    "uri": "/Volumes/D/data/0102.csv",
+    "columns": [
+      {
+        "name": "社会信用代码",
+        "text": ""
+      },
+      {
+        "name": "详细名称",
+        "text": ""
+      }
+    ]
+  }, {
+    "id": "step03",
+    "name": "filter",
+    "text": "",
+    "filters": [
+      {
+        "id": "f001",
+        "name": "AND",
+        "level": 0
+      },
+      {
+        "id": "f002",
+        "property": "社会信用代码",
+        "operator": "eq",
+        "level": 1
+      },{
+        "id": "f003",
+        "name": "OR",
+        "level": 1
+      },
+      {
+        "id": "f004",
+        "property": "详细名称",
+        "operator": "eq",
+        "level": 2
+      },
+      {
+        "id": "f005",
+        "property": "详细名称",
+        "operator": "eq",
+        "level": 2
+      },
+      {
+        "id": "f006",
+        "property": "社会信用代码",
+        "operator": "eq",
+        "level": 1
+      }
+    ]
+  }
+]

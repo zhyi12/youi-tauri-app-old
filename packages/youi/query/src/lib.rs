@@ -52,24 +52,55 @@ pub type Result<T> = std::result::Result<T, errors::QueryError>;
 /// 步骤信息
 ///
 #[derive(Clone, Debug, Hash,Serialize,Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct StepInfo {
+    ///
+    /// 步骤唯一标志
+    ///
     pub id: String,
+    ///
+    /// 步骤名
+    ///
     pub name: String,
+    ///
+    /// 数据读取器，包括 read_csv read_sql等
+    ///
     pub reader: Option<String>,
+    ///
+    /// 数据读取uri路径
+    ///
     pub uri: Option<String>,
+    ///
+    /// 步骤中文描述信息
+    ///
     pub text: Option<String>,
-    pub table_name: Option<String>,
+    ///
+    /// 列信息集合
+    ///
     pub columns: Option<Vec<Column>>,
+    ///
+    /// 选择的列信息
+    ///
     pub selected_column_names: Option<Vec<String>>,
-    pub filters:Option<Vec<Condition>>,
-    pub join_table: Option<String>,
+    ///
+    /// 有序查询条件集合，可根据level属性转树型结构
+    ///
+    pub conditions:Option<Vec<Condition>>,
+    ///
+    /// 排序集合
+    ///
+    pub orders:Option<Vec<Order>>,
+    ///
+    /// join 连接方式
+    ///
     pub join_how: Option<String>,
-    pub orders:Option<Vec<Order>>
-    // join_columns?:Array<JoinColumn>,
+    ///
+    /// join 列集合
+    ///
+    pub join_columns:Option<Vec<JoinColumn>>,
     // groups?:Array<any>,
     // measureItems?:Array<any>,
     // addedColumn?:any,
-    // sorts:Array<Sort>
 }
 
 ///
@@ -83,22 +114,33 @@ pub struct Column {
     pub alias: Option<String>,
 }
 
+#[derive(Clone, Debug, Hash,Serialize,Deserialize)]
+pub struct JoinColumn{
+    pub left:String,
+    pub right:String,
+    pub name:String,
+    pub data_type: Option<String>,
+}
+
 ///
 /// 查询条件
 ///
 #[derive(Clone, Debug, Hash,Serialize,Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Condition{
     pub id: String,
     pub name:Option<String>,
     pub property: Option<String>,
     pub text: Option<String>,
     pub operator:Option<String>,
+    pub value:Option<String>,
+    pub data_type:Option<String>,
     pub level: Option<usize>
 }
 
 #[derive(Clone, Debug, Hash,Serialize,Deserialize)]
 pub struct Order{
-    pub name:String,
+    pub property:String,
     pub descending:bool
 }
 
@@ -134,8 +176,10 @@ impl Step {
         match step_info.name.as_str() {
             "reader" => Step::Reader(reader::Reader::from(&step_info)),
             "select" => Step::Select(select::Select::from(&step_info)),
-            "union"  =>  Step::Union(join::Union::from(&step_info)),
-            "filter" =>Step::Filter(filter::Filter::from(&step_info)),
+            "union"  => Step::Union(join::Union::from(&step_info)),
+            "filter" => Step::Filter(filter::Filter::from(&step_info)),
+            "sort" =>   Step::Sort(sort::Sort::from(&step_info)),
+            "join" =>   Step::Join(join::Join::from(&step_info)),
             _ => {
                 Step::Empty
             }
@@ -153,6 +197,8 @@ impl Step {
             Step::Select(x) => x.build(),
             Step::Union(x) => x.build(),
             Step::Filter(x)=>x.build(),
+            Step::Sort(x)=>x.build(),
+            Step::Join(x)=>x.build(),
             Step::Agg(_) => { Ok(String::new())}
             _ => Ok(String::new())
         }
@@ -164,12 +210,20 @@ impl Step {
 /// 构建分步查询脚本
 ///
 pub fn build_steps_script(step_infos:&Vec<StepInfo>)->Result<String>{
-    let script: String = step_infos.iter().map(|step_info| {
-        let step = Step::from(step_info);
-        step.build().unwrap()
-    }).filter(|s|s != "").join(".");
-    Ok(format!("let df = {}; df", script))
+
+    let mut scripts:Vec<String> = Vec::with_capacity(step_infos.len());
+    for idx in 0..step_infos.len(){
+        let step = Step::from(&step_infos[idx]);
+        scripts.push(step.build().unwrap());
+    }
+
+    let script: String = scripts.iter().filter(|s|!s.is_empty()).join("\n.");
+
+    //前一步骤的输出列
+
+    Ok(format!("{}", script))
 }
+
 ///
 /// json 转 DSL 执行脚本
 ///
