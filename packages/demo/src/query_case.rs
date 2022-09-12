@@ -1,4 +1,5 @@
 use youi_query::{StepInfo,build_steps_script};
+use youi_dsl::{df_engine,pager_execute};
 use crate::util::read_json_file;
 
 ///
@@ -12,10 +13,16 @@ fn query(json_path:&str){
 
     println!("{}",script);
 
-    // let result = stats_dsl::defalut_df_execute(&script);
-    // println!("{:?}",result.unwrap());
+    let engine = df_engine();
+
+    let result = pager_execute(&engine,&script,1,10);
+    println!("{:?}",result.unwrap());
 }
 
 pub fn query_steps(){
     query("query_steps.json");
+}
+
+pub fn query_union(){
+    query("query_union.json");
 }

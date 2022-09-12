@@ -1,3 +1,4 @@
+
 /**
  * 获取指定查询步骤的输出列
  * @param steps
@@ -17,7 +18,23 @@ export function parseOutColumns(steps, step){
         let rights = step.joinColumns.map(({right})=>right);
         outColumns = outColumns.concat(prevOutColumns.map(column=>({...column,property:column.name,caption:column.name})));
         outColumns = outColumns.concat(step.columns.filter(column=>!rights.includes(column.id))
-            .map(column=>({...column,id:column.name+'_right',name:column.name+'_right',property:column.name+'_right',caption:column.name+'_right'})));
+            .map(column=>({...column,id:column.name+'_right',name:column.name+'_right',
+                property:column.name+'_right',text:column.name+'_right',caption:column.name+'_right'})));
+    }else if(step.name === 'agg' && Array.isArray(step.groups) && Array.isArray(step.measureItems)){
+        //
+        outColumns = step.groups.map(group=>({
+            id:group.name,
+            property:group.name,
+            caption:group.name
+        }));
+
+        outColumns = outColumns.concat(step.measureItems.map(item=>({
+            id:item.name+'_'+item.aggregate,
+            property:item.name+'_'+item.aggregate,
+            caption:item.name+'_'+item.aggregate,
+        })));
+    }else if(step.name === 'union'){
+        outColumns = mergeUnionColumns(step.columns,step.unions);
     }
     return outColumns;
 }
@@ -48,4 +65,22 @@ export function parsePrevStepOutColumns(steps,stepId) {
     }
 
     return outColumns;
+}
+
+
+
+/**
+ *
+ * @param columns 原始列
+ * @param unions 合并数据集合
+ */
+export function mergeUnionColumns(columns,unions){
+    let mergedColumns = columns.filter(column=>column.name);
+    let mergedNames = columns.map(({name})=>name);
+
+    unions.forEach(({columns})=>{
+        mergedColumns = mergedColumns.concat(columns.filter(({name})=>name && !mergedNames.includes(name)));
+    });
+
+    return mergedColumns.map(column=>({...column,property:column.name,caption:column.name}));
 }

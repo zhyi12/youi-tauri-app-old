@@ -3,7 +3,8 @@ use rhai::{AST, Engine, Stmt, Expr, FnCallExpr, Dynamic};
 /// 转换为可执行的脚本
 ///
 pub fn transform(script:&str) ->String {
-    let engine = Engine::new();
+    let mut engine = Engine::new();
+    engine.set_max_expr_depths(0,0);
     let ast:AST = engine.compile(script).unwrap();
 
     let mut scripts = String::new();

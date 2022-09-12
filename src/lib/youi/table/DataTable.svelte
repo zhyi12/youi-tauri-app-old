@@ -272,7 +272,7 @@
     <div class="table-filter-container">
         <slot/>
     </div>
-    <div class="data-table-container" style:height={contentHeight?(toPixel(contentHeight)):''}>
+    <div class="data-table-container flex-full" style:height={contentHeight?(toPixel(contentHeight)):''}>
         <Table {striped} {bordered}>
             <thead>
             {#each headerRows as headerRow,rowIndex}
@@ -382,7 +382,7 @@
                 <PaginationLink last href="javascript:void(0);"  on:click={() => pagination.pageCount !== pageIndex && goPage(pagination.pageCount)}/>
             </PaginationItem>
             <li class="page-item">
-                 {pageIndex}/{Math.ceil(totalCount/pageSize)}页,{totalCount}条记录.
+                <span style="line-height: 2rem;vertical-align: middle;padding:2px;">{pageIndex}/{Math.ceil(totalCount/pageSize)}页,{totalCount}条记录.</span>
             </li>
         </Pagination>
     {/if}

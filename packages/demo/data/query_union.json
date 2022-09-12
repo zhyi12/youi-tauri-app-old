@@ -1,0 +1,97 @@
+[
+  {
+    "id": "step001",
+    "text": "读数据",
+    "name": "reader",
+    "reader": "read_csv",
+    "uri": "/Volumes/D/data/local/年度数据/data.csv",
+    "columns": [
+      {
+        "name": "id",
+        "text": "id",
+        "dataType": "str"
+      },
+      {
+        "name": "code",
+        "text": "code",
+        "dataType": "str"
+      },
+      {
+        "name": "group",
+        "text": "group",
+        "dataType": "str"
+      }
+    ],
+    "selectedColumns": [
+      "id",
+      "code",
+      "group"
+    ]
+  },
+  {
+    "id": "step002",
+    "name": "union",
+    "text": "上下合并",
+    "columns": [
+      {
+        "name": "id",
+        "text": "id",
+        "dataType": "str"
+      },
+      {
+        "name": "code",
+        "text": "code",
+        "dataType": "str"
+      },
+      {
+        "name": "group",
+        "text": "group",
+        "dataType": "str"
+      }
+    ],
+    "unions": [
+      {
+        "name": "read_csv",
+        "uri": "/Volumes/D/data/local/年度数据/data_union1.csv",
+        "columns": [
+          {
+            "name": "id",
+            "text": "id",
+            "dataType": "str"
+          },
+          {
+            "name": "code",
+            "text": "code",
+            "dataType": "str"
+          },
+          {
+            "name": "group",
+            "text": "group",
+            "dataType": "str"
+          }
+        ]
+      },
+      {
+        "name": "read_csv",
+        "uri": "/Volumes/D/data/local/年度数据/data_union2.csv",
+        "columns": [
+          {
+            "name": "id",
+            "text": "id",
+            "dataType": "str"
+          },
+          {
+            "name": "ucode",
+            "text": "ucode",
+            "dataType": "str"
+          },
+          {
+            "name": "ugroup",
+            "text": "ugroup",
+            "dataType": "str"
+          }
+        ]
+      }
+    ]
+  }
+]

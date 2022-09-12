@@ -10,6 +10,18 @@ export async function execute<T>(script: string): Promise<T> {
     });
 }
 
+/**
+ *
+ * @param query json
+ * @param pageIndex
+ * @param pageSize
+ */
+export async function query<T>(query: string,pageIndex:number,pageSize:number): Promise<T> {
+    return await invoke<string>('plugin:dsl|query', { query,pageIndex,pageSize }).then((result) => {
+        return JSON.parse(result);
+    });
+}
+
 export async function buildQueryScript(query: string): Promise<string> {
     return await invoke<string>('plugin:dsl|query_to_script', { query }).then((result) => {
         return result;

@@ -1,5 +1,6 @@
 <header>
     <div class="user-info">张三</div>
+    <span class="btn" on:click={()=>window.location.reload()}>刷新</span>
 </header>
 
 <style lang="scss">

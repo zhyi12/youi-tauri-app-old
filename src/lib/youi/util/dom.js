@@ -24,6 +24,22 @@ function load (assets, cb) {
     }
 }
 
+/**
+ *
+ * @param dom
+ * @param tagName
+ */
+function findClosestTag(dom,tagName){
+    let parent = dom;
+    while (parent){
+        if(parent.tagName && parent.tagName.toUpperCase()===tagName.toUpperCase()){
+            return parent;
+        }
+        parent = parent.parentNode;
+    }
+    return parent;
+}
+
 export {
-    load
+    load,findClosestTag
 }

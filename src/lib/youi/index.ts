@@ -1,6 +1,10 @@
 
 export { default as Button } from './button/Button.svelte';
 
+
+
+export { default as Table } from './table/Table.svelte';
+export { default as TableRow } from './table/TableRow.svelte';
 export { default as DataTable } from './table/DataTable.svelte';
 export { default as DataTableCol } from './table/DataTableCol.svelte';
 
@@ -17,13 +21,19 @@ export { default as Input} from './Input.svelte';
 
 export { default as List } from './list-box/List.svelte';
 
+export { default as Offcanvas } from './offcanvas/Offcanvas.svelte';
+export { default as OffcanvasBody } from './offcanvas/OffcanvasBody.svelte';
+
 export { default as Modal } from './modal/Modal.svelte';
 export { default as ModalBody } from './modal/ModalBody.svelte';
 export { default as ModalHeader } from './modal/ModalHeader.svelte';
 export { default as ModalFooter } from './modal/ModalFooter.svelte';
 
 export {default as RecursiveList} from './list/RecursiveList.svelte';
+export {default as ListTree} from './list/ListTree.svelte';
+
 export {default as Toolbar} from './toolbar/Toolbar.svelte';
+export {default as Tree} from './tree/Tree.svelte';
 
 export { default as Icon } from './icon/Icon.svelte';
 export { default as homeIcon } from './icons/home';

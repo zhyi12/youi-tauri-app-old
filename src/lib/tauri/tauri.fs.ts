@@ -131,6 +131,9 @@ export async function metadata(path: string): Promise<Metadata> {
  */
 export async function metadatas(path: string): Promise<Array<Metadata>> {
     return await invoke<Array<BackendMetadata>>('plugin:fs-extra|metadatas', { path }).then((metadatas) => {
+        if(!metadatas){
+            return [];
+        }
         return metadatas.map(metadata=>{
             const { accessedAtMs, createdAtMs, modifiedAtMs, ...data } = metadata;
             return {

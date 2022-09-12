@@ -6,6 +6,7 @@
 @import "scss/reboot";
 @import "scss/type";
 
+@import "scss/dropdown";
 @import "scss/flex";
 @import "scss/containers";
 @import "scss/grid";
@@ -17,8 +18,10 @@
 @import "scss/forms";
 @import "scss/button";
 @import "scss/close";
+@import "scss/offcanvas";
 @import "scss/modal";
-@import "dropdown/dropdown";
+@import "scss/pagination";
+
 @import "menu/menu";
 @import "tree/tree";
 

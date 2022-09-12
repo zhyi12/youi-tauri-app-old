@@ -7,6 +7,7 @@ import {dev,browser} from "$app/environment";
 import {init_mock_data} from "../lib/app-mocks/app.mock";
 
 let app_menus:Array<MenuInfo> = [];
+
 /**
  * 初始化数据加载
  */

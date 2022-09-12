@@ -1,5 +1,5 @@
 use rhai::{Engine};
-use youi_dsl::{df_engine, df_execute};
+use youi_dsl::{df_engine, df_execute, pager_execute};
 use youi_query::{json_to_script};
 use tauri::{plugin::{Builder, TauriPlugin}, Manager, Runtime, State, Error};
 
@@ -23,11 +23,11 @@ async fn execute(engine_instance: State<'_,ShareEngine>,script:String) ->Result<
 /// 根据标准的查询json，转换为dsl脚本并执行，返回结果数据集
 ///
 #[tauri::command]
-async fn query(engine_instance: State<'_,ShareEngine>,query:String) ->Result<String,Error>{
+async fn query(engine_instance: State<'_,ShareEngine>,query:String,page_index:usize,page_size:usize) ->Result<String,Error>{
     let result = json_to_script(&query);
     match result{
         Ok(script) => {
-            dsl_execute(&engine_instance.engine,&script)
+            Ok(pager_execute(&engine_instance.engine,&script,page_index,page_size).unwrap_or(String::from("{}")))
         }
         Err(_) => {
             Ok(String::from("[{error:\"query parse error\"}]"))

@@ -122,9 +122,15 @@ pub mod ds_module {
     ///
     /// 多数据集合并
     ///
-    pub fn concat(dfs:Vec<Dynamic>)->DF{
-        let dfs = dfs.iter().map(|d|d.clone_cast()).collect();
-        DF::concat(dfs)
+    pub fn concat(df:DF,dfs:Vec<Dynamic>)->DF{
+        let mut concat_dfs:Vec<DF> = Vec::with_capacity(dfs.len()+1);
+
+        let dfs:Vec<JsLazyFrame> = dfs.iter().map(|d|d.clone_cast()).collect();
+
+        concat_dfs.push(df);
+        dfs.iter().for_each(|d|concat_dfs.push(d.clone()));
+
+        DF::concat(concat_dfs)
     }
 
     ///

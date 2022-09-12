@@ -15,7 +15,7 @@ mod dataframe;
 ///
 /// 领域脚本执行及返回
 ///
-pub fn defalut_df_execute(script:&str)->Result<String, Box<EvalAltResult>>{
+pub fn default_df_execute(script:&str)->Result<String, Box<EvalAltResult>>{
     let engine = df_engine();
     df_execute(&engine,script)
 }
@@ -26,8 +26,6 @@ pub fn df_execute(engine:&Engine,script:&str)->Result<String, Box<EvalAltResult>
     //转换为可执行脚本
     let exec_script = transform::transform(script);
 
-    println!("exec_script:{}",exec_script);
-
     let result = df_eval(&engine,&exec_script)?;
 
     let df = result.df.collect().unwrap();
@@ -37,13 +35,40 @@ pub fn df_execute(engine:&Engine,script:&str)->Result<String, Box<EvalAltResult>
     Ok(json_str)
 }
 
+
+///
+/// 分页查询
+///
+pub fn pager_execute(engine:&Engine,script:&str,page_index:usize,page_size:usize)->Result<String, Box<EvalAltResult>>{
+
+    let exec_script = transform::transform(script);
+
+    let result = df_eval(&engine,&exec_script)?;
+
+    let offset = ((page_index-1).max(0) * page_size) as i64;
+    let rdf = result.df.clone().slice(offset,page_size as u32).collect();
+
+    match rdf {
+        Ok(df) => {
+            let total = result.df.collect().unwrap().height();
+            let json_str = df_to_json(df);
+            Ok(format!("{{\"total\":{},\"records\":{}}}",total,json_str))
+        }
+        Err(_) => {
+            Ok(format!("{{\"message\":{{\"code\":999999}},\"total\":0,\"records\":[]}}"))
+        }
+    }
+}
+
 ///
 ///
 ///
 pub fn df_engine()->Engine{
     let mut engine = Engine::new();
+
     let module = exported_module!(dataframe::ds_module);
 
+    engine.set_max_expr_depths(0,0);
     engine.register_global_module(module.into());
 
     engine

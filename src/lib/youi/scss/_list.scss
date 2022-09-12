@@ -85,3 +85,12 @@
   transition: background-color 70ms cubic-bezier(.2,0,.38,.9),outline 70ms cubic-bezier(.2,0,.38,.9);
 }
 
+.list-item{
+  &.active{
+    >.item-text{
+      color: $red;
+    }
+  }
+}
+
+

@@ -151,3 +151,6 @@ button{
 .width-64{
 	width: 64px;
 }
+.overflow{
+	overflow: auto;
+}

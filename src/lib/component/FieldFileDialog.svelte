@@ -21,9 +21,11 @@
 
     export let readonly = false;
 
+    export let multiple = false;
+
     export let placeholder:string = undefined;
 
-    let dispatcher = createEventDispatcher();
+    let dispatch = createEventDispatcher();
 
     $: classes = classnames(className,readonly?'readonly':'','youi-field input-group fieldFieldDialog');
     /**
@@ -34,13 +36,14 @@
             filters: [{
                 name: property,
                 extensions: extensions
-            }]
+            }],
+            multiple
         })
         if (selected === null){
             //取消选择
         }else {
             value = selected;
-            dispatcher('change',{value});
+            dispatch('change',{value});
         }
     }
 

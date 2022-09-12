@@ -252,11 +252,11 @@
 
 </script>
 
-<div class={classes} bind:this={ref} style:height={toPixel(height)} on:scroll={handle_scroll}>
+<div class={classes} bind:this={ref} on:scroll={handle_scroll}>
     <slot name="show" prop={show}>
 
     </slot>
-    <ul class="container">
+    <ul class="container" style:max-height={toPixel(height)}>
         <Connection name={conn} root={true} {children} level={0}>
 
         </Connection>
@@ -307,5 +307,6 @@
         border-bottom: 1px solid silver;
         border-right: 1px solid silver;
         padding: 0px;
+        overflow-y:auto;
     }
 </style>

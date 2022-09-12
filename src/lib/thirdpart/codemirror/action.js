@@ -41,7 +41,7 @@ function init (options, node) {
         dispatch(transaction) {
             this.update([transaction]);
             if(transaction.docChanged){
-                on_change();
+                on_change(transaction);
             }
         },
     });

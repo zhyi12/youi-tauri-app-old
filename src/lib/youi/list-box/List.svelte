@@ -13,10 +13,12 @@
 
     export let selectedIds = [];
 
-    // export let check = true;
+    export let check = true;
+
     export let itemStyle:string = undefined;
 
     export let draggable = false;
+
     export let draggingItem = null;
 
     export let droppable = false;
@@ -97,9 +99,11 @@
                     dispatch('check',item);
                 }}
         >
-            <span class="item-icon">
+            {#if check}
+                <span class="item-icon">
                 <Icon data={item.checked==false?icon_check:icon_checked}></Icon>
             </span>
+            {/if}
 
             <slot name="item" {item}>
                 <span class:item-text={true} class:active={item.checked}>

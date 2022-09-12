@@ -38,3 +38,11 @@
 .btn-close-white {
   filter: $btn-close-white-filter;
 }
+
+.btn-remove{
+  margin-top: -2px;
+  cursor: pointer;
+  &:hover{
+    color: $red;
+  }
+}

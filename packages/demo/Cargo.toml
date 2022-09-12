@@ -6,3 +6,4 @@ edition = "2021"
 serde = "1.0"
 serde_json = "1.0"
 youi-query={version="1.0.0",path="../youi/query"}
+youi-dsl={version="1.0.0",path="../youi/dsl"}

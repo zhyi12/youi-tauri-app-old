@@ -24,14 +24,12 @@
         editorView = e.editor;
     }
 
-    const docChanged = () => {
+    const docChanged = (_transaction) => {
         if(editorView && !updating){
             const new_value = editorView.state.doc.toString();
             if (new_value === value) return;
             let oldValue = value;
-            value = new_value;
-            console.log('input change');
-            dispatch("change", {value:value,oldValue});
+            dispatch("change", {value:new_value,oldValue});
         }
     }
 
@@ -58,3 +56,9 @@
 <div use:action={optionsWithDefaults} class="youi-codemirror"  style="width:100%">
 
 </div>
+
+<style>
+    .youi-codemirror{
+        border-bottom:1px solid #dddddd;
+    }
+</style>

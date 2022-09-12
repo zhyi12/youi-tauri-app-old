@@ -40,6 +40,7 @@ mod errors;
 mod reader;
 mod util;
 mod join;
+mod union;
 mod calculator;
 mod sort;
 
@@ -98,9 +99,16 @@ pub struct StepInfo {
     /// join 列集合
     ///
     pub join_columns:Option<Vec<JoinColumn>>,
-    // groups?:Array<any>,
-    // measureItems?:Array<any>,
-    // addedColumn?:any,
+    ///
+    /// 分组
+    ///
+    pub groups:Option<Vec<Group>>,
+    ///
+    /// 计量
+    ///
+    pub measure_items:Option<Vec<MeasureItem>>,
+
+    pub unions:Option<Vec<Reader>>
 }
 
 ///
@@ -144,6 +152,28 @@ pub struct Order{
     pub descending:bool
 }
 
+#[derive(Clone, Debug, Hash,Serialize,Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct MeasureItem{
+    id:String,
+    name:String,
+    text:Option<String>,
+    aggregate:Option<String>
+}
+
+#[derive(Clone, Debug, Hash,Serialize,Deserialize)]
+pub struct Group{
+    name:String,
+    text:Option<String>
+}
+
+#[derive(Clone, Debug, Hash,Serialize,Deserialize)]
+pub struct Reader{
+    name:String,
+    uri:String,
+    columns:Vec<Column>
+}
+
 ///
 /// 查询步骤
 ///
@@ -157,7 +187,7 @@ pub enum Step {
     /// 过滤
     Filter(filter::Filter),
     /// 上下连接
-    Union(join::Union),
+    Union(union::Union),
     /// 左右连接
     Join(join::Join),
     /// 排序
@@ -176,10 +206,11 @@ impl Step {
         match step_info.name.as_str() {
             "reader" => Step::Reader(reader::Reader::from(&step_info)),
             "select" => Step::Select(select::Select::from(&step_info)),
-            "union"  => Step::Union(join::Union::from(&step_info)),
+            "union"  => Step::Union(union::Union::from(&step_info)),
             "filter" => Step::Filter(filter::Filter::from(&step_info)),
             "sort" =>   Step::Sort(sort::Sort::from(&step_info)),
             "join" =>   Step::Join(join::Join::from(&step_info)),
+            "agg" =>   Step::Agg(agg::Agg::from(&step_info)),
             _ => {
                 Step::Empty
             }
@@ -193,13 +224,13 @@ impl Step {
     ///
     pub fn build(&self) -> Result<String> {
         match self {
-            Step::Reader(x) =>  x.build(),
+            Step::Reader(x) => x.build(),
             Step::Select(x) => x.build(),
             Step::Union(x) => x.build(),
-            Step::Filter(x)=>x.build(),
-            Step::Sort(x)=>x.build(),
-            Step::Join(x)=>x.build(),
-            Step::Agg(_) => { Ok(String::new())}
+            Step::Filter(x) => x.build(),
+            Step::Sort(x) => x.build(),
+            Step::Join(x) => x.build(),
+            Step::Agg(x) => x.build(),
             _ => Ok(String::new())
         }
     }
@@ -217,7 +248,7 @@ pub fn build_steps_script(step_infos:&Vec<StepInfo>)->Result<String>{
         scripts.push(step.build().unwrap());
     }
 
-    let script: String = scripts.iter().filter(|s|!s.is_empty()).join("\n.");
+    let script: String = scripts.iter().filter(|s|!s.is_empty()).join("\n    .");
 
     //前一步骤的输出列
 

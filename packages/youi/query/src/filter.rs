@@ -58,7 +58,6 @@ pub struct Filter{
 impl Filter {
 
     pub fn from(step_info:&StepInfo)->Self{
-        println!("{:?}",step_info);
         let condition_tree:Tree<Condition> = build_condition_tree(&step_info.conditions.as_ref().unwrap());
 
         Self{
