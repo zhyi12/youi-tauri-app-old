@@ -28,7 +28,8 @@ const findAppMenus = async ():Promise<Array<MenuInfo>> => {
         {id:'040000',name:'dataproc',text:'数据处理',href:"/dataproc",children:[
             {id: "040300",name: "datamodel",text: "数据建模",href: "/dataproc/model/top"},
             {id: "040100",name: "query",text: "自助查询",href: "/common/m-dataproc/query/top/d-create"},
-            {id: "040200",name: "etl",text: "数据清洗",href: "/dataproc/etl"},
+            {id: "040200",name: "pivotable",text: "透视表",href: "/dataproc/pivotable"},
+            {id: "040300",name: "etl",text: "数据清洗",href: "/dataproc/etl"},
 
             ]},
         {id:'990000',name:'settings',text:'配置',href: '/settings',
