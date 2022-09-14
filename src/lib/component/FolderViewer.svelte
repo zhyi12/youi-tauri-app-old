@@ -2,8 +2,11 @@
 
     import type {Metadata} from "../tauri/tauri.fs";
     import {goto} from "$app/navigation";
-    import {Toolbar,Icon,folderIcon,classnames} from "../youi";
+    import {Toolbar,Icon,folderIcon,listIcon,classnames} from "../youi";
     import {isNull} from "../youi/util/utils";
+    import {createEventDispatcher} from "svelte";
+
+    const dispatch = createEventDispatcher();
 
     let className = '';
     export { className as class };
@@ -28,7 +31,7 @@
       if(item.isDir){
           goto(`${folderUri}/${item.name}`);
       }else{
-          console.log(`${folderUri}${item.name}`);
+          dispatch('item-open',item);
       }
     }
 
@@ -51,7 +54,7 @@
             <div class="folder-item" class:active={selectedIds.includes(metadata.name)}
                  on:click={clickItem(metadata)}
                  on:dblclick={openItem(metadata)}>
-                <span class="item-icon"><Icon scale={3} data={folderIcon}></Icon></span>
+                <span class="item-icon"><Icon scale={3} data={metadata.isDir?folderIcon:listIcon}></Icon></span>
                 <span class="item-text">{metadata.name}</span>
             </div>
         {/each}

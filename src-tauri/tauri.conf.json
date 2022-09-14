@@ -64,8 +64,20 @@
         "maximized": true,
         "resizable": true,
         "title": "桌面应用",
-        "width": 800
+        "visible": false
+      },
+      {
+        "width": 800,
+        "height": 500,
+        "maximized": false,
+        "resizable": true,
+        "url": "splashscreen.html",
+        "label": "splashscreen",
+        "transparent": true,
+        "title": "桌面登录",
+        "center": true
       }
+
     ]
   }
 }

@@ -2,8 +2,11 @@ import type {LoadEvent} from "@sveltejs/kit";
 import {metadatas} from "$lib/tauri/tauri.fs";
 import type {Metadata} from "$lib/tauri/tauri.fs";
 
-export async function load({params}:LoadEvent) {
-    const baseDir = "/Volumes/D/youi-app-data";
+export async function load({params,parent}:LoadEvent) {
+
+    const parentData = await parent();
+    const dataDir = parentData.appConfig.get('dataDir')||{value:''};
+    const baseDir = dataDir.value+'/本地';
 
     const folder = params.folder === 'top'?'':params.folder;
     const view = params.view;

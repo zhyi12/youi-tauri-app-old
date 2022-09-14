@@ -1,10 +1,12 @@
 import {findAppMenus} from "$lib/app-services/base/menuServices";
 import type {MenuInfo} from "$lib/app-entity/base/menu";
 import {parseActiveModule} from "$lib/menu/menu.util";
+import {findAppConfig} from "$lib/app-services/base/configServices";
 
 //build时可删除，避免打包模拟数据
 import {dev,browser} from "$app/environment";
-import {init_mock_data} from "../lib/app-mocks/app.mock";
+import {init_mock_data} from "$lib/app-mocks/app.mock";
+
 
 let app_menus:Array<MenuInfo> = [];
 
@@ -30,9 +32,13 @@ export async function load({url,params}) {
     //从url中识别当前模块
     const activeModule = parseActiveModule(url,params);
 
+    //加载app配置信息
+    const appConfig = await findAppConfig();
+
     return {
         menus,
-        activeModule
+        activeModule,
+        appConfig
     }
 }
 

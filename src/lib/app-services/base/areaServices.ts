@@ -41,7 +41,6 @@ export const findChildren = async (areaId:string)=>{
  */
 async function _findGeoJson(sql:string,areaId:string){
     const result:Array<AreaGeoJson> = await appDataBase.select(sql,[areaId]);
-    console.log('load area result')
     if(result && result.length){
         const geo_json = result[0].geo_json;
         if(geo_json){

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎访问桌面应用</title>
+    <style>
+        html{
+            height: 100%;
+            display: flex;
+        }
+        body{
+            flex: 1;
+            margin: 0px;
+            background: url("images/splashscreen-bg.png") no-repeat;
+            overflow: hidden;
+            box-shadow: #151515 0 0 1rem 3px;
+        }
+    </style>
+</head>
+<body>
+    <a onclick="enter()">进入系统</a>
+
+    <span onclick="selectFolder()">本地目录</span>
+    <span id="dir_path"></span>
+</body>
+
+<script>
+    function enter() {
+        window.__TAURI_INVOKE__('close_splashscreen',{username:'user',password:''});
+    }
+
+    async function selectFolder() {
+        let options = {
+            directory: true,
+        };
+
+        let selected = await window.__TAURI_INVOKE__('tauri',{
+            __tauriModule: 'Dialog',
+            message: {
+                cmd: 'openDialog',
+                options
+            }
+        });
+
+        if( Array.isArray(selected)){
+
+        }else if (selected === null) {
+
+        }else{
+            document.querySelector('#dir_path').innerHTML = selected;
+        }
+
+    }
+</script>
+
+</html>

@@ -3,6 +3,7 @@ export interface TreeNode{
     text:string,
     html?:string,
     children?:TreeNode[],
+    group?:string,
     icon?:string,
     href?:string,
     datas?:Record<string, unknown>

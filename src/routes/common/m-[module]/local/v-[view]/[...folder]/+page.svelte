@@ -17,7 +17,7 @@
 
 </script>
 
-<FolderViewer class={"content flex-1"} {view} {baseDir} {folderUri} {folder} {folderPath} metadatas={metas}>
+<FolderViewer class={"content flex-1"} {view} {folderUri} {folder} metadatas={metas}>
 
 </FolderViewer>
 
