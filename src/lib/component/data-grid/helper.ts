@@ -186,7 +186,7 @@ export function buildFrozenColumnCells(frozenColumns:number,rowRange:Range,table
 
     const {start:startRow,stop:stopRow,sizes:rowSizes} = rowRange;
     const colSizes:Position[] = tableColRange.sizes.filter(size=>size.index<=frozenColumns);
-    for(let rowIndex=startRow;rowIndex<stopRow;rowIndex++){
+    for(let rowIndex=startRow;rowIndex<=stopRow;rowIndex++){
         const rowSize = rowSizes[rowIndex - startRow];
         for(let columnIndex = 0;columnIndex<frozenColumns;columnIndex++){
             const colSize = colSizes[columnIndex];

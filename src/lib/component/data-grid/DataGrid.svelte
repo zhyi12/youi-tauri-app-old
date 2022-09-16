@@ -1,3 +1,4 @@
+
 <script lang="ts">
     import {Stage, Layer,Group} from "../../thirdpart/konva";
     import Cell from './Cell.svelte';
