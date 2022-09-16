@@ -1,6 +1,7 @@
 .youi-data-grid{
   position: relative;
-  overflow: hidden;
+  overflow: hidden!important;
+  background: #f9f9f9;
 
   .konvajs-content{
     overflow: hidden;
