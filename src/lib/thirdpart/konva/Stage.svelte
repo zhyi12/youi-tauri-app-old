@@ -3,11 +3,13 @@
 
 	import {createEventDispatcher, onMount, setContext} from 'svelte';
 	import context from './context';
-	import classnames from "../../youi/util/utils";
+	import {classnames,mouse} from "../../youi/";
 	import {EVENTS} from "./util";
 	const dispatch = createEventDispatcher()
 	let className = '';
 	export { className as class };
+
+	export let moused = false;//是否集成鼠标拖动
 
 	export let x: number = null;
 	export let y: number = null;
@@ -68,9 +70,36 @@
 	$: stage && stage.height(height);
 	$: stage && stage.width(width);
 
+	const handle_resize = (evt) => {
+		height = container.offsetHeight;
+		width = container.offsetWidth;
+	}
+
+	const normalMouseUp = (evt) => {
+		//
+		dispatch('normalMouseUp',{evt});
+	}
+
+	const mouseStart = (evt) => {
+		dispatch('mouseStart',{evt});
+	}
+
+	const mouseDrag = (evt) => {
+		dispatch('mouseDrag',{evt});
+	}
+
+	const mouseStop = (evt) => {
+		dispatch('mouseStop',{evt});
+	}
+
 </script>
 
-<div class={classes} bind:this={container}  style:cursor={cursor}>
+<svelte:window on:resize={handle_resize}></svelte:window>
+
+<div class={classes} bind:this={container} style:cursor={cursor}
+	 use:mouse={moused?{
+	normalMouseUp,mouseStart,mouseDrag,mouseStop
+}:{}}>
 	{#if stage}
 		<slot/>
 	{/if}

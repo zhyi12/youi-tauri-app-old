@@ -18,11 +18,12 @@ export function mouse(node, options) {
      *
      * @param event
      */
-    function _mousedown(event){
-        // don't let more than one widget handle mouseStart
-        if ( mouseHandled ) {
+    async function _mousedown(event){
+        // don't let more than one widget handle mouseStart and skip right click
+        if ( mouseHandled || event.button ===2) {
             return;
         }
+
         _mouseMoved = false;
 
         // We may have missed mouseup (out of window)
