@@ -56,6 +56,7 @@ export { default as globeIcon } from './icons/globe.js';
 export { default as databaseIcon } from './icons/database.js';
 export { default as hddIcon } from './icons/hdd-o.js';
 
-export {default as classnames,uuid,toPixel} from './util/utils';
+export {default as classnames,uuid,toPixel,isNull} from './util/utils';
+export {mouse} from './mouse/mouse';
 export {replaceItem,findItemIndex,isSame} from './util/array.util';
 export {buildPathTree,findParentNode,computeTreeLeafDepth,findTreeNode,removeTreeNode,traverse} from './util/tree.util';

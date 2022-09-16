@@ -9,7 +9,7 @@ export const findAppConfig  = async():Promise<Map<string, ConfigItem>> => {
     const configs = await appDataBase.select<ConfigItem[]>(SQL_CONFIG_SELECT,[]);
 
     const appConfig = new Map();
-    if(configs){
+    if(Array.isArray(configs)){
         configs.forEach(configItem=>{
             appConfig.set(configItem.name,configItem);
         });
