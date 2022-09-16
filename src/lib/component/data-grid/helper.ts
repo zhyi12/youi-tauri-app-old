@@ -95,8 +95,6 @@ export function buildShowCells(
     mergedCellMap:Map<string,Area>,
     data:({rowIndex,columnIndex}:CellPosition)=>CellData):CellData[]{
 
-    const isMergedCell = ({rowIndex,columnIndex}: CellPosition) => mergedCellMap.has(cellIdentifier(rowIndex, columnIndex));
-
     const cells:CellData[] = [];
     const {start:startRow,stop:stopRow,sizes:rowSizes,scroll:scrollTop} = rowRange;
     const {start:startColumn,stop:stopColumn,sizes:colSizes,scroll:scrollLeft} = colRange;
@@ -114,7 +112,7 @@ export function buildShowCells(
 
             const colSize = colSizes[columnIndex-startColumn];
             const cellData = data({rowIndex,columnIndex})||{text:''};
-            if(isMergedCell({rowIndex,columnIndex})){
+            if(isMergedCell(mergedCellMap,{rowIndex,columnIndex})){
                 const merged = mergedCellMap.get(cellIdentifier(rowIndex,columnIndex));
                 if(merged && merged.startRow == rowIndex && merged.startCol == columnIndex){
                     //
@@ -191,13 +189,28 @@ export function buildFrozenColumnCells(frozenColumns:number,rowRange:Range,table
         for(let columnIndex = 0;columnIndex<frozenColumns;columnIndex++){
             const colSize = colSizes[columnIndex];
             const cellData = data({rowIndex,columnIndex})||{text:''};
-            cells.push({
-                ...cellData,
-                x:colSize.offset,
-                y:rowSize.offset,
-                width:colSize.size,
-                height:rowSize.size,
-            });
+
+            if(isMergedCell(mergedCellMap,{rowIndex,columnIndex})){
+                const merged = mergedCellMap.get(cellIdentifier(rowIndex,columnIndex));
+                if(merged && merged.startRow == rowIndex && merged.startCol == columnIndex){
+                    cells.push({
+                        ...cellData,
+                        x:colSize.offset,
+                        y:rowSize.offset,
+                        width:calculateMergeSize(merged.startCol, merged.endCol,colSizes),
+                        height:calculateMergeSize(merged.startRow-startRow ,merged.endRow-startRow,rowSizes),
+                    });
+                }
+            }else{
+                cells.push({
+                    ...cellData,
+                    x:colSize.offset,
+                    y:rowSize.offset,
+                    width:colSize.size,
+                    height:rowSize.size,
+                });
+            }
+
         }
     }
     return  cells;
@@ -222,13 +235,27 @@ export function buildIntersectionCells(frozenRows:number,frozenColumns:number,ta
         for(let columnIndex = 0;columnIndex<frozenColumns;columnIndex++){
             const colSize = colSizes[columnIndex];
             const cellData = data({rowIndex,columnIndex})||{text:''};
-            cells.push({
-                ...cellData,
-                x:colSize.offset,
-                y:rowSize.offset,
-                width:colSize.size,
-                height:rowSize.size,
-            });
+
+            if(isMergedCell(mergedCellMap,{rowIndex,columnIndex})){
+                const merged = mergedCellMap.get(cellIdentifier(rowIndex,columnIndex));
+                if(merged && merged.startRow == rowIndex && merged.startCol == columnIndex){
+                    cells.push({
+                        ...cellData,
+                        x:colSize.offset,
+                        y:rowSize.offset,
+                        width:calculateMergeSize(merged.startCol,merged.endCol,colSizes),
+                        height:calculateMergeSize(merged.startRow ,merged.endRow,rowSizes),
+                    });
+                }
+            }else{
+                cells.push({
+                    ...cellData,
+                    x:colSize.offset,
+                    y:rowSize.offset,
+                    width:colSize.size,
+                    height:rowSize.size,
+                });
+            }
         }
     }
     return cells;
@@ -301,6 +328,8 @@ export const toMergeMap = (mergedCells:Area[]) => {
     }
     return mergedCellMap;
 }
+
+const isMergedCell = (mergedCellMap:Map<string,Area>,{rowIndex,columnIndex}: CellPosition) => mergedCellMap.has(cellIdentifier(rowIndex, columnIndex));
 
 /**
  *

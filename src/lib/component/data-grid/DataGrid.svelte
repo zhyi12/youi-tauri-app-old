@@ -23,12 +23,12 @@
     /**
      * 列数
      */
-    export let columns = 50;
+    export let columns = 10;
 
     /**
      * 行数
      */
-    export let rows = 100;
+    export let rows = 20;
 
     /**
      * Number of frozen rows
