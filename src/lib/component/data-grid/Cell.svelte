@@ -11,6 +11,7 @@
     export let strokeWidth = 1;
     export let stroke = "#d9d9d9";
     export let text = '';
+    export let align = '';
 
 </script>
 
@@ -24,6 +25,7 @@
             width={width}
             text={text}
             hitStrokeWidth={0}
+            {align}
             verticalAlign="middle"
             wrap={"none"} ellipsis={true}
     />

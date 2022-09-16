@@ -83,7 +83,7 @@
     /**
      * 当前显示的单元格
      */
-    $: showCells = buildShowCells(rowRange,colRange,mergedCellMap,data);
+    $: showCells = buildShowCells(frozenRows,frozenColumns,rowRange,colRange,mergedCellMap,data);
 
     $: frozenRowCells = buildFrozenRowCells(frozenRows,tableRowRange,colRange,mergedCellMap,data);
     $: frozenColumnCells = buildFrozenColumnCells(frozenColumns,rowRange,tableColRange,mergedCellMap,data);

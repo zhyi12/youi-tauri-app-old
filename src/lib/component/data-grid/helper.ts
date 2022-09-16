@@ -89,9 +89,11 @@ export function calculateColumnWidths(width:number,start:number,columns:number,c
  * @param startRow
  * @param startCol
  */
-export function buildShowCells(rowRange:Range,colRange:Range,
-                               mergedCellMap:Map<string,Area>,
-                               data:({rowIndex,columnIndex}:CellPosition)=>CellData):CellData[]{
+export function buildShowCells(
+    frozenRows:number,frozenColumns:number,
+    rowRange:Range,colRange:Range,
+    mergedCellMap:Map<string,Area>,
+    data:({rowIndex,columnIndex}:CellPosition)=>CellData):CellData[]{
 
     const isMergedCell = ({rowIndex,columnIndex}: CellPosition) => mergedCellMap.has(cellIdentifier(rowIndex, columnIndex));
 
@@ -100,8 +102,16 @@ export function buildShowCells(rowRange:Range,colRange:Range,
     const {start:startColumn,stop:stopColumn,sizes:colSizes,scroll:scrollLeft} = colRange;
 
     for(let rowIndex=startRow;rowIndex<=stopRow;rowIndex++){
+        if(rowIndex<frozenRows){
+            continue;
+        }
         const rowSize = rowSizes[rowIndex-startRow];
         for(let columnIndex=startColumn;columnIndex<=stopColumn;columnIndex++){
+
+            if(columnIndex<frozenColumns){
+                continue;
+            }
+
             const colSize = colSizes[columnIndex-startColumn];
             const cellData = data({rowIndex,columnIndex})||{text:''};
             if(isMergedCell({rowIndex,columnIndex})){
