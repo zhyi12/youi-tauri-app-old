@@ -24,7 +24,6 @@
             height={height}
             width={width}
             text={text}
-            hitStrokeWidth={0}
             {align}
             verticalAlign="middle"
             wrap={"none"} ellipsis={true}
