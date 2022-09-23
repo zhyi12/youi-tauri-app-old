@@ -5,10 +5,7 @@
 use serde::{ser::Serializer, Serialize};
 use tauri::{command, plugin::Plugin, Invoke, Runtime};
 
-use std::{
-    path::{Path,PathBuf},
-    time::{SystemTime, UNIX_EPOCH},
-};
+use std::{fs, path::{Path, PathBuf}, time::{SystemTime, UNIX_EPOCH}};
 
 #[cfg(unix)]
 use std::os::unix::fs::{MetadataExt, PermissionsExt};
@@ -16,6 +13,8 @@ use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::os::windows::fs::MetadataExt;
 
 type Result<T> = std::result::Result<T, Error>;
+
+const NEW_FOLDER_TEXT:&str = "新文件夹";
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
@@ -100,9 +99,58 @@ async fn metadatas(path: PathBuf) -> Result<Vec<Metadata>> {
     }).collect::<Vec<Metadata>>())
 }
 
+///
+/// 读取文本格式文件字符
+///
+#[command]
+async fn read_file(path: PathBuf) -> Result<String> {
+    Ok(std::fs::read_to_string(path).unwrap_or(format!("{{\"error\":\"文件读取异常.\"}}")))
+}
+
+///
+/// 保存文件
+///
+#[command]
+async fn save_file(path: PathBuf,content:String) ->Result<Metadata>{
+    fs::write(&path,content).unwrap();
+    parse_metadata(path.as_path())
+}
+///
+///
+///
+#[command]
+async fn new_folder(path: PathBuf) -> Result<Metadata> {
+    let mut folder_path = path.join(NEW_FOLDER_TEXT);
+    if folder_path.exists(){
+        folder_path = new_folder_path(&path,1);
+    }
+    //创建文件夹
+    fs::create_dir(&folder_path).unwrap();
+
+    parse_metadata(folder_path.as_path())
+}
+
+///
+/// 路径文件或文件夹是否存在
+///
 #[command]
 async fn exists(path: PathBuf) -> bool {
     path.exists()
+}
+///
+/// 重命名
+///
+#[command]
+async fn rename(folder:PathBuf,name:String,new_name:String)-> Result<Metadata>{
+    let new_path = folder.join(&new_name);
+
+    if new_path.exists(){
+        //新路径已经存在
+        parse_metadata(folder.join(&name).as_path())
+    }else {
+        fs::rename(&folder.join(&name),&new_path).unwrap();
+        parse_metadata(new_path.as_path())
+    }
 }
 
 /// Tauri plugin.
@@ -113,7 +161,7 @@ pub struct FsExtra<R: Runtime> {
 impl<R: Runtime> Default for FsExtra<R> {
     fn default() -> Self {
         Self {
-            invoke_handler: Box::new(tauri::generate_handler![exists, metadata,metadatas]),
+            invoke_handler: Box::new(tauri::generate_handler![exists, metadata,metadatas,read_file,new_folder,save_file,rename]),
         }
     }
 }
@@ -161,4 +209,16 @@ fn parse_metadata(path: &Path)->Result<Metadata>{
         #[cfg(windows)]
         file_attributes: metadata.file_attributes(),
     })
+}
+
+///
+/// 寻找本地创建新文件夹的路径
+///
+fn new_folder_path(path: &PathBuf,postfix:usize)->PathBuf{
+    let folder_path = path.join(format!("{}{}",NEW_FOLDER_TEXT,postfix));
+    if folder_path.exists(){
+        new_folder_path(path,postfix+1)
+    }else{
+        folder_path
+    }
 }
