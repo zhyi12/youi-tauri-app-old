@@ -1,5 +1,6 @@
 <script lang="ts">
     import {afterNavigate} from "$app/navigation";
+    import {page} from "$app/stores";
 
     import SubMenu from "$lib/menu/SubMenu.svelte";
     import type {MenuInfo} from "$lib/app-entity/base/menu";
@@ -8,6 +9,8 @@
     export let data;
 
     let {menus,activeModule,pathname} = data;
+    let params = {};
+    let routeId = '';
 
     let submenu:MenuInfo = {id:'',text:'',name:'',children:[]};
 
@@ -20,11 +23,13 @@
     afterNavigate(({_,to})=>{
         activeModule = parseActiveModule(to,{});
         pathname = to.pathname;
+        params = Object.assign({},$page.params);
+        routeId = $page.routeId;
     });
 
 </script>
 
-<SubMenu {submenu} {pathname}>
+<SubMenu {submenu} {pathname} {params} {routeId}>
 
 </SubMenu>
 
