@@ -73,11 +73,12 @@ impl Filter {
     ///
     ///
     pub fn build(&self)->Result<String>{
-
-        let filter_exprs = self.condition_tree_build(self.condition_tree.root())?;
-
-        Ok(format!("filter({})",filter_exprs))
-
+        if self.condition_tree.root().has_no_child(){
+            Ok(String::new())
+        }else{
+            let filter_exprs = self.condition_tree_build(self.condition_tree.root())?;
+            Ok(format!("filter({})",filter_exprs))
+        }
     }
 
     ///

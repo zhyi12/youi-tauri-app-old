@@ -10,7 +10,7 @@ import type {MenuInfo} from "../../app-entity/base/menu";
 const findAppMenus = async ():Promise<Array<MenuInfo>> => {
 
     const menus:Array<MenuInfo> = [
-        {id:'010000',name:'home',text:'首页',href:"/"},
+        {id:'010000',name:'home',text:'首页',href:"/",icon:'home'},
         {id:'020000',name:'geo',text:'地理信息',href:"/geo",
             children:[
                 {id:'020100',name:'area',text:'行政区划',href:"/geo/area"},
@@ -25,12 +25,14 @@ const findAppMenus = async ():Promise<Array<MenuInfo>> => {
                 {id:'030200',name:'cloud',text:'云盘',href:'/common/m-res/cloud'},
             ]
         },
-        {id:'040000',name:'dataproc',text:'数据处理',href:"/dataproc",children:[
-            {id: "040300",name: "datamodel",text: "数据建模",href: "/dataproc/model/top"},
-            {id: "040100",name: "query",text: "自助查询",href: "/common/m-dataproc/query/top/d-create"},
-            {id: "040200",name: "pivotable",text: "透视表",href: "/dataproc/pivotable/top"},
-            {id: "040300",name: "etl",text: "数据清洗",href: "/dataproc/etl"},
-
+        {id:'040000',name:'dataproc',text:'数据处理',href:"/dataproc/mydata/d-all/top",children:[
+            {id: "040100",name: "datamodel",text: "数据建模",href: "/dataproc/model/top",icon:'database'},
+            {id: "040200",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-all/[...folder]",text: "我的数据",href: "/dataproc/mydata/d-all/top",icon:'folder',children:[
+                    {id: "040201",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-query/[...folder]",text: "自助查询",href: "/dataproc/mydata/d-query/top",icon:"query"},
+                    {id: "040302",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-pivotable/[...folder]",text: "透视表",href: "/dataproc/mydata/d-pivotable/top",icon:"crossTable"},
+                    {id: "040403",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-chart/[...folder]",text: "图表",href: "/dataproc/mydata/d-chart/top",icon:"chart"},
+                    {id: "040504",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-etl/[...folder]",text: "数据清洗",href: "/dataproc/mydata/d-etl/top",icon:"etl"}
+                ]}
             ]},
         {id:'990000',name:'settings',text:'配置',href: '/settings',
             children:[

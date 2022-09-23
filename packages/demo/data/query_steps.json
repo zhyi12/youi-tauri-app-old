@@ -4,124 +4,482 @@
     "text": "读数据",
     "name": "reader",
     "reader": "read_csv",
-    "uri": "/Volumes/D/data/local/年度数据/data.csv",
+    "uri": "/Volumes/D/data/local/年度数据/1-2月基层库.csv",
     "columns": [
       {
-        "name": "id",
-        "text": "id",
-        "dataType": "str"
+        "id": "项目(法人)码",
+        "name": "项目(法人)码",
+        "text": "项目(法人)码",
+        "dataType": "str",
+        "checked": true
       },
       {
-        "name": "code",
-        "text": "code",
-        "dataType": "str"
+        "id": "项目(单位)名称",
+        "name": "项目(单位)名称",
+        "text": "项目(单位)名称",
+        "dataType": "str",
+        "checked": true
       },
       {
-        "name": "group",
-        "text": "group",
-        "dataType": "str"
+        "id": "报告期",
+        "name": "报告期",
+        "text": "报告期",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "管理级别",
+        "name": "管理级别",
+        "text": "管理级别",
+        "dataType": "f64",
+        "checked": true
+      },
+      {
+        "id": "项目类别2017",
+        "name": "项目类别2017",
+        "text": "项目类别2017",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "项目名称",
+        "name": "项目名称",
+        "text": "项目名称",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "法人单位码",
+        "name": "法人单位码",
+        "text": "法人单位码",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "建设地址",
+        "name": "建设地址",
+        "text": "建设地址",
+        "dataType": "f64",
+        "checked": true
+      },
+      {
+        "id": "电话号码",
+        "name": "电话号码",
+        "text": "电话号码",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "登记注册类型2012",
+        "name": "登记注册类型2012",
+        "text": "登记注册类型2012",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "隶属关系",
+        "name": "隶属关系",
+        "text": "隶属关系",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "建设性质",
+        "name": "建设性质",
+        "text": "建设性质",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "开工时间",
+        "name": "开工时间",
+        "text": "开工时间",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "本年全部投产时间",
+        "name": "本年全部投产时间",
+        "text": "本年全部投产时间",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "控股情况",
+        "name": "控股情况",
+        "text": "控股情况",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "期末项目建设状态",
+        "name": "期末项目建设状态",
+        "text": "期末项目建设状态",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "投资项目在线审批监管平台 ",
+        "name": "投资项目在线审批监管平台 ",
+        "text": "投资项目在线审批监管平台 ",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "统一社会信用代码",
+        "name": "统一社会信用代码",
+        "text": "统一社会信用代码",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "计划总投资",
+        "name": "计划总投资",
+        "text": "计划总投资",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "自开始建设至本年底累计完成投资(或自开始建设累计完成投资)",
+        "name": "自开始建设至本年底累计完成投资(或自开始建设累计完成投资)",
+        "text": "自开始建设至本年底累计完成投资(或自开始建设累计完成投资)",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "本年完成投资(或自年初累计完成投资)",
+        "name": "本年完成投资(或自年初累计完成投资)",
+        "text": "本年完成投资(或自年初累计完成投资)",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "                  其中：住宅",
+        "name": "                  其中：住宅",
+        "text": "                  其中：住宅",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "建筑工程",
+        "name": "建筑工程",
+        "text": "建筑工程",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "安装工程",
+        "name": "安装工程",
+        "text": "安装工程",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "设备工器具购置",
+        "name": "设备工器具购置",
+        "text": "设备工器具购置",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "                   其中：购置旧设备",
+        "name": "                   其中：购置旧设备",
+        "text": "                   其中：购置旧设备",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "其他费用",
+        "name": "其他费用",
+        "text": "其他费用",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "                  其中：旧建筑物购置费",
+        "name": "                  其中：旧建筑物购置费",
+        "text": "                  其中：旧建筑物购置费",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "                  土地购置费",
+        "name": "                  土地购置费",
+        "text": "                  土地购置费",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "本年新增固定资产",
+        "name": "本年新增固定资产",
+        "text": "本年新增固定资产",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "    1.上年末结余资金",
+        "name": "    1.上年末结余资金",
+        "text": "    1.上年末结余资金",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "    2.本年资金来源小计",
+        "name": "    2.本年资金来源小计",
+        "text": "    2.本年资金来源小计",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "       (1)国家预算资金 ",
+        "name": "       (1)国家预算资金 ",
+        "text": "       (1)国家预算资金 ",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "             其中：中央预算资金",
+        "name": "             其中：中央预算资金",
+        "text": "             其中：中央预算资金",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "       (2)国内贷款",
+        "name": "       (2)国内贷款",
+        "text": "       (2)国内贷款",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "       (3)债券",
+        "name": "       (3)债券",
+        "text": "       (3)债券",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "       (4)利用外资",
+        "name": "       (4)利用外资",
+        "text": "       (4)利用外资",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "       (5)自筹资金",
+        "name": "       (5)自筹资金",
+        "text": "       (5)自筹资金",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "       (6)其他资金来源",
+        "name": "       (6)其他资金来源",
+        "text": "       (6)其他资金来源",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "二、各项应付款合计",
+        "name": "二、各项应付款合计",
+        "text": "二、各项应付款合计",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "      其中：工程款",
+        "name": "      其中：工程款",
+        "text": "      其中：工程款",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "单位负责人",
+        "name": "单位负责人",
+        "text": "单位负责人",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "统计负责人",
+        "name": "统计负责人",
+        "text": "统计负责人",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "填表人",
+        "name": "填表人",
+        "text": "填表人",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "报出日期",
+        "name": "报出日期",
+        "text": "报出日期",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "省",
+        "name": "省",
+        "text": "省",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "地",
+        "name": "地",
+        "text": "地",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "县",
+        "name": "县",
+        "text": "县",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "乡",
+        "name": "乡",
+        "text": "乡",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "街道",
+        "name": "街道",
+        "text": "街道",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "报表类别",
+        "name": "报表类别",
+        "text": "报表类别",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "行业代码2017",
+        "name": "行业代码2017",
+        "text": "行业代码2017",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "移动电话",
+        "name": "移动电话",
+        "text": "移动电话",
+        "dataType": "str",
+        "checked": true
+      },
+      {
+        "id": "是否为三新项目",
+        "name": "是否为三新项目",
+        "text": "是否为三新项目",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "是否为PPP项目",
+        "name": "是否为PPP项目",
+        "text": "是否为PPP项目",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "建筑安装工程填报依据",
+        "name": "建筑安装工程填报依据",
+        "text": "建筑安装工程填报依据",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "投资入库时间",
+        "name": "投资入库时间",
+        "text": "投资入库时间",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "项目类别2",
+        "name": "项目类别2",
+        "text": "项目类别2",
+        "dataType": "i64",
+        "checked": true
+      },
+      {
+        "id": "是否是专项债项目",
+        "name": "是否是专项债项目",
+        "text": "是否是专项债项目",
+        "dataType": "i64",
+        "checked": true
       }
     ],
     "selectedColumns": [
-      "id",
-      "code",
-      "group"
-    ]
-  },
-  {
-    "id": "step002",
-    "text": "选字段",
-    "name": "select",
-    "columns": [
-      {
-        "name": "id",
-        "text": "id",
-        "dataType": "str"
-      },
-      {
-        "name": "code",
-        "text": "code",
-        "dataType": "str"
-      },
-      {
-        "name": "group",
-        "text": "group",
-        "dataType": "str"
-      }
-    ],
-    "selectedColumns": [
-      "id",
-      "code",
-      "group"
-    ]
-  },
-  {
-    "id": "step003",
-    "text": "过滤",
-    "name": "filter",
-    "conditions": [
-      {
-        "id": "root",
-        "name": "and",
-        "level": 0,
-        "text": "且",
-        "type": "conn",
-        "operator": "eq"
-      },
-      {
-        "id": "f01",
-        "name": "",
-        "property": "group",
-        "level": 1,
-        "text": "group",
-        "type": "cond",
-        "value": "G02",
-        "operator": "eq"
-      }
-    ]
-  },
-  {
-    "id": "step004",
-    "text": "排序",
-    "name": "sort",
-    "orders": [
-      {
-        "property": "code",
-        "descending": true
-      }
-    ]
-  },
-  {
-    "id": "step005",
-    "text": "左右连接",
-    "name": "join",
-    "reader": "read_csv",
-    "uri": "/Volumes/D/data/local/年度数据/data_join.csv",
-    "joinHow": "left",
-    "joinColumns": [
-      {
-        "left": "id",
-        "right": "id",
-        "name": "id"
-      }
-    ]
-  },
-  {
-    "id": "step006",
-    "text": "分组汇总",
-    "name": "agg",
-    "groups": [
-      {
-        "name": "group"
-      }
-    ],
-    "measureItems": [
-      {
-        "id": "id_count",
-        "name": "id",
-        "text": "id",
-        "aggregate": "count"
-      }
+      "项目(法人)码",
+      "项目(单位)名称",
+      "报告期",
+      "管理级别",
+      "项目类别2017",
+      "项目名称",
+      "法人单位码",
+      "建设地址",
+      "电话号码",
+      "登记注册类型2012",
+      "隶属关系",
+      "建设性质",
+      "开工时间",
+      "本年全部投产时间",
+      "控股情况",
+      "期末项目建设状态",
+      "投资项目在线审批监管平台 ",
+      "统一社会信用代码",
+      "计划总投资",
+      "自开始建设至本年底累计完成投资(或自开始建设累计完成投资)",
+      "本年完成投资(或自年初累计完成投资)",
+      "                  其中：住宅",
+      "建筑工程",
+      "安装工程",
+      "设备工器具购置",
+      "                   其中：购置旧设备",
+      "其他费用",
+      "                  其中：旧建筑物购置费",
+      "                  土地购置费",
+      "本年新增固定资产",
+      "    1.上年末结余资金",
+      "    2.本年资金来源小计",
+      "       (1)国家预算资金 ",
+      "             其中：中央预算资金",
+      "       (2)国内贷款",
+      "       (3)债券",
+      "       (4)利用外资",
+      "       (5)自筹资金",
+      "       (6)其他资金来源",
+      "二、各项应付款合计",
+      "      其中：工程款",
+      "单位负责人",
+      "统计负责人",
+      "填表人",
+      "报出日期",
+      "省",
+      "地",
+      "县",
+      "乡",
+      "街道",
+      "报表类别",
+      "行业代码2017",
+      "移动电话",
+      "是否为三新项目",
+      "是否为PPP项目",
+      "建筑安装工程填报依据",
+      "投资入库时间",
+      "项目类别2",
+      "是否是专项债项目"
     ]
   }
 ]

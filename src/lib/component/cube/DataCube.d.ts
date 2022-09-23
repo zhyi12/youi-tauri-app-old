@@ -57,3 +57,12 @@ export interface GroupItem {
     text:string,
     expression?:string,
 }
+
+/**
+ *
+ */
+export interface Column{
+    id:string,
+    name:string,
+    text:string,
+}

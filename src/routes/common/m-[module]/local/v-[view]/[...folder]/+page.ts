@@ -14,7 +14,7 @@ export async function load({params,parent}:LoadEvent) {
     const metas:Array<Metadata> = await metadatas(folderPath);
 
     const folderUri = `/common/m-${params.module}/local/v-${view}/${folder}`;
-
+    console.log(folderUri)
     return {
         view,
         folder,
