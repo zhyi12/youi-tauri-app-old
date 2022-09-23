@@ -1,12 +1,16 @@
 <script lang="ts">
-    import {ListTree,Toolbar} from "$lib/youi/index";
-    import Flow from "$lib/component/flow/Flow.svelte"
+    import {ListTree,Toolbar,Button,Icon} from "$lib/youi/index";
+    import {backIcon} from "$lib/app-icon";
+    import Flow from "$lib/component/flow/Flow.svelte";
+
     export let data;
 </script>
 
 <div class="page-left">
     <Toolbar>
-        <a href={`/${data.module}/model/${data.folder||'top'}`}>返回</a>
+        <Button title="返回" href={`/${data.module}/model/${data.folder||'top'}`}>
+            <Icon data={backIcon}></Icon>
+        </Button>
     </Toolbar>
     <ListTree children={data.model.children}></ListTree>
 </div>
