@@ -8,6 +8,8 @@
     let className = '';
     export {className as class};
 
+    export let icons = ()=>undefined;
+
     /**
      * @typedef {{ text?: string; href?: string; html?: string; }} RecursiveListNode
      * @restProps {ul | ol}
@@ -33,6 +35,8 @@
      */
     export let type = "unordered";
 
+    export let level = 1;
+
     $: classes = classnames("list", className);
 
 </script>
@@ -51,9 +55,11 @@
                 text: child.text,
                 html: child.html,
                 href: child.href,
-                icon: child.icon
+                icon: child.icon,
+                level:level,
+                icons
             }}>
-                <svelte:self {...{children: child.children}} type="{type}"/>
+                <svelte:self {...{itemClass,icons,level:level+1,children: child.children}} type="{type}"/>
             </RecursiveListItem>
         {:else}
             <RecursiveListItem itemClass={activeHref===child.href?(itemClass+' active'):itemClass} {...{
@@ -62,7 +68,9 @@
                 text: child.text,
                 html: child.html,
                 href: child.href,
-                icon: child.icon
+                icon: child.icon,
+                level:level,
+                icons
             }}/>
         {/if}
     {/each}

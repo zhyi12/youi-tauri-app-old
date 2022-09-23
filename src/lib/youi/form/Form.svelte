@@ -70,10 +70,10 @@
     async function formValidate() {
         let errors = [];
         for (const field of fields) {
+            if(!field.validate)continue;
             const fieldErrors = await field.validate();
             errors = errors.concat(fieldErrors || []);
         }
-        console.log(errors);
         return errors;
     }
 
@@ -91,9 +91,16 @@
     <slot></slot>
 
     <slot name='buttons'>
-        <div style='text-align: right;padding-right: 25px;'>
+        <div class="buttons">
             <Button color='primary' disabled={submitting}>提交</Button>
             <span class='btn btn-secondary' on:click={()=>{reset()}}>重置</span>
         </div>
     </slot>
 </form>
+
+<style>
+    .buttons{
+        text-align: right;
+        padding: 10px;
+    }
+</style>

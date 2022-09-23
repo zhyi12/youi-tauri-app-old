@@ -84,6 +84,7 @@
   id="menu-{id}"
      style:maxHeight={height?toPixel(height):''}
   class:list-box-menu="{true}"
+  class:flex-1="{true}"
      class:youi-list-box="{true}"
   {...$$restProps}
   on:scroll

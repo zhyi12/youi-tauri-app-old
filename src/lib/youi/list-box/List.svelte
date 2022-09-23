@@ -113,7 +113,7 @@
             </slot>
 
             {#if removable}
-                <span on:click|stopPropagation={(e)=>{
+                <span class="btn-remove" on:click|stopPropagation={(e)=>{
                     items = items.filter(({id})=>id!=item.id);}} >
                     <Icon data={icon_close}></Icon>
                </span>

@@ -104,6 +104,8 @@
       on:keydown
       on:keypress
       on:keyup
+      on:click
+      on:dblclick
       bind:value
       bind:this={inner}
       {disabled}

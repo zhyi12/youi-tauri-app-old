@@ -2,6 +2,7 @@
 	import Input from '../Input.svelte';
 	import { getContext } from 'svelte';
 	import classnames from "../util/utils";
+	import {FIELD_CONTAINER_CONTEXT} from "./helper";
 
 	let className = '';
 	export { className as class };
@@ -20,7 +21,7 @@
 	let invalid = false;
 	let invalidMessage = '';
 
-	let context = getContext('FieldContainer');
+	let context = getContext(FIELD_CONTAINER_CONTEXT);
 
 	let filedContext = getContext('FieldItem');
 

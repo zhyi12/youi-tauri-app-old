@@ -526,7 +526,7 @@ $border-widths: (
         5: 5px
 ) !default;
 
-$border-color-translucent:    rgba($black, .175) !default;
+$border-color-translucent:    #dddddd !default;
 $border-color:                $gray-300 !default;
 // scss-docs-end border-variables
 
@@ -1162,7 +1162,7 @@ $navbar-dark-brand-hover-color:           $navbar-dark-active-color !default;
 // scss-docs-start dropdown-variables
 $dropdown-min-width:                10rem !default;
 $dropdown-padding-x:                0 !default;
-$dropdown-padding-y:                .5rem !default;
+$dropdown-padding-y:                .1rem !default;
 $dropdown-spacer:                   .125rem !default;
 $dropdown-font-size:                $font-size-base !default;
 $dropdown-color:                    $body-color !default;

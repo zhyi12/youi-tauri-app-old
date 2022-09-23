@@ -18,8 +18,15 @@
   padding:3px;
   cursor: pointer;
 
+  .btn-remove{
+    display: none;
+  }
+
   &:hover{
     background: #b9c6d2;
+    .btn-remove{
+      display: initial;
+    }
   }
 }
 
@@ -85,12 +92,5 @@
   transition: background-color 70ms cubic-bezier(.2,0,.38,.9),outline 70ms cubic-bezier(.2,0,.38,.9);
 }
 
-.list-item{
-  &.active{
-    >.item-text{
-      color: $red;
-    }
-  }
-}
 
 
