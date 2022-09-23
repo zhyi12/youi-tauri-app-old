@@ -107,7 +107,9 @@ pub struct StepInfo {
     /// 计量
     ///
     pub measure_items:Option<Vec<MeasureItem>>,
-
+    ///
+    /// 上下合并
+    ///
     pub unions:Option<Vec<Reader>>
 }
 
