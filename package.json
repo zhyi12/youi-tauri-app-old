@@ -36,6 +36,7 @@
 	"dependencies": {
 		"@popperjs/core": "^2.9.2",
 		"canvas": "^2.10.1",
+		"echarts": "^5.3.3",
 		"konva": "^8.3.12",
 		"sass": "^1.53.0"
 	}

@@ -155,10 +155,6 @@ button{
 	overflow: auto;
 }
 
-.list-item>.active,.list-item>.active:hover{
-	color:red;
-}
-
 .list-item>a{
 	white-space: nowrap;
 }
