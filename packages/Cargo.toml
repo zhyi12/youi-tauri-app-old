@@ -2,10 +2,12 @@
 members = [
     "tauri/tauri-plugin-fs-extra",
     "tauri/tauri-plugin-sql",
+    "youi/common",
     "youi/search",
     "youi/dataframe",
     "youi/etl",
     "youi/query",
+    "youi/cube",
     "youi/dsl",
     "demo"
 ]
