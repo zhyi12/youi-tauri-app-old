@@ -1,6 +1,7 @@
 use rhai::{Engine};
-use youi_dsl::{df_engine, df_execute, pager_execute};
+use youi_dsl::{df_engine, df_execute, pager_execute,df_cube_execute};
 use youi_query::{json_to_script};
+use youi_cube::{PivotTable};
 use tauri::{plugin::{Builder, TauriPlugin}, Manager, Runtime, State, Error};
 
 struct ShareEngine{
@@ -36,6 +37,15 @@ async fn query(engine_instance: State<'_,ShareEngine>,query:String,page_index:us
 }
 
 #[tauri::command]
+async fn pivot_table_query(engine_instance: State<'_,ShareEngine>,query:String) ->Result<String,Error>{
+    let pivot_table = PivotTable::from(&query);
+    let script = pivot_table.dsl().unwrap();
+    let result = df_cube_execute(&engine_instance.engine,&script,&pivot_table.group_names().unwrap()).unwrap();
+
+    Ok(result)
+}
+
+#[tauri::command]
 async fn query_to_script(query:String) ->Result<String,Error>{
     let result = json_to_script(&query);
     match result{
@@ -65,7 +75,7 @@ fn dsl_execute(engine:&Engine,script:&str)->Result<String,Error>{
 
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("dsl")
-        .invoke_handler(tauri::generate_handler![execute,query,query_to_script])
+        .invoke_handler(tauri::generate_handler![execute,query,pivot_table_query,query_to_script])
         .setup(|app_handle| {
             app_handle.manage(ShareEngine{engine:df_engine()});
             Ok(())

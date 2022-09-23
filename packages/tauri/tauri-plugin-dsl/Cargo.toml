@@ -11,3 +11,4 @@ futures = "0.3"
 youi-dsl={version="1.0.0",path="../../youi/dsl"}
 youi-etl={version="1.0.0",path="../../youi/etl"}
 youi-query={version="1.0.0",path="../../youi/query"}
+youi-cube={version="1.0.0",path="../../youi/cube"}
