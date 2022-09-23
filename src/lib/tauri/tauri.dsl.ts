@@ -11,6 +11,16 @@ export async function execute<T>(script: string): Promise<T> {
 }
 
 /**
+ * 透视表查询
+ * @param query
+ */
+export async function pivotTableQuery<T>(query: string): Promise<T> {
+    return await invoke<string>('plugin:dsl|pivot_table_query', { query }).then((result) => {
+        return JSON.parse(result);
+    });
+}
+
+/**
  *
  * @param query json
  * @param pageIndex
