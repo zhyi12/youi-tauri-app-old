@@ -149,3 +149,34 @@ export async function metadatas(path: string): Promise<Array<Metadata>> {
 export async function exists(path: string): Promise<boolean> {
     return await invoke('plugin:fs-extra|exists', { path });
 }
+
+/**
+ * 读取文件
+ * @param path
+ */
+export async function readFile(path: string): Promise<string> {
+    return await invoke('plugin:fs-extra|read_file', { path });
+}
+
+/**
+ * 读取文件
+ * @param path
+ */
+export async function saveFile(path: string,content:string): Promise<Metadata> {
+    return await invoke('plugin:fs-extra|save_file', { path ,content});
+}
+/**
+ * 新建文件夹
+ * @param path
+ */
+export async function newFolder(path: string): Promise<Metadata> {
+    return await invoke('plugin:fs-extra|new_folder', { path });
+}
+
+/**
+ * 重命名
+ * @param path
+ */
+export async function rename(folder: string,name:string,newName:string): Promise<Metadata> {
+    return await invoke('plugin:fs-extra|rename', { folder,name,newName });
+}
