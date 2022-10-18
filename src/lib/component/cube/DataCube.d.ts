@@ -65,4 +65,5 @@ export interface Column{
     id:string,
     name:string,
     text:string,
+    dataType?:string,
 }

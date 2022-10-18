@@ -30,7 +30,7 @@ export default function action (element:HTMLElement, chartOptions: ChartOptions)
     echartsInstance.setOption(options);
 
     function handleResize() {
-        echartsInstance.resize()
+        echartsInstance.resize();
     }
 
     window.addEventListener('resize', handleResize);
@@ -39,6 +39,13 @@ export default function action (element:HTMLElement, chartOptions: ChartOptions)
         destroy () {
             echartsInstance.dispose();
             window.removeEventListener('resize',handleResize);
-        }
+        },
+        update(newOptions: ChartOptions) {
+            echartsInstance.setOption({
+                ...chartOptions.options,
+                ...newOptions.options,
+            },true);
+            echartsInstance.resize();
+        },
     }
 }

@@ -4,7 +4,7 @@ import {readFile} from "$lib/tauri/tauri.fs";
 import {getConfigValue} from "$lib/util/page.util";
 
 import type {StepInfo} from "$lib/app-entity/dmp/customQuery";
-import {parseFolder} from "../../../../../../lib/util/filename.util";
+import {parseFolder} from "$lib/util/filename.util";
 
 /**
  *

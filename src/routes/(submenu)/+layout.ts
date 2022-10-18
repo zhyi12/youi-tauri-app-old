@@ -1,9 +1,11 @@
+import type {LayoutLoad,LayoutLoadEvent} from './$types';
+
 /**
  *
  */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export async function load({parent,url}) {
+export const load: LayoutLoad = async ({parent,url}:LayoutLoadEvent) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const { menus,activeModule,appConfig } = await parent();
     const {pathname} = url;
 

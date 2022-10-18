@@ -29,11 +29,14 @@ const findAppMenus = async ():Promise<Array<MenuInfo>> => {
             {id: "040100",name: "datamodel",text: "数据建模",href: "/dataproc/model/top",icon:'database'},
             {id: "040200",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-all/[...folder]",text: "我的数据",href: "/dataproc/mydata/d-all/top",icon:'folder',children:[
                     {id: "040201",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-query/[...folder]",text: "自助查询",href: "/dataproc/mydata/d-query/top",icon:"query"},
-                    {id: "040302",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-pivotable/[...folder]",text: "透视表",href: "/dataproc/mydata/d-pivotable/top",icon:"crossTable"},
-                    {id: "040403",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-chart/[...folder]",text: "图表",href: "/dataproc/mydata/d-chart/top",icon:"chart"},
-                    {id: "040504",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-etl/[...folder]",text: "数据清洗",href: "/dataproc/mydata/d-etl/top",icon:"etl"}
+                    {id: "040202",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-pivotable/[...folder]",text: "透视表",href: "/dataproc/mydata/d-pivotable/top",icon:"crossTable"},
+                    {id: "040203",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-chart/[...folder]",text: "图表",href: "/dataproc/mydata/d-chart/top",icon:"chart"},
+                    {id: "040204",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-etl/[...folder]",text: "数据清洗",href: "/dataproc/mydata/d-etl/top",icon:"etl"},
+                    {id: "040205",group:"dataproc-mydata", name: "(submenu)/dataproc/mydata/d-report/[...folder]",text: "报表",href: "/dataproc/mydata/d-report/top",icon:"report"}
                 ]}
             ]},
+        {id:'910000',name:'notebook',text:'记事本',href: '/notebook',icon:'notebook'},
+        {id:'920000',name:'taskList',text:'日程',href: '/task-list/month',icon:'taskList'},
         {id:'990000',name:'settings',text:'配置',href: '/settings',
             children:[
                 {id: "990100",name: "icons",text: "图标",href: "/settings/icons"},

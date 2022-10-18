@@ -35,9 +35,13 @@
 	"type": "module",
 	"dependencies": {
 		"@popperjs/core": "^2.9.2",
+		"bytemd": "latest",
 		"canvas": "^2.10.1",
+		"dayjs": "^1.11.5",
 		"echarts": "^5.3.3",
 		"konva": "^8.3.12",
-		"sass": "^1.53.0"
+		"mdast": "^3.0.0",
+		"sass": "^1.53.0",
+		"unified": "^10.1.2"
 	}
 }

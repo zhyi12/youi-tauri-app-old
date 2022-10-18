@@ -5,7 +5,7 @@
 	import context from './context';
     import {EVENTS} from './util';
 
-	export let cornerRadius: number = undefined;
+	export let cornerRadius: number|number[] = undefined;
 	// cornerRadius	Number	<optional>
 	export let fill: string = undefined;
 	// fill	String	<optional> fill color
@@ -94,7 +94,7 @@
 	// stroke	String	<optional>
 	// stroke color
 	//
-	export let strokeWidth:number = undefined;
+	export let strokeWidth = 1;
 	// strokeWidth	Number	<optional>
 	// stroke width
 	export let fillAfterStrokeEnabled = false;
@@ -144,8 +144,8 @@
 	// dashEnabled	Boolean	<optional>
 	// flag which enables or disables the dashArray. The default value is true
 	//
-	export let x: number = 0;
-	export let y: number = 0;
+	export let x = 0;
+	export let y = 0;
 	export let width: number = undefined;
 	export let height: number = undefined;
 	export let visible: boolean = undefined;
@@ -205,5 +205,9 @@
 	$: rect && rect.width(width);
 	$: rect && rect.height(height);
 	$: rect && rect.fill(fill);
+	$: rect && rect.stroke(stroke);
+	$: rect && rect.opacity(opacity);
+	$: rect && rect.cornerRadius(cornerRadius);
+
 
 </script>

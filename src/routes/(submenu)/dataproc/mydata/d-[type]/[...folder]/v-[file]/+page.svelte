@@ -18,10 +18,3 @@
         <span>{data.folder}</span><span>/{data.file}</span>
     </OffcanvasBody>
 </Offcanvas>
-
-<style>
-    .status{
-        background: #f9f9f9;
-        line-height: 32px;
-    }
-</style>

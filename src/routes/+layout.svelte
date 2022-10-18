@@ -9,6 +9,7 @@
 	import {onMount, setContext} from "svelte";
 	import {listen} from "../lib/tauri/event";
 	import {writable} from "svelte/store";
+	import {page} from "$app/stores";
 
 	export let data;
 
@@ -51,7 +52,7 @@
 	<LeftMenu {menus} {activeModule}/>
 
 	<div class="content flex-1">
-		<Header />
+		<Header pathname={$page.url.pathname} />
 		<main class="content flex-1 flex-row flex-full">
 			<slot/>
 		</main>

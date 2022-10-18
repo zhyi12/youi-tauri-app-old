@@ -347,7 +347,7 @@ $enable-reduced-motion:       true !default;
 $enable-smooth-scroll:        true !default;
 $enable-grid-classes:         true !default;
 $enable-container-classes:    true !default;
-$enable-cssgrid:              false !default;
+$enable-cssgrid:              true !default;
 $enable-button-pointers:      true !default;
 $enable-rfs:                  true !default;
 $enable-validation-icons:     true !default;
@@ -1081,7 +1081,9 @@ $zindex-modal-backdrop:             1050 !default;
 $zindex-modal:                      1055 !default;
 $zindex-popover:                    1070 !default;
 $zindex-tooltip:                    1080 !default;
+$zindex-toast:                      1090 !default;
 // scss-docs-end zindex-stack
+
 
 
 // Navs
@@ -1091,8 +1093,8 @@ $nav-link-padding-y:                .5rem !default;
 $nav-link-padding-x:                1rem !default;
 $nav-link-font-size:                null !default;
 $nav-link-font-weight:              null !default;
-$nav-link-color:                    $link-color !default;
-$nav-link-hover-color:              $link-hover-color !default;
+$nav-link-color:                    var(--#{$prefix}link-color) !default;
+$nav-link-hover-color:              var(--#{$prefix}link-hover-color) !default;
 $nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
 $nav-link-disabled-color:           $gray-600 !default;
 
@@ -1242,7 +1244,7 @@ $card-group-margin:                 $grid-gutter-width * .5 !default;
 // Accordion
 
 // scss-docs-start accordion-variables
-$accordion-padding-y:                     0.7rem !default;
+$accordion-padding-y:                     0.42rem !default;
 $accordion-padding-x:                     1rem !default;
 $accordion-color:                         $body-color !default;
 $accordion-bg:                            $body-bg !default;
@@ -1265,7 +1267,7 @@ $accordion-button-active-color:           shade-color($primary, 10%) !default;
 $accordion-button-focus-border-color:     $input-focus-border-color !default;
 $accordion-button-focus-box-shadow:       $btn-focus-box-shadow !default;
 
-$accordion-icon-width:                    1.25rem !default;
+$accordion-icon-width:                    1rem !default;
 $accordion-icon-color:                    $accordion-button-color !default;
 $accordion-icon-active-color:             $accordion-button-active-color !default;
 $accordion-icon-transition:               transform .2s ease-in-out !default;
@@ -1342,8 +1344,8 @@ $toast-padding-y:                   .5rem !default;
 $toast-font-size:                   .875rem !default;
 $toast-color:                       null !default;
 $toast-background-color:            rgba($white, .85) !default;
-$toast-border-width:                1px !default;
-$toast-border-color:                rgba($black, .1) !default;
+$toast-border-width:                $border-width !default;
+$toast-border-color:                var(--#{$prefix}border-color-translucent) !default;
 $toast-border-radius:               $border-radius !default;
 $toast-box-shadow:                  $box-shadow !default;
 $toast-spacing:                     $container-padding-x !default;

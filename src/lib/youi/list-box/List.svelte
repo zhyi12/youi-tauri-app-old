@@ -75,7 +75,7 @@
      * @param e
      */
     const handle_drag_stop = (e) => {
-        var event = new CustomEvent("drop", {
+        const event = new CustomEvent("drop", {
             detail: {
                 drop:{...draggingItem}
             }
@@ -85,7 +85,7 @@
 
 </script>
 
-<ListBoxMenu aria-label="{ariaLabel}" id="{id}" {draggable} {droppable} {height}
+<ListBoxMenu aria-label={ariaLabel} id={id} {draggable} {droppable} {height}
              on:dragStart={handle_item_drag}
              on:dragStop={handle_drag_stop}
              on:drop
@@ -98,17 +98,24 @@
                     item.checked=!item.checked;
                     dispatch('check',item);
                 }}
+                on:dblclick={(evt)=>{
+                    dispatch('dblclick',{evt,item});
+                }}
         >
             {#if check}
-                <span class="item-icon">
-                <Icon data={item.checked==false?icon_check:icon_checked}></Icon>
-            </span>
+                <span class="item-check">
+                    <Icon data={item.checked==false?icon_check:icon_checked}></Icon>
+                </span>
             {/if}
 
             <slot name="item" {item}>
-                <span class:item-text={true} class:active={item.checked}>
-                    <Icon data={icon(item)}></Icon>
-                    {item.text}
+                <span class:item-text={true} class:active={item.checked} title={item.text}>
+                    {#if icon(item)}
+                        <span class="item-icon" style="color: blue;">
+                            <Icon data={icon(item)}></Icon>
+                        </span>
+                    {/if}
+                    <span>{item.text}</span>
                 </span>
             </slot>
 

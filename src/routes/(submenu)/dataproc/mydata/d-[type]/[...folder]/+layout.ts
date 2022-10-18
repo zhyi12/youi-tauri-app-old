@@ -4,8 +4,9 @@ import type {ConfigItem} from "$lib/app-entity/base/config";
 import type {Metadata} from "$lib/tauri/tauri.fs";
 import {metadatas} from "$lib/tauri/tauri.fs";
 
-const TYPES:Record<string,string> = {"all":"我的数据","pivotable":"透视表","query":"自助查询","chart":"图表","etl":"数据清洗"};
-const POSTFIXES:Record<string,string> = {"pivotable":"ypvt","query":"yqry","chart":"ycht","etl":"yetl"};
+const TYPES:Record<string,string> = {"all":"我的数据","pivotable":"透视表","query":"自助查询",
+    "chart":"图表","etl":"数据清洗",report:"报表"};
+const POSTFIXES:Record<string,string> = {"pivotable":"ypvt","query":"yqry","chart":"ycht","etl":"yetl","report":"yrpt"};
 
 export const load: LayoutLoad = async ({parent,params}) => {
     const appContext = await parent();

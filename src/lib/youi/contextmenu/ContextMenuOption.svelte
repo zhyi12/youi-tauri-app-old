@@ -236,6 +236,7 @@
       submenuOpen = false;
     }
   }}"
+  on:mousedown|stopPropagation
   on:click="{handleClick}"
 >
   {#if subOptions}

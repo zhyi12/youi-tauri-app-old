@@ -98,6 +98,7 @@ button{
 .btn-icon{
 	margin-right: 5px;
 	float:right;
+	cursor: pointer;
 }
 
 .hover-group{
@@ -115,6 +116,11 @@ button{
 
 .option-item>.fa-icon{
 	margin-right: 3px;
+}
+
+.item-icon{
+	line-height: 20px;
+	margin-right: 2px;
 }
 
 .step-btn-add{
@@ -157,4 +163,53 @@ button{
 
 .list-item>a{
 	white-space: nowrap;
+}
+
+.inner-box{
+	border-radius: 5px;
+	border: 1px solid #dddddd;
+	background: white;
+	margin:6px;
+}
+
+.moving{
+	position: fixed!important;;
+	display: block!important;
+	z-index: 9999;
+	background: white;
+}
+
+.drop-left{
+	border-left: 1px solid #0a58ca!important;
+}
+
+.drop-right{
+	border-right: 1px solid #0a58ca!important;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	height: 10px;
+	background-color: #F5F5F5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgb(230, 233, 236);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgb(200, 223, 239);
+	background-color: #dddddd;
+}
+
+.bytemd{
+	height: 100%;
 }

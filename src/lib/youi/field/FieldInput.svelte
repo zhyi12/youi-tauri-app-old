@@ -1,8 +1,11 @@
 <script lang="ts">
 	import Input from '../Input.svelte';
-	import { getContext } from 'svelte';
+	import {createEventDispatcher, getContext} from 'svelte';
 	import classnames from "../util/utils";
 	import {FIELD_CONTAINER_CONTEXT} from "./helper";
+
+
+	const dispatch = createEventDispatcher();
 
 	let className = '';
 	export { className as class };
@@ -71,9 +74,7 @@
 	 */
 	function _change(){
 		doValidate();
-		if(change){
-			change(value);
-		}
+		dispatch('change',{value});
 		_resetChildren();
 	}
 
@@ -91,6 +92,7 @@
 				 bind:value={value}
 		   {readonly}
 				 on:change={_change}
+		   		 on:keydown
 				 {placeholder}
 	/>
 

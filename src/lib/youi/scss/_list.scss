@@ -1,5 +1,7 @@
 .youi-list-box{
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: white;
 }
 
 .bx--combo-box{
@@ -17,13 +19,15 @@
   display: flex;
   padding:3px;
   cursor: pointer;
+  white-space: nowrap;
 
   .btn-remove{
     display: none;
   }
 
   &:hover{
-    background: #b9c6d2;
+    background: #c8dfef;
+    border-radius: 6px;
     .btn-remove{
       display: initial;
     }

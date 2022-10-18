@@ -1,13 +1,13 @@
 <script lang="ts">
+    import {is_function} from "svelte/internal";
     import {goto} from "$app/navigation";
     import {Icon, saveIcon, Toolbar, Button} from "$lib/youi/index";
-    import {backIcon} from "$lib/app-icon";
+    import {backIcon,saveAsIcon} from "$lib/app-icon";
     import {pivotTableQuery} from "$lib/tauri/tauri.dsl";
     import PivotTable from "$lib/component/pivot-table/PivotTable.svelte";
     import {saveFile} from "$lib/tauri/tauri.fs";
     import {setContext} from "svelte";
     import {DIALOG_ADD, DIALOG_SAVE_AS, PIVOT_TABLE_DESIGN} from "./helper";
-    import {is_function} from "svelte/internal";
 
     export let data;
 
@@ -58,11 +58,12 @@
         }
     });
 
+    /**
+     *
+     */
     const afterActions = {
         add:async (record)=>{
-            //goto new file
             let filePath = `${record.folderPath}/${record.caption}.ypvt`;
-            console.log('save to '+filePath)
             let result = await saveFile(filePath,JSON.stringify(model));
 
             if(result && result.name){
@@ -96,7 +97,7 @@
     const doSave = async (filePath)=>{
         const result = await saveFile(filePath,JSON.stringify(model));
         if(result){
-            console.log('保存成功.')
+            alert('保存成功.')
         }
     }
 
@@ -130,10 +131,10 @@
             <Icon data={saveIcon}></Icon>
         </Button>
         <Button title="另存为" on:click={()=>{openDialog(DIALOG_SAVE_AS)}}>
-
+            <Icon data={saveAsIcon}></Icon>
         </Button>
 
-        <span style="padding-left: 30px;">
+        <span style="padding-left: 30px;font-size: 0.9rem;">
             {#if data.isNewFile}
                 <span style="color: green">(新透视表)</span>
             {:else}
@@ -148,3 +149,9 @@
     </PivotTable>
 </div>
 <slot></slot>
+
+<style>
+    .content{
+        padding-left: 1px;
+    }
+</style>

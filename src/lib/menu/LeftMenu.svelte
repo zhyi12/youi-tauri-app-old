@@ -2,6 +2,7 @@
     import type {MenuInfo} from "../app-entity/base/menu";
 
     import {Icon, homeIcon, cogIcon, cubeIcon, hashtagIcon, hddIcon, globeIcon} from "../youi";
+    import {APP_ICONS} from "../app-icon/icons";
 
     export let menus:Array<MenuInfo> = [];
 
@@ -25,7 +26,7 @@
     {#each menus as menu}
         <div class="menu-bar" class:active={(menu.name==='home' && !activeModule) || activeModule === (menu.module||menu.name)}>
             <a href={menu.href} title={menu.text} on:click={()=>{activeModule = menu.name}}>
-                <Icon scale={menu.scale||1.8} data={icons[menu.icon||menu.name]||icons.menu}>
+                <Icon scale={menu.scale||1.8} data={icons[menu.icon||menu.name]||APP_ICONS[menu.icon]||icons.menu}>
 
                 </Icon>
             </a>
@@ -47,6 +48,7 @@
         cursor: pointer;
         display: block;
         color: white;
+        line-height: 32px;
 
         &:hover{
           color: black;

@@ -130,6 +130,11 @@
                                 <span><Icon data={APP_ICONS['query']}></Icon></span><span class="item-text">自助查询</span>
                             </DropdownItem>
                         {/if}
+                        {#if data.type === 'all' || data.type === 'report'}
+                            <DropdownItem on:click={()=>openCreator('report')}>
+                                <span><Icon data={APP_ICONS['report']}></Icon></span><span class="item-text">报表</span>
+                            </DropdownItem>
+                        {/if}
                         {#if data.type === 'all' || data.type === 'pivotable'}
                             <DropdownItem on:click={()=>openCreator('pivotable')}>
                                  <span><Icon data={APP_ICONS['crossTable']}></Icon></span><span class="item-text">透视表</span>

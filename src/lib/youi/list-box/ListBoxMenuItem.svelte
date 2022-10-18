@@ -5,7 +5,7 @@
   /** Set to `true` to enable the highlighted state */
   export let highlighted = false;
 
-  export let itemStyle:string = 'option-item';
+  export let itemStyle = 'option-item';
 </script>
 
 <div
@@ -14,6 +14,7 @@
   class:option-item-highlighted="{highlighted}"
   {...$$restProps}
   on:click
+  on:dblclick
   on:mouseenter
   on:mouseleave
 >

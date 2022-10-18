@@ -1,0 +1,373 @@
+<!--<script lang="ts">-->
+<!--    import {afterNavigate,goto} from "$app/navigation";-->
+<!--    import {page} from "$app/stores";-->
+
+<!--    import {Button, ContextMenuOption, Icon, Nav, NavItem, uuid} from "$lib/youi/index";-->
+
+<!--    import {Text,Group} from "$lib/thirdpart/konva";-->
+<!--    import {leftIcon,rightIcon} from "$lib/app-icon";-->
+<!--    import DataGrid from "$lib/component/data-grid/DataGrid.svelte";-->
+
+<!--    import {-->
+<!--        dayToTime,-->
+<!--        nextMonthData,-->
+<!--        parseMonthData,-->
+<!--        prevMonthData,-->
+<!--        processMonthTask,-->
+<!--        TIME_PERIOD_LIST,-->
+<!--        WEEKLY_TEXTS-->
+<!--    } from "./helper";-->
+<!--    import dayjs from "dayjs";-->
+
+<!--    export let data;-->
+
+<!--    let gridContainer:HTMLElement = undefined;-->
+<!--    let activePeriodId = 'month';-->
+<!--    let contentWidth = 600;-->
+<!--    let columns = 6;-->
+<!--    let rows = 6;-->
+<!--    let selections = [];-->
+<!--    let taskList = [];//任务-->
+<!--    let activeTaskId = '';-->
+<!--    let addingTask = undefined;//新增的task-->
+<!--    let movingTask = undefined;//移动中的task-->
+
+<!--    let monthData = parseMonthData();-->
+
+<!--    $: if(taskList && taskList.length){-->
+<!--        //-->
+<!--        monthData = processMonthTask(monthData,taskList);-->
+<!--    }-->
+
+<!--    $:title = `${monthData.year}年${monthData.month+1}月`;-->
+
+<!--    /**-->
+<!--     *-->
+<!--     * @param rowIndex-->
+<!--     * @param columnIndex-->
+<!--     */-->
+<!--    $: tableData = ({rowIndex,columnIndex})=>{-->
+<!--        //-->
+<!--        if(monthData && columnIndex<7 && rowIndex<=monthData.rows){-->
+<!--            if(rowIndex === 0){-->
+<!--                return {-->
+<!--                    text:WEEKLY_TEXTS[columnIndex],-->
+<!--                    align:'right',-->
+<!--                    fill:'#f9f9f9',-->
+<!--                    verticalAlign:'middle',-->
+<!--                    fontSize:18,-->
+<!--                    padding:2,-->
+<!--                    color:'black'-->
+<!--                }-->
+<!--            }else{-->
+<!--                let curMonthDate = monthData.grid[rowIndex-1][columnIndex];-->
+<!--                let color = (curMonthDate.year == monthData.year && curMonthDate.month == monthData.month)?'#000000':'#dddddd';-->
+<!--                if(curMonthDate.isToday){-->
+<!--                    color = 'red'-->
+<!--                }-->
+<!--                let date_zh = curMonthDate.ndata.ldate ===1? `${curMonthDate.ndata.lmonth_zh}月${curMonthDate.ndata.ldate_zh}`:curMonthDate.ndata.ldate_zh;-->
+
+<!--                return {-->
+<!--                    text: curMonthDate.date===1?(`${curMonthDate.month+1}月${curMonthDate.date}`):curMonthDate.date +'日',-->
+<!--                    align:'right',-->
+<!--                    fontSize:16,-->
+<!--                    verticalAlign:'top',-->
+<!--                    color,-->
+<!--                    padding:5,-->
+<!--                    fill:(columnIndex === 0 || columnIndex === 6)?'#f9f9f9':'white',-->
+<!--                    data:{date_zh,...curMonthDate.ndata,tasks:curMonthDate.tasks}-->
+<!--                };-->
+<!--            }-->
+<!--        }-->
+<!--        return {text:''}-->
+<!--    }-->
+
+<!--    const colWidth = () => {-->
+<!--        return contentWidth/7;-->
+<!--    }-->
+
+<!--    const rowHeight = (rowIndex) => rowIndex===0?30:96;-->
+
+<!--    /**-->
+<!--     * 上一个时间周期-->
+<!--     */-->
+<!--    const goPrev = async () => {-->
+<!--        monthData = prevMonthData(monthData);-->
+<!--        rows = monthData.rows+1;-->
+<!--        selections = [];-->
+<!--    }-->
+
+<!--    /**-->
+<!--     * 今天所在时间周期-->
+<!--     */-->
+<!--    const today = async () => {-->
+<!--        monthData = parseMonthData();-->
+<!--        rows = monthData.rows+1;-->
+<!--        taskList = await findTasks(monthData);-->
+<!--        selections = [];-->
+<!--    }-->
+
+<!--    /**-->
+<!--     * 下一个时间周期-->
+<!--     */-->
+<!--    const goNext = async () => {-->
+<!--        monthData = nextMonthData(monthData);-->
+<!--        rows = monthData.rows+1;-->
+<!--        selections = [];-->
+<!--    }-->
+
+<!--    /**-->
+<!--     *-->
+<!--     */-->
+<!--    const findTasks = async (monthData) => {-->
+<!--        //-->
+<!--        return [-->
+<!--            {id:'task001',color:'#decb51',startTime:dayjs('2022-10-01 00:00:00').toDate().getTime(),endTime:dayjs('2022-10-12 00:00:00').toDate().getTime(),text:'新建日程1'},-->
+<!--            {id:'task002',color:'#f173f1',startTime:dayjs('2022-10-05 00:00:00').toDate().getTime(),endTime:dayjs('2022-10-16 00:00:00').toDate().getTime(),text:'新建日程2'},-->
+<!--            {id:'task003',color:'#4adaaf',startTime:dayjs('2022-10-01 00:00:00').toDate().getTime(),endTime:dayjs('2022-10-16 00:00:00').toDate().getTime(),text:'新建日程3'},-->
+<!--        ];-->
+<!--    }-->
+
+<!--    const selectTask = (evt,task) => {-->
+<!--        activeTaskId = task.id;-->
+<!--    }-->
+
+<!--    /**-->
+<!--     * 拖动创建日程-->
+<!--     * @param detail-->
+<!--     */-->
+<!--    const handle_grid_selection = ({detail}) => {-->
+<!--        //-->
+<!--        if(detail.selections && detail.selections.length>0){-->
+<!--            const {startRow,endRow,startCol,endCol} = detail.selections[0];-->
+<!--            //-->
+<!--            if(startRow>0 && endRow<=monthData.rows && startCol>=0 && endCol<7){-->
+<!--                let startDate = monthData.grid[startRow-1][startCol];-->
+<!--                let endDate = monthData.grid[endRow-1][endCol];-->
+
+<!--                if(!addingTask){-->
+<!--                    addingTask = {id:uuid()};-->
+<!--                    taskList.push(addingTask);-->
+<!--                }-->
+
+<!--                addingTask.startTime = dayToTime(startDate);-->
+<!--                addingTask.endTime = dayToTime(endDate);-->
+<!--                addingTask.text = '新建日程';-->
+
+<!--                taskList = taskList;-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+
+<!--    const handle_grid_selection_stop = () => {-->
+<!--        addingTask = undefined;-->
+<!--    }-->
+
+<!--    /**-->
+<!--     *-->
+<!--     * @param ui-->
+<!--     */-->
+<!--    const taskMoving = (ui) => {-->
+<!--        const {dropPosition,dragElement} = ui.detail;-->
+<!--        const taskId = dragElement.getAttribute('data-id');-->
+<!--        if(monthData && taskId){-->
+<!--            const task = taskList.filter(task=>task.id == taskId)[0];-->
+<!--            if(task){-->
+<!--                const movingId = task.id+'_moving';-->
+<!--                if(!movingTask || movingTask.id != movingId){-->
+<!--                    movingTask = {...task,id:movingId};-->
+<!--                    taskList.push(movingTask);-->
+<!--                    activeTaskId = movingId;-->
+<!--                }-->
+
+<!--                //重新设置startTime 和 endTime movingTask-->
+<!--                let monthDay = monthData.grid[dropPosition.rowIndex-1][dropPosition.columnIndex];-->
+
+<!--                const startTime = dayToTime(monthDay);-->
+<!--                const endTime = startTime + task.endTime - task.startTime;-->
+
+<!--                Object.assign(movingTask,{startTime,endTime});-->
+
+<!--                taskList = taskList;-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+
+<!--    /**-->
+<!--     *-->
+<!--     */-->
+<!--    const dropTask = ({detail}) => {-->
+<!--        const {dragElement} = detail;-->
+<!--        const taskId = dragElement.getAttribute('data-id');-->
+<!--        if(taskId && movingTask){-->
+<!--            const task = taskList.filter(task=>task.id == taskId)[0];-->
+<!--            taskList.pop();-->
+
+<!--            if(task){-->
+<!--                Object.assign(task,{startTime:movingTask.startTime,endTime:movingTask.endTime});-->
+<!--            }-->
+
+<!--            movingTask = undefined;-->
+<!--            taskList = taskList;-->
+<!--            activeTaskId = taskId;-->
+<!--        }-->
+<!--    }-->
+
+<!--    /**-->
+<!--     *-->
+<!--     */-->
+<!--    const editTask = (e,task) => {-->
+<!--        //-->
+<!--        goto(`/task-list/${data.period}/dialog/${e.clientX}-${e.clientY - 20}/edit-task-${task.id}`);-->
+<!--    }-->
+
+<!--    afterNavigate(async () => {-->
+<!--        if ($page.params.period) {-->
+<!--            activePeriodId = $page.params.period;-->
+<!--        }-->
+<!--        contentWidth = gridContainer.offsetWidth - 2;-->
+<!--        columns = 7;-->
+
+<!--        taskList = await findTasks(monthData);-->
+<!--    });-->
+<!--</script>-->
+<!--<div class="content flex-column flex-1">-->
+<!--    <Nav class="nav-tabs">-->
+<!--        {#each TIME_PERIOD_LIST as period}-->
+<!--            <NavItem>-->
+<!--                <a class:active={activePeriodId == period.id} href={`/task-list/${period.id}`}-->
+<!--                   class="nav-link">{period.text}</a>-->
+<!--            </NavItem>-->
+<!--        {/each}-->
+<!--    </Nav>-->
+
+<!--    <div class="flex-full content" on:mousedown={(e)=>{-->
+<!--        if(e.target && !e.target.classList.contains('task-day')){-->
+<!--            activeTaskId = null;-->
+<!--        }-->
+<!--    }}>-->
+<!--        <div class="flex-column content flex-1" bind:this={gridContainer}>-->
+<!--            <h3 class="date-title flex">-->
+<!--                <span>{title}</span>-->
+<!--                <div class="flex-1">-->
+<!--                    <Button class="btn-icon" on:click={()=>goNext()}>-->
+<!--                        <Icon data={rightIcon}></Icon>-->
+<!--                    </Button>-->
+<!--                    <Button class="btn-icon" on:click={()=>today()}>-->
+<!--                        今天-->
+<!--                    </Button>-->
+<!--                    <Button class="btn-icon" on:click={()=>goPrev()}>-->
+<!--                        <Icon data={leftIcon}></Icon>-->
+<!--                    </Button>-->
+<!--                </div>-->
+<!--            </h3>-->
+<!--            <DataGrid data={tableData} bind:rows bind:columns bind:selections {colWidth} {rowHeight}-->
+<!--                      on:selection={handle_grid_selection}-->
+<!--                      on:selection-stop={handle_grid_selection_stop}-->
+<!--                      on:drag-stop={(ui)=>dropTask(ui)}-->
+<!--                      on:drop={(ui)=>taskMoving(ui)}-->
+<!--                      showSelection={false}>-->
+<!--                <svelte:fragment slot="contextmenu">-->
+<!--                    {#if activeTaskId}-->
+<!--                        <ContextMenuOption labelText="详情"/>-->
+<!--                        <ContextMenuOption labelText="删除"/>-->
+<!--                    {:else}-->
+<!--                        <ContextMenuOption labelText="新建日程"/>-->
+<!--                    {/if}-->
+<!--                </svelte:fragment>-->
+<!--                <Group slot="cell" let:cell >-->
+<!--                    {#if cell.data}-->
+<!--                        &lt;!&ndash; 显示农历数据 &ndash;&gt;-->
+<!--                        <Text text={cell.data.date_zh}-->
+<!--                              padding={5}-->
+<!--                              fontSize={14}-->
+<!--                              fontStyle={(cell.data && cell.data.ldate === 1) ? 'bold' : ''}-->
+<!--                              x={0} height={10} width={100} fill={cell.color}-->
+<!--                              y={0}>-->
+<!--                        </Text>-->
+<!--                        {#if (cell.data.tasks)}-->
+<!--                            <div class="task-day-group"-->
+<!--                                 style:left={cell.x+'px'}-->
+<!--                                 style:top={(cell.y + 24)+'px'}-->
+<!--                                 style:width={cell.width+'px'}>-->
+<!--                                {#each cell.data.tasks as task,index}-->
+<!--                                    <div class="task-day cell-drag-item"-->
+<!--                                         class:start={task.isStart} class:end={task.isEnd} class:active={activeTaskId == task.id}-->
+<!--                                         style:top={task.index*17+'px'}-->
+<!--                                         style:left={(task.isStart?8:0)+'px'}-->
+<!--                                         style:width={((task.isStart && task.isEnd)?(cell.width-16):(task.isStart||task.isEnd?(cell.width-8):cell.width))+'px'}-->
+<!--                                         style:background={task.color||"#71d571"}-->
+<!--                                         data-id={task.id}-->
+<!--                                         on:mousedown={(e)=>selectTask(e,task)}-->
+<!--                                         on:dblclick={(e)=>editTask(e,task)}-->
+<!--                                    >-->
+<!--                                        {#if task.isStart}-->
+<!--                                            {task.text}-->
+<!--                                        {:else}-->
+<!--                                            <span class="task-text-hide">{task.text}</span>-->
+<!--                                        {/if}-->
+<!--                                    </div>-->
+<!--                                {/each}-->
+<!--                            </div>-->
+<!--                        {/if}-->
+<!--                    {/if}-->
+<!--                </Group>-->
+<!--            </DataGrid>-->
+<!--        </div>-->
+<!--        <slot>-->
+
+<!--        </slot>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<style lang="scss">-->
+<!--  .nav-link {-->
+<!--    line-height: 20px;-->
+<!--    cursor: pointer;-->
+<!--    color: silver;-->
+
+<!--    &.active {-->
+<!--      color: black;-->
+<!--      background-color: #b9c6d2 !important;-->
+<!--    }-->
+<!--  }-->
+
+<!--  .date-title{-->
+<!--    margin: 0px;-->
+<!--    padding:6px;-->
+<!--  }-->
+
+<!--  .task-day-group{-->
+<!--    position: absolute;-->
+<!--    .task-day{-->
+<!--      position: absolute;-->
+<!--      height: 16px;-->
+<!--      font-size: 12px;-->
+<!--      background-color: #dddddd;-->
+<!--      padding-left: 5px;-->
+<!--      width:100%;-->
+<!--      color: black;-->
+<!--      opacity: 0.6;-->
+
+<!--      &.start{-->
+<!--        border-bottom-left-radius: 5px;-->
+<!--        border-top-left-radius: 5px;-->
+<!--      }-->
+
+<!--      &.end{-->
+<!--        border-bottom-right-radius: 5px;-->
+<!--        border-top-right-radius: 5px;-->
+<!--      }-->
+
+<!--      &.active{-->
+<!--        opacity: 1;-->
+<!--        color: white;-->
+<!--      }-->
+
+<!--      .task-text-hide{-->
+<!--        display: none;-->
+<!--      }-->
+<!--    }-->
+<!--  }-->
+
+<!--</style>-->

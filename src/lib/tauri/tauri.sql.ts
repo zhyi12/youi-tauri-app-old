@@ -11,7 +11,7 @@ export interface QueryResult {
      * must be used, with a `RETURNING` clause
      * (`INSERT INTO todos (title) VALUES ($1) RETURNING id`).
      */
-    lastInsertId: number;
+    lastInsertId: number|string;
 }
 
 export interface PagerRecords<T> {
@@ -85,7 +85,7 @@ export default class Database {
      * ```
      */
     async execute(query: string, bindValues?: unknown[]): Promise<QueryResult> {
-        return await invoke<[number, number]>('plugin:sql|execute', {
+        return await invoke<[number, number|string]>('plugin:sql|execute', {
             db: this.path,
             query,
             values: bindValues ?? []

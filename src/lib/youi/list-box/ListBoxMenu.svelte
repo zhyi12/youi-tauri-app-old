@@ -98,5 +98,6 @@
 <style>
   .item-drag-helper{
     position: absolute;
+    z-index: 9999;
   }
 </style>

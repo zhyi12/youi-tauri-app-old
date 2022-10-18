@@ -1,4 +1,15 @@
-import {codeIcon, chartIcon, etlIcon, pivotTableIcon, queryIcon} from './index';
+import {
+    codeIcon,
+    chartIcon,
+    etlIcon,
+    pivotTableIcon,
+    queryIcon,
+    numberIcon,
+    textIcon,
+    notebookIcon,
+    taskListIcon,
+    mindIcon, markdownIcon, reportIcon
+} from './index';
 import {saveIcon,sortIcon,filterIcon,folderIcon,linkIcon,listIcon,globeIcon,cogIcon,cubeIcon,databaseIcon} from '../youi';
 
 /**
@@ -24,4 +35,13 @@ export const APP_ICONS = {
     "ypvt":pivotTableIcon,
     "query":queryIcon,
     "yqry":queryIcon,
+    "i64":numberIcon,
+    "f64":numberIcon,
+    "str":textIcon,
+    "notebook":notebookIcon,
+    "taskList":taskListIcon,
+    "ymind":mindIcon,
+    "ymd":markdownIcon,
+    "report":reportIcon,
+    "yrpt":reportIcon
 }

@@ -14,6 +14,8 @@ export function mouse(node, options) {
 
     let ignoreMissingWhich;
     let _mouseDelayTimer;
+
+    let mouseDelayMet = undefined;
     /**
      *
      * @param event
@@ -41,12 +43,13 @@ export function mouse(node, options) {
         //     return true;
         // }
 
-        // this.mouseDelayMet = !this.options.delay;
-        // if ( !this.mouseDelayMet ) {
-        //     this._mouseDelayTimer = setTimeout( function() {
-        //         that.mouseDelayMet = true;
-        //     }, this.options.delay );
-        // }
+        mouseDelayMet = !options.delay;
+
+        if ( !mouseDelayMet ) {
+            _mouseDelayTimer = setTimeout( function() {
+                mouseDelayMet = true;
+            }, options.delay );
+        }
 
         if ( _mouseDistanceMet( event ) && _mouseDelayMet( event ) ) {
             _mouseStarted = ( _mouseStart( event ) !== false );
@@ -81,7 +84,7 @@ export function mouse(node, options) {
     }
 
     function _mouseMove(event){
-// Only check for mouseups outside the document if you've moved inside the document
+        // Only check for mouseups outside the document if you've moved inside the document
         // at least once. This prevents the firing of mouseup in the case of IE<9, which will
         // fire a mousemove event if content is placed under the cursor. See #7778
         // Support: IE <9
@@ -126,7 +129,7 @@ export function mouse(node, options) {
     }
 
     function _mouseDelayMet(event){
-        return true;
+        return mouseDelayMet;
     }
 
     function _mouseUp(event){
@@ -144,10 +147,10 @@ export function mouse(node, options) {
             _normalMouseUp(event);
         }
 
-        // if ( _mouseDelayTimer ) {
-        //     clearTimeout( this._mouseDelayTimer );
-        //     //delete this._mouseDelayTimer;
-        // }
+        if ( _mouseDelayTimer ) {
+            clearTimeout( _mouseDelayTimer );
+            _mouseDelayTimer = undefined;
+        }
 
         ignoreMissingWhich = false;
         mouseHandled = false;

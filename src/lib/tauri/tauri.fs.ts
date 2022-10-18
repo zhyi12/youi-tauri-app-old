@@ -22,6 +22,8 @@ export interface Permissions {
  */
 export interface Metadata {
     name:string,
+    text?:string,
+    extension?:string,
     /**
      * The last access time of this metadata.
      */

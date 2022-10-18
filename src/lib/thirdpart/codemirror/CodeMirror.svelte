@@ -10,6 +10,8 @@
 
     export let value: string | null | undefined = "";
 
+    export let lang = 'javascript';//
+
     const dispatch = createEventDispatcher();
 
     let editorView;//codeMirror EditorViewer
@@ -33,7 +35,7 @@
         }
     }
 
-    const optionsWithDefaults = Object.assign({docChanged,init})
+    const optionsWithDefaults = Object.assign({docChanged,init,lang})
 
     /**
      *

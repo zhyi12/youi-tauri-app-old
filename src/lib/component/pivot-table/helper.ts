@@ -1,5 +1,5 @@
 import type {CrossItem, MeasureItem, SpanItem, Dimension, Item} from "../cube/DataCube";
-import type {Area, CellData} from "../data-grid/DataGrid";
+import type {Area} from "../data-grid/DataGrid";
 import {expandDimensionsItem} from "../cube/helper";
 
 /**

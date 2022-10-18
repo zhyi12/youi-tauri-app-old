@@ -3,7 +3,7 @@
 
 	import {createEventDispatcher, onMount, setContext} from 'svelte';
 	import context from './context';
-	import {classnames,mouse} from "../../youi/";
+	import {classnames, ContextMenu, mouse} from "../../youi/";
 	import {EVENTS} from "./util";
 	const dispatch = createEventDispatcher()
 	let className = '';
@@ -35,9 +35,12 @@
 
 	export let stage: Konva.Stage = undefined;
 
-	$: classes = classnames(className,'youi-stage');
+	let container: HTMLElement;
+	let contextMenu:HTMLElement;
 
-	let container: HTMLDivElement;
+	let contextMenuOpen = false;
+
+	$: classes = classnames(className,'youi-stage');
 
 	setContext(context.stage, () => stage);
 	setContext(context.parent, () => stage);
@@ -78,6 +81,7 @@
 	const normalMouseUp = (evt) => {
 		//
 		dispatch('normalMouseUp',{evt});
+		contextMenuOpen = false;
 	}
 
 	const mouseStart = (evt) => {
@@ -90,6 +94,7 @@
 
 	const mouseStop = (evt) => {
 		dispatch('mouseStop',{evt});
+		contextMenuOpen = false;
 	}
 
 </script>
@@ -98,9 +103,18 @@
 
 <div class={classes} bind:this={container} style:cursor={cursor}
 	 use:mouse={moused?{
-	normalMouseUp,mouseStart,mouseDrag,mouseStop
+	normalMouseUp,mouseStart,mouseDrag,mouseStop,delay:100
 }:{}}>
 	{#if stage}
 		<slot/>
 	{/if}
 </div>
+
+<ContextMenu bind:open={contextMenuOpen} bind:ref={contextMenu} target={container}
+			 on:open={({detail})=>{
+				 dispatch('open-contextmenu',detail);
+			 }}>
+	<slot name="contextmenu">
+
+	</slot>
+</ContextMenu>

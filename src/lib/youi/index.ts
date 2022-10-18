@@ -1,4 +1,8 @@
 
+export {default as Accordion} from './accordion/Accordion.svelte';
+export {default as AccordionHeader} from './accordion/AccordionHeader.svelte';
+export {default as AccordionItem} from './accordion/AccordionItem.svelte';
+
 export { default as Button } from './button/Button.svelte';
 
 export { default as ContextMenu} from './contextmenu/ContextMenu.svelte';
@@ -35,11 +39,19 @@ export { default as ModalBody } from './modal/ModalBody.svelte';
 export { default as ModalHeader } from './modal/ModalHeader.svelte';
 export { default as ModalFooter } from './modal/ModalFooter.svelte';
 
+export { default as Nav } from './nav/Nav.svelte';
+export { default as NavItem } from './nav/NavItem.svelte';
+export { default as NavLink } from './nav/NavLink.svelte';
+
 export {default as RecursiveList} from './list/RecursiveList.svelte';
 export {default as ListTree} from './list/ListTree.svelte';
 
 export {default as Toolbar} from './toolbar/Toolbar.svelte';
 export {default as Tree} from './tree/Tree.svelte';
+export {default as Toast} from './toast/Toast.svelte';
+export {default as ToastBody} from './toast/ToastBody.svelte';
+export {default as ToastHeader} from './toast/ToastHeader.svelte';
+export {default as Tooltip} from './tooltip/Tooltip.svelte';
 
 export { default as Icon } from './icon/Icon.svelte';
 export { default as homeIcon } from './icons/home';
@@ -61,6 +73,7 @@ export { default as searchIcon } from './icons/search.js';
 export { default as globeIcon } from './icons/globe.js';
 export { default as databaseIcon } from './icons/database.js';
 export { default as hddIcon } from './icons/hdd-o.js';
+export { default as infoIcon } from './icons/info-circle.js';
 
 export {default as classnames,uuid,toPixel,isNull} from './util/utils';
 export {mouse} from './mouse/mouse';

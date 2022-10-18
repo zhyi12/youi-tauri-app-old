@@ -1,5 +1,18 @@
+<script lang="ts">
+    import {Tooltip} from "../youi/index";
+
+    export let pathname;
+</script>
+
 <header>
-    <div class="user-info">张三</div>
+    <div class="user-info">
+        张三
+    </div>
+    <span>
+        <Tooltip>
+            {decodeURIComponent(pathname)}
+        </Tooltip>
+    </span>
     <span class="btn" on:click={()=>window.location.reload()}>刷新</span>
 </header>
 

@@ -5,23 +5,23 @@
     import {EVENTS} from "./util";
 
     export let points:Array<number> = [];
-    export let x: number = 0;
-    export let y: number = 0;
+    export let x = 0;
+    export let y = 0;
     export let width: number = undefined;
     export let height: number = undefined;
-    export let visible: boolean = true;
+    export let visible = true;
     export let listening: boolean = undefined;
     export let id: string = undefined;
     export let name: string = undefined;
     export let opacity: number = undefined;
 
-    export let arrow:boolean = false;
+    export let arrow = false;
 
-    export let fill:string = 'black';
+    export let fill = 'black';
 
-    export let stroke:string = 'black';
+    export let stroke = 'black';
 
-    export let strokeWidth:number = undefined;
+    export let strokeWidth = 1;
 
     let line :Konva.Line;
     const dispatch = createEventDispatcher();
@@ -57,6 +57,12 @@
     });
 
     $: line && line.id(id);
+    $: line && line.x(x);
+    $: line && line.y(y);
+    $: line && line.width(width);
+    $: line && line.height(height);
+    $: line && line.strokeWidth(strokeWidth);
+    $: line && line.fill(fill);
     $: line && line.points(points);
 
 </script>

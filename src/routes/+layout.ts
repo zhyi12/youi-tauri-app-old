@@ -1,3 +1,5 @@
+
+import type { LayoutLoad ,LayoutLoadEvent} from './$types';
 import {findAppMenus} from "$lib/app-services/base/menuServices";
 import type {MenuInfo} from "$lib/app-entity/base/menu";
 import {parseActiveModule} from "$lib/menu/menu.util";
@@ -13,9 +15,7 @@ let app_menus:Array<MenuInfo> = [];
 /**
  * 初始化数据加载
  */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export async function load({url,params}) {
+export const load: LayoutLoad = async ({url,params}:LayoutLoadEvent) => {
     //build时可删除，避免打包模拟数据
     if(browser && dev){
         await init_mock_data();
